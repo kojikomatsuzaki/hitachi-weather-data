@@ -34,6 +34,7 @@ SOURCE_MANIFEST_PATH = (
 
 YEAR = 2025
 STATION_ID = "hitachi-city-hall"
+GENERATOR_PATH = "scripts/import_hitachi_city_hall_2025.py"
 
 SOURCE_FILE_NAMES = {
     "temperature": "temperature.xls",
@@ -440,7 +441,7 @@ def assemble_month_document(
             "month": month,
             "timezone": "Asia/Tokyo",
             "source_manifest": "../../../metadata/sources/hitachi-city-hall-2025.yaml",
-            "generator": "scripts/import_hitachi_city_hall_2025.py",
+            "generator": GENERATOR_PATH,
         },
         "observations": observations,
         "notes": [

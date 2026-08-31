@@ -29,15 +29,18 @@ const chartElements = {
 ========================================== */
 
 const state = {
+  availableDatasets: [],
+  selectedDataset: null,
   observations: [],
   observationsByDateAndHour: new Map(),
   availableDates: [],
-  selectedDate: "2025-01-01",
+  selectedDate: null,
   selectedHour: 12,
   selectedChartElement: "temperature_c",
 };
 
 const elements = {
+  datasetSelect: document.querySelector("#dataset-select"),
   dateSelect: document.querySelector("#date-select"),
   hourRange: document.querySelector("#hour-range"),
   hourOutput: document.querySelector("#hour-output"),
@@ -50,6 +53,8 @@ const elements = {
   chartTitle: document.querySelector("#chart-title"),
   chartDescription: document.querySelector("#chart-description"),
   chartEmptyMessage: document.querySelector("#chart-empty-message"),
+  canonicalDataLink: document.querySelector("#canonical-data-link"),
+  validationReportLink: document.querySelector("#validation-report-link"),
 };
 
 
@@ -57,9 +62,50 @@ const elements = {
    Data loading
 ========================================== */
 
-async function loadObservationData() {
+async function initializeApplication() {
   try {
-    const response = await fetch("data/2025/01.json");
+    const response = await fetch("data/index.json");
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    state.availableDatasets = await response.json();
+    if (!state.availableDatasets.length) {
+      throw new Error("No datasets are available");
+    }
+
+    elements.datasetSelect.replaceChildren();
+    for (const dataset of state.availableDatasets) {
+      const option = document.createElement("option");
+      option.value = `${dataset.year}-${String(dataset.month).padStart(2, "0")}`;
+      option.textContent = dataset.label;
+      elements.datasetSelect.append(option);
+    }
+
+    state.selectedDataset = state.availableDatasets.at(-1);
+    elements.datasetSelect.value = datasetKey(state.selectedDataset);
+    elements.datasetSelect.disabled = false;
+    elements.datasetSelect.addEventListener("change", async (event) => {
+      state.selectedDataset = state.availableDatasets.find(
+        (dataset) => datasetKey(dataset) === event.target.value,
+      );
+      await loadSelectedDataset();
+    });
+
+    initializeControls();
+    await loadSelectedDataset();
+  } catch (error) {
+    showLoadError(error);
+  }
+}
+
+async function loadSelectedDataset() {
+  elements.loadingMessage.hidden = false;
+  elements.errorMessage.hidden = true;
+  elements.observationGrid.hidden = true;
+
+  try {
+    const response = await fetch(`data/${state.selectedDataset.data_path}`);
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
@@ -67,6 +113,8 @@ async function loadObservationData() {
     const documentData = await response.json();
     state.observations = documentData.observations;
     state.availableDates = [...new Set(state.observations.map((item) => item.source_date))];
+    state.selectedDate = state.availableDates[0];
+    state.observationsByDateAndHour.clear();
 
     for (const observation of state.observations) {
       state.observationsByDateAndHour.set(
@@ -75,14 +123,25 @@ async function loadObservationData() {
       );
     }
 
-    initializeControls();
+    populateDateOptions();
+    updateProvenanceLinks();
+    elements.loadingMessage.hidden = true;
+    elements.observationGrid.hidden = false;
     renderSelectedObservation();
   } catch (error) {
-    elements.loadingMessage.hidden = true;
-    elements.errorMessage.hidden = false;
-    elements.errorMessage.textContent = "観測データを読み込めませんでした。時間をおいて再度お試しください。";
-    console.error(error);
+    showLoadError(error);
   }
+}
+
+function datasetKey(dataset) {
+  return `${dataset.year}-${String(dataset.month).padStart(2, "0")}`;
+}
+
+function showLoadError(error) {
+  elements.loadingMessage.hidden = true;
+  elements.errorMessage.hidden = false;
+  elements.errorMessage.textContent = "観測データを読み込めませんでした。時間をおいて再度お試しください。";
+  console.error(error);
 }
 
 
@@ -91,20 +150,9 @@ async function loadObservationData() {
 ========================================== */
 
 function initializeControls() {
-  elements.dateSelect.replaceChildren();
-  for (const sourceDate of state.availableDates) {
-    const option = document.createElement("option");
-    option.value = sourceDate;
-    option.textContent = formatJapaneseDate(sourceDate);
-    elements.dateSelect.append(option);
-  }
-
-  elements.dateSelect.value = state.selectedDate;
   elements.dateSelect.disabled = false;
   elements.hourRange.disabled = false;
   elements.chartElementSelect.disabled = false;
-  elements.loadingMessage.hidden = true;
-  elements.observationGrid.hidden = false;
 
   elements.dateSelect.addEventListener("change", (event) => {
     state.selectedDate = event.target.value;
@@ -120,6 +168,23 @@ function initializeControls() {
     state.selectedChartElement = event.target.value;
     renderDailyChart();
   });
+}
+
+function populateDateOptions() {
+  elements.dateSelect.replaceChildren();
+  for (const sourceDate of state.availableDates) {
+    const option = document.createElement("option");
+    option.value = sourceDate;
+    option.textContent = formatJapaneseDate(sourceDate);
+    elements.dateSelect.append(option);
+  }
+  elements.dateSelect.value = state.selectedDate;
+}
+
+function updateProvenanceLinks() {
+  const repositoryBaseUrl = "https://github.com/kojikomatsuzaki/hitachi-weather-data/blob/main/";
+  elements.canonicalDataLink.href = repositoryBaseUrl + state.selectedDataset.yaml_path;
+  elements.validationReportLink.href = repositoryBaseUrl + state.selectedDataset.report_path;
 }
 
 
@@ -151,7 +216,7 @@ function renderSelectedObservation() {
   precipitationNote.textContent = formatSourceFlag(observation.flags?.precipitation_mm);
 
   const weatherNote = document.querySelector('[data-note="weather_at_noon"]');
-  weatherNote.textContent = state.selectedHour === 12 ? "原資料の天気コードから表示" : "12時のみ観測";
+  weatherNote.textContent = state.selectedHour === 12 ? "原資料の天気表記から表示" : "12時のみ観測";
 
   renderDailyChart();
 }
@@ -313,5 +378,4 @@ function createSvgElement(tagName, attributes = {}) {
    Start application
 ========================================== */
 
-loadObservationData();
-
+initializeApplication();

@@ -14,7 +14,7 @@
         <p class="site-header__eyebrow">Hitachi Weather Data Archive</p>
         <div class="site-header__title-row">
           <h1>日立市天気相談所<br class="mobile-break"> 観測データアーカイブ</h1>
-          <span class="publication-badge">非公式・2025年1月公開</span>
+          <span class="publication-badge">非公式・2014年／2025年1月公開</span>
         </div>
         <p class="site-header__description">
           日立市役所観測所の観測値を、日付と時刻からたどれます。
@@ -34,6 +34,13 @@
         </div>
 
         <div class="controls" aria-label="観測日時の選択">
+          <label class="control-field">
+            <span>年月</span>
+            <select id="dataset-select" disabled>
+              <option>読み込み中</option>
+            </select>
+          </label>
+
           <label class="control-field">
             <span>日付</span>
             <select id="date-select" disabled>
@@ -143,9 +150,9 @@
           <div>
             <h3>正本と検証</h3>
             <p>この画面のJSONは、正本YAMLから生成しています。</p>
-            <a href="https://github.com/kojikomatsuzaki/hitachi-weather-data/blob/main/data/hitachi-city-hall/2025/01.yaml">正本YAML</a>
+            <a id="canonical-data-link" href="https://github.com/kojikomatsuzaki/hitachi-weather-data/blob/main/data/hitachi-city-hall/2025/01.yaml">正本YAML</a>
             <span aria-hidden="true"> · </span>
-            <a href="https://github.com/kojikomatsuzaki/hitachi-weather-data/blob/main/reports/validation-2025-01.md">検証報告</a>
+            <a id="validation-report-link" href="https://github.com/kojikomatsuzaki/hitachi-weather-data/blob/main/reports/validation-2025-01.md">検証報告</a>
           </div>
         </div>
       </section>

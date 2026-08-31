@@ -188,7 +188,7 @@ h2 {
 
 .controls {
   display: grid;
-  grid-template-columns: minmax(180px, 0.65fr) minmax(280px, 1.6fr);
+  grid-template-columns: minmax(140px, 0.55fr) minmax(180px, 0.7fr) minmax(280px, 1.6fr);
   gap: 26px;
   margin-bottom: 30px;
   padding: 22px;

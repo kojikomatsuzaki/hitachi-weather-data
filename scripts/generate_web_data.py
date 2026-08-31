@@ -34,11 +34,33 @@ def main() -> None:
     if not source_paths:
         raise SystemExit("正本YAMLが見つかりません。")
 
+    available_datasets = []
     for source_path in source_paths:
         output_path = generate_month_json(source_path)
         print(f"Generated: {output_path.relative_to(REPOSITORY_ROOT)}")
 
+        document = yaml.safe_load(source_path.read_text(encoding="utf-8"))
+        dataset = document["dataset"]
+        available_datasets.append(
+            {
+                "year": dataset["year"],
+                "month": dataset["month"],
+                "label": f"{dataset['year']}年{dataset['month']}月",
+                "data_path": str(output_path.relative_to(WEB_DATA_ROOT)),
+                "yaml_path": str(source_path.relative_to(REPOSITORY_ROOT)),
+                "report_path": (
+                    f"reports/validation-{dataset['year']}-{dataset['month']:02d}.md"
+                ),
+            }
+        )
+
+    index_path = WEB_DATA_ROOT / "index.json"
+    index_path.write_text(
+        json.dumps(available_datasets, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    print(f"Generated: {index_path.relative_to(REPOSITORY_ROOT)}")
+
 
 if __name__ == "__main__":
     main()
-

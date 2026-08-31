@@ -1,0 +1,57 @@
+schema_version: 0.1.0
+
+source_collection:
+  id: hitachi-city-hall-2014
+  station_id: hitachi-city-hall
+  year: 2014
+  publisher_ja: 日立市天気相談所
+  landing_page: https://tenki.city.hitachi.lg.jp/obs/contents/919
+  published_update_date: "2026-01-13"
+  retrieved_date: "2026-08-31"
+  format: application/vnd.ms-excel
+
+files:
+  - element: temperature
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000601.xls
+    sha256: 63409d3c3d328404badd7ecf9cc4c95da5aa4721f5a76e23320f404a6caa841b
+
+  - element: humidity
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000486.xls
+    sha256: 3af408bb37ede59f570d5e424b6d54541c407cb3a7c2054f5946873add657c76
+
+  - element: precipitation
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000509.xls
+    sha256: e4d50ecc186cf63aa5a4ff7b876108dcc245d6bcfa71ceffc2e9064443274413
+
+  - element: pressure
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000531.xls
+    sha256: fb65a5232abfd77a68ee916f42600b305943bcfa4fc21056dc72eb151dae763c
+
+  - element: solar_radiation
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000555.xls
+    sha256: fcd451954f7881f8a15dc1761a292a0d4fb09b437ab6296bbcae1da3bf624ba2
+
+  - element: sunshine_duration
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000578.xls
+    sha256: 49932c6907cbc10918bada29b23fa28c998b932a260a12108e1180dd7a5e4d3f
+
+  - element: wind_speed
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000670.xls
+    sha256: 44459b9d6eaf0a856fb70860ee48be69ba498efaa76360cfacf79b1557afa2f3
+
+  - element: wind_direction
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000624.xls
+    sha256: 4ef47f923f568958ec01621eaeefdba7bcc5afa002f3a5da7b77401eba698b86
+
+  - element: dew_point_temperature
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000463.xls
+    sha256: 1dbe53f8bc685bab6e22861b24e7b76b78bddf77de38cfff9704cd70ba989643
+
+  - element: weather_at_noon
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20250205_00000010.xls
+    sha256: eff74169afd4c30a8ad07bd7cef8c18637d5fd85164e1526fee4e302e3873871
+
+notes:
+  - URLのファイル名は内容を示さないため、elementで対応関係を明示する。
+  - 原Excelファイルの再配布可否を確認するまでは、リポジトリへ複製せずURLとハッシュ値を記録する。
+  - 12時の天気は2014年の原資料では数値コードではなく日本語表記である。
