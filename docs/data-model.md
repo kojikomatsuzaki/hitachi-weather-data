@@ -55,7 +55,7 @@ data/
 初期段階では、次の2項目を正本として保存する。
 
 ```yaml
-source_date: 2025-01-01
+source_date: "2025-01-01"
 source_hour: 24
 ```
 
@@ -111,3 +111,11 @@ metadata/
 5. 公開データの利用条件と、原Excelファイルを再配布できる範囲。
 
 確認できていない事項を推測で埋めず、`null`または未確定として明示する。
+
+## 9. 変換と検証
+
+2025年データは、`scripts/import_hitachi_city_hall_2025.py`で原Excelから生成する。
+変換前に各ExcelのSHA-256を出典マニフェストと照合し、生成後はYAMLを再読込して、
+生成直前のデータ構造と一致することを確認する。
+
+月別の検証結果は、`reports/validation-YYYY-MM.md`へ保存する。
