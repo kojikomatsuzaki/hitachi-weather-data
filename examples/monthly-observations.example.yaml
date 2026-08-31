@@ -1,0 +1,72 @@
+schema_version: 0.1.0
+
+dataset:
+  station_id: hitachi-city-hall
+  year: 2025
+  month: 1
+  timezone: Asia/Tokyo
+  source_manifest: ../../../metadata/sources/hitachi-city-hall-2025.yaml
+
+observations:
+  - source_date: 2025-01-01
+    source_hour: 1
+    values:
+      temperature_c: 4.8
+      relative_humidity_percent: 50.5
+      precipitation_mm: null
+      station_pressure_hpa: 1003.1
+      sea_level_pressure_hpa: 1009.9
+      global_solar_radiation_mj_m2: null
+      sunshine_duration_h: null
+      wind_speed_m_s: 3.6
+      wind_direction: NW
+      dew_point_temperature_c: -4.5
+    flags:
+      precipitation_mm: source_blank
+
+  - source_date: 2025-01-01
+    source_hour: 12
+    values:
+      temperature_c: 9.4
+      relative_humidity_percent: 35.3
+      precipitation_mm: null
+      station_pressure_hpa: 1008.8
+      sea_level_pressure_hpa: 1015.5
+      global_solar_radiation_mj_m2: 1.681
+      sunshine_duration_h: 0.7
+      wind_speed_m_s: 4.5
+      wind_direction: WSW
+      dew_point_temperature_c: -5.1
+      weather_at_noon: 1
+    flags:
+      precipitation_mm: source_blank
+
+daily_summaries:
+  - date: 2025-01-01
+    temperature:
+      mean_c: 5.2875
+      maximum:
+        value_c: 11.0
+        time: "15:12"
+      minimum:
+        value_c: 0.4
+        time: "06:22"
+    humidity:
+      mean_percent: 48.375
+      minimum:
+        value_percent: 31.1
+        time: "15:15"
+    wind:
+      mean_speed_m_s: 2.0
+      maximum_10_minute:
+        direction: NW
+        speed_m_s: 4.9
+        time: "12:25"
+      maximum_instantaneous:
+        direction: SSW
+        speed_m_s: 9.5
+        time: "11:53"
+
+notes:
+  - このファイルは構造例であり、完全な2025年1月データではない。
+  - 降水量の空欄は意味を確定できるまで0に変換せず、nullとフラグで保持する。

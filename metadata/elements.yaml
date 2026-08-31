@@ -1,0 +1,93 @@
+schema_version: 0.1.0
+
+elements:
+  temperature_c:
+    name_ja: 気温
+    unit: Cel
+    value_type: number
+
+  relative_humidity_percent:
+    name_ja: 相対湿度
+    unit: percent
+    value_type: number
+
+  precipitation_mm:
+    name_ja: 降水量
+    unit: mm
+    value_type: number
+    nullable: true
+
+  station_pressure_hpa:
+    name_ja: 現地気圧
+    unit: hPa
+    value_type: number
+
+  sea_level_pressure_hpa:
+    name_ja: 海面気圧
+    unit: hPa
+    value_type: number
+
+  global_solar_radiation_mj_m2:
+    name_ja: 全天日射量
+    unit: MJ.m-2
+    value_type: number
+    observed_hours: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+  sunshine_duration_h:
+    name_ja: 日照時間
+    unit: h
+    value_type: number
+    observed_hours: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+  wind_speed_m_s:
+    name_ja: 風速
+    unit: m.s-1
+    value_type: number
+
+  wind_direction:
+    name_ja: 風向
+    unit: compass_16
+    value_type: code
+    vocabulary:
+      N: 北
+      NNE: 北北東
+      NE: 北東
+      ENE: 東北東
+      E: 東
+      ESE: 東南東
+      SE: 南東
+      SSE: 南南東
+      S: 南
+      SSW: 南南西
+      SW: 南西
+      WSW: 西南西
+      W: 西
+      WNW: 西北西
+      NW: 北西
+      NNW: 北北西
+      CALM: 静穏
+
+  dew_point_temperature_c:
+    name_ja: 露点温度
+    unit: Cel
+    value_type: number
+
+  weather_at_noon:
+    name_ja: 12時の天気
+    unit: source_weather_code
+    value_type: code
+    observed_hour: 12
+    vocabulary:
+      0: 快晴
+      1: 晴れ
+      2: 薄曇り
+      3: 曇り
+      10: 煙霧
+      40: 霧
+      50: 霧雨
+      60: 雨
+      70: にわか雨
+      80: 雪
+      85: にわか雪
+      88: みぞれ
+      90: 不明

@@ -1,0 +1,24 @@
+schema_version: 0.1.0
+
+station:
+  id: hitachi-city-hall
+  name_ja: 日立市役所観測所
+  operator:
+    name_ja: 日立市天気相談所
+    type: local_government
+  address_ja: 茨城県日立市助川町1丁目1番1号
+  location:
+    latitude: null
+    longitude: null
+    elevation_m: null
+  timezone: Asia/Tokyo
+  data_available_from_year: 1953
+  status: active
+
+source:
+  title_ja: 気象観測データ（日立市役所）
+  url: https://tenki.city.hitachi.lg.jp/obs/contents/919
+
+notes:
+  - 緯度、経度、標高は公式資料で確認後に追記する。
+  - 観測地点や機器の移転・変更履歴は、判明した時点で期間情報として分離する。
