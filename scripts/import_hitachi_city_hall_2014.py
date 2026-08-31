@@ -22,6 +22,13 @@ import import_hitachi_city_hall_2025 as common
 # ==========================================
 
 YEAR = 2014
+GENERATOR_PATH = "scripts/import_hitachi_city_hall_2014.py"
+SOURCE_MANIFEST_RELATIVE = "../../../metadata/sources/hitachi-city-hall-2014.yaml"
+ADDITIONAL_REPORT_LINES: list[str] = []
+FORMAT_COMPARISON_HEADING = "2025年版との形式差"
+WEATHER_FORMAT_DIFFERENCE = (
+    "12時の天気は、2025年版の数値コードに対して、2014年版では日本語表記だった。"
+)
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_MANIFEST_PATH = (
     REPOSITORY_ROOT / "metadata" / "sources" / "hitachi-city-hall-2014.yaml"
@@ -107,7 +114,7 @@ def configure_common_processing() -> None:
 
     common.YEAR = YEAR
     common.SOURCE_MANIFEST_PATH = SOURCE_MANIFEST_PATH
-    common.GENERATOR_PATH = "scripts/import_hitachi_city_hall_2014.py"
+    common.GENERATOR_PATH = GENERATOR_PATH
     common.extract_weather_at_noon = extract_weather_at_noon_2014
 
 
@@ -121,9 +128,7 @@ def main() -> int:
     )
     extractions = common.extract_all_elements(source_paths, arguments.month)
     document = common.assemble_month_document(arguments.month, extractions)
-    document["dataset"]["source_manifest"] = (
-        "../../../metadata/sources/hitachi-city-hall-2014.yaml"
-    )
+    document["dataset"]["source_manifest"] = SOURCE_MANIFEST_RELATIVE
     document["notes"].append(
         "12時の天気は原資料の日本語表記を共通語彙の数値コードへ正規化した。"
     )
@@ -149,11 +154,13 @@ def main() -> int:
     )
     with report_path.open("a", encoding="utf-8") as report_file:
         report_file.write(
-            "\n## 2025年版との形式差\n\n"
+            f"\n## {FORMAT_COMPARISON_HEADING}\n\n"
             "- 時間観測値の月別シートと時刻列は、2025年版の共通処理で抽出できた。\n"
-            "- 12時の天気は、2025年版の数値コードに対して、2014年版では日本語表記だった。\n"
+            f"- {WEATHER_FORMAT_DIFFERENCE}\n"
             "- 日本語の天気表記は `metadata/elements.yaml` の共通語彙へ対応付けた。\n"
         )
+        if ADDITIONAL_REPORT_LINES:
+            report_file.write("\n" + "\n".join(ADDITIONAL_REPORT_LINES) + "\n")
 
     print(f"Generated: {yaml_path.relative_to(REPOSITORY_ROOT)}")
     print(f"Validated: {report_path.relative_to(REPOSITORY_ROOT)}")

@@ -1,0 +1,29 @@
+schema_version: 0.1.0
+
+source_collection:
+  id: hitachi-city-hall-2000
+  station_id: hitachi-city-hall
+  year: 2000
+  publisher_ja: 日立市天気相談所
+  landing_page: https://tenki.city.hitachi.lg.jp/obs/contents/919
+  published_update_date: "2026-01-13"
+  retrieved_date: "2026-08-31"
+  format: application/vnd.ms-excel
+
+files:
+  - {element: temperature, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20240624_00000003.xls, sha256: 693e2d507f0980a2b4a2d9a59a9b45f6402ef7971e624a9c52262203a417c32c}
+  - {element: humidity, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000472.xls, sha256: 4c3e8924ff0b98afbd6b1777d1114ab664a5006cf562deb65d0ebf19130e175a}
+  - {element: precipitation, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000495.xls, sha256: f160b7f4960c7643a22132265cbb3f41963537a191781b1f78daa44c90ae21ac}
+  - {element: pressure, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000517.xls, sha256: defefeb4ec929fc7d6e77dacfb222266e99168688b563e49def55f9deaf8df63}
+  - {element: solar_radiation, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20240624_00000004.xls, sha256: 2edfefe35f8e72eda7f58b70334703aa8401d5815800ecb4be2e0d9c81f26e20}
+  - {element: sunshine_duration, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20240624_00000005.xls, sha256: a338538cc3779d955790cd812bfe6259933b4278e2bf18ff7357882a0bb1cef3}
+  - {element: wind_speed, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000656.xls, sha256: 5415cec686420caed36bf13e3621a4f7baf08a35c3de0d6fa5a17014685d4cd7}
+  - {element: wind_direction, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000610.xls, sha256: 993583fe42afa01c08f28a2dadca0b187bbcc2e237eed1d4218c30cf1d60c3b9}
+  - {element: dew_point_temperature, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000449.xls, sha256: 3a2e4e22f9023c2473b60688677eda37755746262bf6b602aefc7955b3e8372d}
+  - {element: weather_at_noon, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20250205_00000024.xls, sha256: b83460f4494f5538eb91b47af5dd5947aabaecea98cf046e3e47fda35e4035ab}
+
+notes:
+  - URLのファイル名は内容を示さないため、elementで対応関係を明示する。
+  - 原Excelファイルの再配布可否を確認するまでは、リポジトリへ複製せずURLとハッシュ値を記録する。
+  - 12時の天気は日本語表記であり、共通語彙の数値コードへ正規化する。
+  - 2000年問題に関する確認として、年月日が2000年として解釈されることを検証する。

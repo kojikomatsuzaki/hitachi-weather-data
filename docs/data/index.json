@@ -1,5 +1,13 @@
 [
   {
+    "year": 2000,
+    "month": 1,
+    "label": "2000年1月",
+    "data_path": "2000/01.json",
+    "yaml_path": "data/hitachi-city-hall/2000/01.yaml",
+    "report_path": "reports/validation-2000-01.md"
+  },
+  {
     "year": 2014,
     "month": 1,
     "label": "2014年1月",
