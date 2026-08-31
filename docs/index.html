@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="日立市天気相談所が公開する日立市役所観測所の気象観測データを、日付と時刻から閲覧できます。">
+    <title>日立市天気相談所 観測データアーカイブ</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <p class="site-header__eyebrow">Hitachi Weather Data Archive</p>
+        <div class="site-header__title-row">
+          <h1>日立市天気相談所<br class="mobile-break"> 観測データアーカイブ</h1>
+          <span class="publication-badge">非公式・2025年1月公開</span>
+        </div>
+        <p class="site-header__description">
+          日立市役所観測所の観測値を、日付と時刻からたどれます。
+          原資料の表記を残しながら、正本YAMLから表示しています。
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="observation-console" aria-labelledby="observation-heading">
+        <div class="section-heading">
+          <div>
+            <p class="section-heading__number">01</p>
+            <h2 id="observation-heading">観測値をみる</h2>
+          </div>
+          <p id="selected-moment" class="selected-moment" aria-live="polite">読み込み中です</p>
+        </div>
+
+        <div class="controls" aria-label="観測日時の選択">
+          <label class="control-field">
+            <span>日付</span>
+            <select id="date-select" disabled>
+              <option>読み込み中</option>
+            </select>
+          </label>
+
+          <div class="hour-control">
+            <div class="hour-control__label-row">
+              <label for="hour-range">原資料上の時刻</label>
+              <output id="hour-output" for="hour-range">12時</output>
+            </div>
+            <input id="hour-range" type="range" min="1" max="24" value="12" step="1" disabled>
+            <div class="hour-scale" aria-hidden="true">
+              <span>1時</span>
+              <span>6時</span>
+              <span>12時</span>
+              <span>18時</span>
+              <span>24時</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="loading-message" class="status-message">観測データを読み込んでいます。</div>
+        <div id="error-message" class="status-message status-message--error" hidden></div>
+
+        <div id="observation-grid" class="observation-grid" hidden>
+          <article class="observation-card observation-card--temperature">
+            <p class="observation-card__label">気温</p>
+            <p class="observation-card__value"><span data-value="temperature_c">—</span><span class="unit">℃</span></p>
+          </article>
+          <article class="observation-card">
+            <p class="observation-card__label">相対湿度</p>
+            <p class="observation-card__value"><span data-value="relative_humidity_percent">—</span><span class="unit">%</span></p>
+          </article>
+          <article class="observation-card">
+            <p class="observation-card__label">露点温度</p>
+            <p class="observation-card__value"><span data-value="dew_point_temperature_c">—</span><span class="unit">℃</span></p>
+          </article>
+          <article class="observation-card">
+            <p class="observation-card__label">降水量</p>
+            <p class="observation-card__value"><span data-value="precipitation_mm">—</span><span class="unit">mm</span></p>
+            <p class="observation-card__note" data-note="precipitation_mm"></p>
+          </article>
+          <article class="observation-card">
+            <p class="observation-card__label">風</p>
+            <p class="observation-card__value observation-card__value--text"><span data-value="wind_direction">—</span></p>
+            <p class="observation-card__note"><span data-value="wind_speed_m_s">—</span> m/s</p>
+          </article>
+          <article class="observation-card">
+            <p class="observation-card__label">12時の天気</p>
+            <p class="observation-card__value observation-card__value--text"><span data-value="weather_at_noon">—</span></p>
+            <p class="observation-card__note" data-note="weather_at_noon">12時のみ観測</p>
+          </article>
+        </div>
+
+        <details class="detail-panel">
+          <summary>そのほかの観測値</summary>
+          <dl class="detail-values">
+            <div><dt>現地気圧</dt><dd><span data-value="station_pressure_hpa">—</span> hPa</dd></div>
+            <div><dt>海面気圧</dt><dd><span data-value="sea_level_pressure_hpa">—</span> hPa</dd></div>
+            <div><dt>全天日射量</dt><dd><span data-value="global_solar_radiation_mj_m2">—</span> <small>単位確認中</small></dd></div>
+            <div><dt>日照時間</dt><dd><span data-value="sunshine_duration_h">—</span> h</dd></div>
+          </dl>
+        </details>
+      </section>
+
+      <section class="daily-chart-section" aria-labelledby="chart-heading">
+        <div class="section-heading section-heading--compact">
+          <div>
+            <p class="section-heading__number">02</p>
+            <h2 id="chart-heading">一日の変化</h2>
+          </div>
+          <label class="chart-selector">
+            <span>表示する項目</span>
+            <select id="chart-element-select" disabled>
+              <option value="temperature_c">気温</option>
+              <option value="relative_humidity_percent">相対湿度</option>
+              <option value="wind_speed_m_s">風速</option>
+              <option value="station_pressure_hpa">現地気圧</option>
+              <option value="precipitation_mm">降水量</option>
+            </select>
+          </label>
+        </div>
+        <div class="chart-frame">
+          <svg id="daily-chart" viewBox="0 0 760 300" role="img" aria-labelledby="chart-title chart-description">
+            <title id="chart-title">一日の観測値グラフ</title>
+            <desc id="chart-description">選択した日と観測項目について、1時から24時までの値を示します。</desc>
+          </svg>
+          <p id="chart-empty-message" class="chart-empty-message" hidden>この日は表示できる値がありません。</p>
+        </div>
+      </section>
+
+      <section class="provenance-section" aria-labelledby="provenance-heading">
+        <div class="section-heading section-heading--compact">
+          <div>
+            <p class="section-heading__number">03</p>
+            <h2 id="provenance-heading">データの来歴</h2>
+          </div>
+        </div>
+        <div class="provenance-grid">
+          <div>
+            <h3>出典</h3>
+            <p>日立市天気相談所「気象観測データ（日立市役所）」</p>
+            <a href="https://tenki.city.hitachi.lg.jp/obs/contents/919">公式データページを見る</a>
+          </div>
+          <div>
+            <h3>正本と検証</h3>
+            <p>この画面のJSONは、正本YAMLから生成しています。</p>
+            <a href="https://github.com/kojikomatsuzaki/hitachi-weather-data/blob/main/data/hitachi-city-hall/2025/01.yaml">正本YAML</a>
+            <span aria-hidden="true"> · </span>
+            <a href="https://github.com/kojikomatsuzaki/hitachi-weather-data/blob/main/reports/validation-2025-01.md">検証報告</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>本サイトは、日立市天気相談所の公式サイトではありません。</p>
+      <p><a href="https://github.com/kojikomatsuzaki/hitachi-weather-data">GitHubリポジトリ</a></p>
+    </footer>
+  </body>
+</html>

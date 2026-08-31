@@ -1,0 +1,560 @@
+/* ==========================================
+   Design tokens
+========================================== */
+
+:root {
+  color-scheme: light;
+  --color-ink: #173042;
+  --color-ink-soft: #526875;
+  --color-paper: #f5f2e9;
+  --color-surface: #fffdf7;
+  --color-blue: #176b87;
+  --color-blue-deep: #0b465e;
+  --color-blue-pale: #d9edf2;
+  --color-sun: #e6a932;
+  --color-line: #c9d4d6;
+  --color-error: #9b2c2c;
+  --shadow-soft: 0 18px 45px rgb(20 55 69 / 10%);
+  --radius-large: 24px;
+  --radius-medium: 14px;
+  --content-width: 1120px;
+}
+
+/* ==========================================
+   Foundation
+========================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  line-height: 1.7;
+}
+
+body {
+  margin: 0;
+  background:
+    linear-gradient(90deg, rgb(23 107 135 / 5%) 1px, transparent 1px),
+    var(--color-paper);
+  background-size: 32px 32px;
+}
+
+a {
+  color: var(--color-blue);
+  font-weight: 700;
+  text-underline-offset: 0.2em;
+}
+
+button,
+select,
+input {
+  font: inherit;
+}
+
+/* ==========================================
+   Header
+========================================== */
+
+.site-header {
+  color: white;
+  background:
+    radial-gradient(circle at 84% 28%, rgb(230 169 50 / 95%) 0 5px, transparent 6px),
+    radial-gradient(circle at 84% 28%, rgb(230 169 50 / 18%) 0 105px, transparent 106px),
+    linear-gradient(135deg, var(--color-blue-deep), var(--color-blue));
+  border-bottom: 7px solid var(--color-sun);
+}
+
+.site-header__inner {
+  width: min(calc(100% - 40px), var(--content-width));
+  margin: 0 auto;
+  padding: 56px 0 50px;
+}
+
+.site-header__eyebrow {
+  margin: 0 0 8px;
+  color: #c6e6ee;
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.site-header__title-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.18;
+  letter-spacing: -0.04em;
+}
+
+.publication-badge {
+  flex: none;
+  padding: 7px 13px;
+  color: var(--color-blue-deep);
+  background: #fff4d4;
+  border: 1px solid #f5cc74;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.site-header__description {
+  max-width: 720px;
+  margin: 24px 0 0;
+  color: #e3f2f5;
+  font-size: clamp(0.95rem, 2vw, 1.12rem);
+}
+
+.mobile-break {
+  display: none;
+}
+
+/* ==========================================
+   Shared section structure
+========================================== */
+
+main {
+  width: min(calc(100% - 40px), var(--content-width));
+  margin: 0 auto;
+  padding: 42px 0 70px;
+}
+
+section {
+  margin-bottom: 42px;
+}
+
+.observation-console,
+.daily-chart-section,
+.provenance-section {
+  padding: clamp(22px, 4vw, 40px);
+  background: var(--color-surface);
+  border: 1px solid rgb(23 48 66 / 12%);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-soft);
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.section-heading--compact {
+  align-items: center;
+}
+
+.section-heading__number {
+  margin: 0 0 -6px;
+  color: var(--color-sun);
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.15rem);
+  line-height: 1.3;
+}
+
+.selected-moment {
+  margin: 0;
+  color: var(--color-blue-deep);
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 700;
+}
+
+/* ==========================================
+   Date and hour controls
+========================================== */
+
+.controls {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.65fr) minmax(280px, 1.6fr);
+  gap: 26px;
+  margin-bottom: 30px;
+  padding: 22px;
+  background: #edf5f5;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-medium);
+}
+
+.control-field,
+.hour-control {
+  display: grid;
+  gap: 8px;
+}
+
+.control-field > span,
+.hour-control label,
+.chart-selector > span {
+  color: var(--color-ink-soft);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+select {
+  width: 100%;
+  padding: 10px 38px 10px 12px;
+  color: var(--color-ink);
+  background: white;
+  border: 1px solid #96aeb4;
+  border-radius: 9px;
+}
+
+.hour-control__label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#hour-output {
+  min-width: 64px;
+  color: var(--color-blue-deep);
+  font-size: 1.15rem;
+  font-weight: 900;
+  text-align: right;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-blue);
+}
+
+.hour-scale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-ink-soft);
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.68rem;
+}
+
+.status-message {
+  padding: 24px;
+  color: var(--color-ink-soft);
+  text-align: center;
+}
+
+.status-message--error {
+  color: var(--color-error);
+  background: #fff0f0;
+  border-radius: var(--radius-medium);
+}
+
+/* ==========================================
+   Observation cards
+========================================== */
+
+.observation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.observation-card {
+  min-height: 150px;
+  padding: 20px;
+  background: white;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-medium);
+}
+
+.observation-card--temperature {
+  color: white;
+  background: var(--color-blue-deep);
+  border-color: var(--color-blue-deep);
+}
+
+.observation-card__label {
+  margin: 0 0 18px;
+  color: inherit;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.observation-card__value {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.25rem, 5vw, 3.2rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.observation-card__value--text {
+  font-family: "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+}
+
+.unit {
+  margin-left: 5px;
+  font-family: "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.observation-card__note {
+  min-height: 1.7em;
+  margin: 12px 0 0;
+  color: var(--color-ink-soft);
+  font-size: 0.76rem;
+}
+
+.observation-card--temperature .observation-card__note {
+  color: #c6e6ee;
+}
+
+.detail-panel {
+  margin-top: 18px;
+  padding: 0 18px;
+  background: #f6f8f6;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-medium);
+}
+
+.detail-panel summary {
+  padding: 14px 0;
+  color: var(--color-blue-deep);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.detail-values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 24px;
+  margin: 0;
+  padding: 0 0 16px;
+}
+
+.detail-values div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.detail-values dt {
+  color: var(--color-ink-soft);
+}
+
+.detail-values dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+}
+
+.detail-values small {
+  color: var(--color-ink-soft);
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+/* ==========================================
+   Daily chart
+========================================== */
+
+.chart-selector {
+  display: grid;
+  gap: 4px;
+  min-width: 190px;
+}
+
+.chart-frame {
+  position: relative;
+  min-height: 300px;
+  overflow-x: auto;
+  background: #fbfcf8;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-medium);
+}
+
+#daily-chart {
+  display: block;
+  min-width: 650px;
+  width: 100%;
+  height: auto;
+}
+
+.chart-grid-line {
+  stroke: #dbe3e3;
+  stroke-width: 1;
+}
+
+.chart-axis-label {
+  fill: var(--color-ink-soft);
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--color-blue);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.chart-point {
+  fill: var(--color-surface);
+  stroke: var(--color-blue-deep);
+  stroke-width: 2;
+}
+
+.chart-point--selected {
+  fill: var(--color-sun);
+  stroke: var(--color-blue-deep);
+  stroke-width: 3;
+}
+
+.chart-empty-message {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--color-ink-soft);
+}
+
+/* ==========================================
+   Provenance and footer
+========================================== */
+
+.provenance-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.provenance-grid > div {
+  padding: 22px;
+  background: #edf5f5;
+  border-radius: var(--radius-medium);
+}
+
+.provenance-grid h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.provenance-grid p {
+  margin: 0 0 8px;
+}
+
+footer {
+  padding: 32px 20px 48px;
+  color: #d8e8ec;
+  background: var(--color-blue-deep);
+  text-align: center;
+}
+
+footer p {
+  margin: 4px 0;
+}
+
+footer a {
+  color: white;
+}
+
+/* ==========================================
+   Responsive layout
+========================================== */
+
+@media (max-width: 760px) {
+  .site-header__inner,
+  main {
+    width: min(calc(100% - 24px), var(--content-width));
+  }
+
+  .site-header__inner {
+    padding: 42px 0 38px;
+  }
+
+  .site-header__title-row,
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .publication-badge {
+    align-self: flex-start;
+  }
+
+  .mobile-break {
+    display: initial;
+  }
+
+  main {
+    padding-top: 24px;
+  }
+
+  .observation-console,
+  .daily-chart-section,
+  .provenance-section {
+    border-radius: 18px;
+  }
+
+  .controls,
+  .observation-grid,
+  .provenance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .observation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .observation-card {
+    min-height: 134px;
+    padding: 17px;
+  }
+
+  .detail-values {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-selector {
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .observation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .observation-card {
+    min-height: 126px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .observation-card {
+    transition: transform 140ms ease, box-shadow 140ms ease;
+  }
+
+  .observation-card:hover {
+    box-shadow: 0 10px 24px rgb(20 55 69 / 10%);
+    transform: translateY(-2px);
+  }
+}

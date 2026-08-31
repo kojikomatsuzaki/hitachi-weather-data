@@ -16,6 +16,14 @@
 
 - [日立市天気相談所](https://tenki.city.hitachi.lg.jp/)
 
+## Web版
+
+一般向けの閲覧画面をGitHub Pagesで公開します。
+
+- 公開予定URL：https://kojikomatsuzaki.github.io/hitachi-weather-data/
+- 公開元：`docs/`
+- 表示用JSON：正本YAMLから`python scripts/generate_web_data.py`で生成
+
 ## データ整備方針
 
 - YAMLを正本とします。
