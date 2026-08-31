@@ -6,8 +6,8 @@ source_collection:
   year: 2025
   publisher_ja: 日立市天気相談所
   landing_page: https://tenki.city.hitachi.lg.jp/obs/contents/919
-  published_update_date: 2026-01-30
-  retrieved_date: 2026-08-31
+  published_update_date: "2026-01-30"
+  retrieved_date: "2026-08-31"
   format: application/vnd.ms-excel
 
 files:

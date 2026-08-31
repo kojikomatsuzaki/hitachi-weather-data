@@ -5,10 +5,10 @@ dataset:
   year: 2025
   month: 1
   timezone: Asia/Tokyo
-  source_manifest: ../../../metadata/sources/hitachi-city-hall-2025.yaml
+  source_manifest: ../metadata/sources/hitachi-city-hall-2025.yaml
 
 observations:
-  - source_date: 2025-01-01
+  - source_date: "2025-01-01"
     source_hour: 1
     values:
       temperature_c: 4.8
@@ -24,7 +24,7 @@ observations:
     flags:
       precipitation_mm: source_blank
 
-  - source_date: 2025-01-01
+  - source_date: "2025-01-01"
     source_hour: 12
     values:
       temperature_c: 9.4
@@ -42,7 +42,7 @@ observations:
       precipitation_mm: source_blank
 
 daily_summaries:
-  - date: 2025-01-01
+  - date: "2025-01-01"
     temperature:
       mean_c: 5.2875
       maximum:
