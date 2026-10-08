@@ -1,0 +1,105 @@
+name: Archive Hitachi City Hall
+
+on:
+  workflow_dispatch:
+    inputs:
+      year:
+        description: "採録する年（空欄なら最新公開年）"
+        required: false
+        type: string
+  schedule:
+    # 公式サイトの年別ファイル公開を月1回確認する（日本時間2日 06:17）。
+    - cron: "17 21 1 * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: archive-hitachi-city-hall
+  cancel-in-progress: false
+
+jobs:
+  archive-year:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+
+      - name: Determine target year and record sources
+        id: target
+        shell: bash
+        env:
+          REQUESTED_YEAR: ${{ inputs.year }}
+        run: |
+          set -euo pipefail
+          if [[ -n "${REQUESTED_YEAR:-}" ]]; then
+            year="$REQUESTED_YEAR"
+          else
+            year="$(python scripts/discover_hitachi_city_hall_sources.py --print-year)"
+          fi
+          python scripts/discover_hitachi_city_hall_sources.py --year "$year"
+          echo "year=$year" >> "$GITHUB_OUTPUT"
+
+      - name: Import all months
+        shell: bash
+        run: |
+          set -euo pipefail
+          year="${{ steps.target.outputs.year }}"
+          for month in $(seq 1 12); do
+            python scripts/import_hitachi_city_hall_year.py \
+              --year "$year" \
+              --month "$month" \
+              --download-missing
+          done
+
+      - name: Generate web data
+        run: python scripts/generate_web_data.py
+
+      - name: Verify complete year
+        shell: bash
+        run: |
+          python - "${{ steps.target.outputs.year }}" <<'PY'
+          import sys
+          from pathlib import Path
+          import yaml
+
+          year = int(sys.argv[1])
+          paths = sorted(Path(f"data/hitachi-city-hall/{year}").glob("*.yaml"))
+          expected = [f"{month:02d}.yaml" for month in range(1, 13)]
+          if [path.name for path in paths] != expected:
+              raise SystemExit(f"{year}年の月別YAMLが12ファイル揃っていません。")
+          for path in paths:
+              document = yaml.safe_load(path.read_text(encoding="utf-8"))
+              dataset = document["dataset"]
+              if dataset["year"] != year or dataset["month"] != int(path.stem):
+                  raise SystemExit(f"年月がパスと一致しません: {path}")
+              if not document.get("observations"):
+                  raise SystemExit(f"観測レコードがありません: {path}")
+          print(f"{year}年の12か月を検証しました。")
+          PY
+
+      - name: Commit generated archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          year="${{ steps.target.outputs.year }}"
+          git add \
+            "metadata/sources/hitachi-city-hall-$year.yaml" \
+            "data/hitachi-city-hall/$year" \
+            "docs/data/$year" \
+            docs/data/index.json \
+            "reports/validation-$year-"*.md
+          if git diff --cached --quiet; then
+            echo "生成結果に変更はありません。"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "${year}年の全月観測データを更新"
+          git push origin HEAD:main
