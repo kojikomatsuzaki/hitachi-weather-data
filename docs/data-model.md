@@ -8,7 +8,7 @@
 - プログラムから安定して処理できる。
 - 原資料の年月日、時刻表記、観測要素、欠測表現を追跡できる。
 - YAMLを正本とし、JSONやCSVなどをYAMLから生成できる。
-- 将来、1953年まで遡っても同じ考え方で拡張できる。
+- 1953年以降の年代差を失わず、同じ考え方で拡張できる。
 
 ## 2. 公式データの構造
 
@@ -120,6 +120,70 @@ metadata/
 - `elements.yaml`：観測要素の識別子、名称、単位、値の型。
 - `stations/*.yaml`：観測所の名称、所在地、運営主体など。
 - `sources/*.yaml`：公式ファイルのURL、取得日、SHA-256ハッシュ値。
+
+### 7.1 主原資料と代替原資料
+
+同じ年・観測要素について複数の公式配布版が存在する場合は、次の役割を分ける。
+
+- `primary_source`：正本YAMLの生成に使用した原資料。
+- `alternative_sources`：比較・検証に使用できる別の公式配布版。
+
+各配布版には、URL、取得日、SHA-256を記録する。ZIPに格納された資料では、
+ZIP自体のSHA-256に加えて内部ファイル名と内部ファイルのSHA-256も記録する。
+配布版同士を比較した場合は、バイナリ一致、バイナリ相違、構造相違などの結果を残す。
+代替原資料の値を、主原資料から生成した月別YAMLへ混在させない。
+
+```yaml
+files:
+  - element: temperature
+    primary_source:
+      distribution: annual_individual_file
+      url: https://example.invalid/temp2000.xls
+      sha256: "..."
+    alternative_sources:
+      - distribution: bulk_element_archive
+        archive_url: https://example.invalid/temp.zip
+        archive_sha256: "..."
+        archive_member: temp2000.xls
+        member_sha256: "..."
+        comparison_with_primary: binary_different
+```
+
+### 7.2 観測所と観測地点の履歴
+
+観測所の名称を維持したまま設置地点が移転した場合、観測所IDは変えず、
+`location_periods`で期間別の観測地点を管理する。月別YAMLは、その月に対応する
+`location_period_id`を参照する。
+
+```yaml
+station:
+  id: motoyama
+  name_ja: 本山観測所
+  location_periods:
+    - id: akasawa-sanso
+      name_ja: あかさわ山荘
+      from: "2000-01"
+      to: "2011-12"
+    - id: motoyama-shizen-no-mura-campground
+      name_ja: もとやま自然の村キャンプ場
+      from: "2012-01"
+      to: "2014-07"
+    - id: former-motoyama-junior-high-school-site
+      name_ja: 旧本山中学校敷地
+      from: "2014-08"
+      to: null
+```
+
+この期間は公開データの範囲と公式ページの記述に基づくものであり、観測施設そのものの
+設置日を断定するものではない。各月の正本YAMLでは次のように参照する。
+
+```yaml
+dataset:
+  station_id: motoyama
+  location_period_id: former-motoyama-junior-high-school-site
+  year: 2014
+  month: 8
+```
 
 ## 8. 今後確認する事項
 
