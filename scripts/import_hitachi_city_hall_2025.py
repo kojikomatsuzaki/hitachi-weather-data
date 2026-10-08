@@ -176,6 +176,9 @@ def source_cell(value: Any, *, integer: bool = False) -> SourceCell:
             return SourceCell(None, "source_dash")
         if normalized == "***":
             return SourceCell(None, "source_triple_asterisk")
+        if normalized == "欠測":
+            # 原資料が明示する欠測を、空欄や未提供と区別して保存する。
+            return SourceCell(None, "source_missing")
         return SourceCell(normalized)
 
     if isinstance(value, (int, float)):
