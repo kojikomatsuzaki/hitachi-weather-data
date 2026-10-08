@@ -24,6 +24,102 @@
     "report_path": "reports/validation-2014-01.md"
   },
   {
+    "year": 2023,
+    "month": 1,
+    "label": "2023年1月",
+    "data_path": "2023/01.json",
+    "yaml_path": "data/hitachi-city-hall/2023/01.yaml",
+    "report_path": "reports/validation-2023-01.md"
+  },
+  {
+    "year": 2023,
+    "month": 2,
+    "label": "2023年2月",
+    "data_path": "2023/02.json",
+    "yaml_path": "data/hitachi-city-hall/2023/02.yaml",
+    "report_path": "reports/validation-2023-02.md"
+  },
+  {
+    "year": 2023,
+    "month": 3,
+    "label": "2023年3月",
+    "data_path": "2023/03.json",
+    "yaml_path": "data/hitachi-city-hall/2023/03.yaml",
+    "report_path": "reports/validation-2023-03.md"
+  },
+  {
+    "year": 2023,
+    "month": 4,
+    "label": "2023年4月",
+    "data_path": "2023/04.json",
+    "yaml_path": "data/hitachi-city-hall/2023/04.yaml",
+    "report_path": "reports/validation-2023-04.md"
+  },
+  {
+    "year": 2023,
+    "month": 5,
+    "label": "2023年5月",
+    "data_path": "2023/05.json",
+    "yaml_path": "data/hitachi-city-hall/2023/05.yaml",
+    "report_path": "reports/validation-2023-05.md"
+  },
+  {
+    "year": 2023,
+    "month": 6,
+    "label": "2023年6月",
+    "data_path": "2023/06.json",
+    "yaml_path": "data/hitachi-city-hall/2023/06.yaml",
+    "report_path": "reports/validation-2023-06.md"
+  },
+  {
+    "year": 2023,
+    "month": 7,
+    "label": "2023年7月",
+    "data_path": "2023/07.json",
+    "yaml_path": "data/hitachi-city-hall/2023/07.yaml",
+    "report_path": "reports/validation-2023-07.md"
+  },
+  {
+    "year": 2023,
+    "month": 8,
+    "label": "2023年8月",
+    "data_path": "2023/08.json",
+    "yaml_path": "data/hitachi-city-hall/2023/08.yaml",
+    "report_path": "reports/validation-2023-08.md"
+  },
+  {
+    "year": 2023,
+    "month": 9,
+    "label": "2023年9月",
+    "data_path": "2023/09.json",
+    "yaml_path": "data/hitachi-city-hall/2023/09.yaml",
+    "report_path": "reports/validation-2023-09.md"
+  },
+  {
+    "year": 2023,
+    "month": 10,
+    "label": "2023年10月",
+    "data_path": "2023/10.json",
+    "yaml_path": "data/hitachi-city-hall/2023/10.yaml",
+    "report_path": "reports/validation-2023-10.md"
+  },
+  {
+    "year": 2023,
+    "month": 11,
+    "label": "2023年11月",
+    "data_path": "2023/11.json",
+    "yaml_path": "data/hitachi-city-hall/2023/11.yaml",
+    "report_path": "reports/validation-2023-11.md"
+  },
+  {
+    "year": 2023,
+    "month": 12,
+    "label": "2023年12月",
+    "data_path": "2023/12.json",
+    "yaml_path": "data/hitachi-city-hall/2023/12.yaml",
+    "report_path": "reports/validation-2023-12.md"
+  },
+  {
     "year": 2024,
     "month": 1,
     "label": "2024年1月",
