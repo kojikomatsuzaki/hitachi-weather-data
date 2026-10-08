@@ -9,6 +9,11 @@
       "status": "success",
       "records": 8760,
       "commit": "cd81cf30f0dc1577c84bfa22570214453aa1ce89"
+    },
+    "2020": {
+      "status": "success",
+      "records": 8784,
+      "commit": "fad981dd84a236ff3238da3a40b749e7bf397213"
     }
   }
 }
