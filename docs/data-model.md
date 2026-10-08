@@ -197,7 +197,9 @@ dataset:
 
 ## 9. 変換と検証
 
-2025年データは、`scripts/import_hitachi_city_hall_2025.py`で原Excelから生成する。
+2000年以降のデータは、公式一覧から出典マニフェストを生成した後、
+`scripts/import_hitachi_city_hall_year.py`で原Excelから生成する。年固有の構造差は
+取込処理内で判定し、月別YAMLの`source_period_id`と出典マニフェストへ記録する。
 変換前に各ExcelのSHA-256を出典マニフェストと照合し、生成後はYAMLを再読込して、
 生成直前のデータ構造と一致することを確認する。
 

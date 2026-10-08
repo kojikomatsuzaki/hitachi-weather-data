@@ -5,7 +5,7 @@
 ## 現在の収録対象
 
 - 観測所：日立市役所観測所
-- 収録済み：1953年、2000年、2014年、2025年の各1月
+- 収録済み：1953年、2000年、2014年の各1月、2025年1月–12月
 - 観測要素：気温、湿度、降水量、現地気圧、海面気圧、全天日射量、日照時間、風速、風向、露点温度、天気
 - 正本形式：YAML
 
@@ -43,6 +43,8 @@
 - JSONやCSVなどは、正本のYAMLから生成します。
 - 出典、取得日、観測所、観測要素などの来歴情報を記録します。
 - 原資料の内容と、整理・変換したデータを区別します。
+- 2000年以降は年を指定できる共通取込処理を使用し、公式ページの最新公開年を月1回自動確認します。
+- 自動確認は年別ファイルの公開を対象とし、当年途中の毎時・毎日の値は収集しません。
 - 観測対象でありながら値を確認できない「欠測」と、その年代の公開資料に観測要素が収録されていない状態を区別します。
 - 機械的に処理する事実情報はYAML、状態の意味や資料解釈上の説明はMarkdownを正本とします。
 - Webページは、正本のYAMLとMarkdownから生成する派生物として扱います。
@@ -78,7 +80,8 @@
 
 ```console
 python -m pip install -r requirements.txt
-python scripts/import_hitachi_city_hall_2025.py --month 1 --download-missing
+python scripts/discover_hitachi_city_hall_sources.py --year 2025
+python scripts/import_hitachi_city_hall_year.py --year 2025 --month 1 --download-missing
 ```
 
 この処理から、正本YAMLと検証報告が生成されます。
