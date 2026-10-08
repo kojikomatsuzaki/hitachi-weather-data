@@ -4,6 +4,11 @@
       "status": "success",
       "records": 8760,
       "commit": "e8f59368fac0f7ad6707fa1a21ca429eed3a3215"
+    },
+    "2021": {
+      "status": "success",
+      "records": 8760,
+      "commit": "cd81cf30f0dc1577c84bfa22570214453aa1ce89"
     }
   }
 }
