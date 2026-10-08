@@ -14,6 +14,11 @@
       "status": "success",
       "records": 8784,
       "commit": "fad981dd84a236ff3238da3a40b749e7bf397213"
+    },
+    "2019": {
+      "status": "success",
+      "records": 8760,
+      "commit": "2da75b38b984ea513a3498f01b7ba5554edd4060"
     }
   }
 }
