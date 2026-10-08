@@ -28,6 +28,11 @@
       "status": "success",
       "records": 8760,
       "commit": "76b2be3df5ee7bf27bdd03de9568ea7f3d6fccd7"
+    },
+    "2016": {
+      "status": "success",
+      "records": 8784,
+      "commit": "526c500be4e39fd4cd96d50a7a08f30a37031122"
     }
   }
 }
