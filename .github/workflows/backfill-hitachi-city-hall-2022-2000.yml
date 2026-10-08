@@ -1,0 +1,148 @@
+name: Backfill Hitachi City Hall (2022-2000)
+
+on:
+  workflow_dispatch:
+  schedule:
+    # UTC 18:27 = JST 03:27. A completion marker prevents repeated runs.
+    - cron: "27 18 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: archive-hitachi-city-hall
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Backfill years independently and publish summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import datetime
+          import json
+          import os
+          import subprocess
+          from pathlib import Path
+
+          root = Path.cwd()
+          state_path = root / "metadata" / "backfill-2022-2000.json"
+          summary_path = Path(os.environ["GITHUB_STEP_SUMMARY"])
+          years = range(2022, 1999, -1)
+
+          def run(*args):
+              return subprocess.run(args, check=True, text=True)
+
+          def valid_year(year):
+              folder = root / "data" / "hitachi-city-hall" / str(year)
+              web = root / "docs" / "data" / str(year)
+              reports = root / "reports"
+              return (
+                  all((folder / f"{month:02d}.yaml").is_file() for month in range(1, 13))
+                  and all((web / f"{month:02d}.json").is_file() for month in range(1, 13))
+                  and all((reports / f"validation-{year}-{month:02d}.md").is_file() for month in range(1, 13))
+                  and (root / "metadata" / "sources" / f"hitachi-city-hall-{year}.yaml").is_file()
+              )
+
+          # Preserve a durable record of attempted years, including failures.
+          state = json.loads(state_path.read_text()) if state_path.exists() else {"years": {}}
+          if state.get("complete"):
+              summary_path.write_text("## Backfill already completed\nAll years have already been attempted.\n")
+              raise SystemExit(0)
+
+          for year in years:
+              key = str(year)
+              previous = state["years"].get(key, {})
+              if previous.get("status") == "success" and valid_year(year):
+                  continue
+
+              # A failed year is not retried automatically: proceed to older years.
+              if previous.get("status") == "failed":
+                  continue
+
+              try:
+                  run("python", "scripts/discover_hitachi_city_hall_sources.py", "--year", key)
+                  for month in range(1, 13):
+                      run("python", "scripts/import_hitachi_city_hall_year.py",
+                          "--year", key, "--month", str(month), "--download-missing")
+                  run("python", "scripts/generate_web_data.py")
+                  if not valid_year(year):
+                      raise RuntimeError(f"Incomplete outputs for {year}")
+
+                  # Check each monthly YAML and JSON for year/month and nonempty observations.
+                  import yaml
+                  total = 0
+                  for month in range(1, 13):
+                      y = yaml.safe_load((root / "data" / "hitachi-city-hall" / key / f"{month:02d}.yaml").read_text())
+                      j = json.loads((root / "docs" / "data" / key / f"{month:02d}.json").read_text())
+                      if y != j or y["dataset"]["year"] != year or y["dataset"]["month"] != month:
+                          raise RuntimeError(f"Data mismatch {year}-{month:02d}")
+                      observations = y["observations"]
+                      if not observations:
+                          raise RuntimeError(f"Empty observations {year}-{month:02d}")
+                      total += len(observations)
+
+                  run("git", "add",
+                      f"metadata/sources/hitachi-city-hall-{year}.yaml",
+                      f"data/hitachi-city-hall/{year}",
+                      f"docs/data/{year}", "docs/data/index.json",
+                      *[f"reports/validation-{year}-{month:02d}.md" for month in range(1, 13)])
+                  if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode:
+                      run("git", "config", "user.name", "github-actions[bot]")
+                      run("git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
+                      run("git", "commit", "-m", f"{year}年の全月観測データを更新")
+                      run("git", "push", "origin", "HEAD:main")
+                  sha = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+                  state["years"][key] = {"status": "success", "records": total, "commit": sha}
+              except Exception as exc:
+                  print(f"FAILED {year}: {exc}", flush=True)
+                  # Reset uncommitted outputs so a later successful year cannot include them.
+                  subprocess.run(["git", "reset", "--hard", "HEAD"], check=True)
+                  subprocess.run(["git", "clean", "-fd", "--",
+                                  f"data/hitachi-city-hall/{year}",
+                                  f"docs/data/{year}",
+                                  f"metadata/sources/hitachi-city-hall-{year}.yaml",
+                                  *[f"reports/validation-{year}-{m:02d}.md" for m in range(1, 13)]], check=True)
+                  state["years"][key] = {"status": "failed", "error": str(exc)[:500]}
+
+              state_path.parent.mkdir(parents=True, exist_ok=True)
+              state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n")
+              run("git", "add", str(state_path.relative_to(root)))
+              run("git", "config", "user.name", "github-actions[bot]")
+              run("git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
+              run("git", "commit", "-m", f"Record {year} backfill result")
+              run("git", "push", "origin", "HEAD:main")
+
+          state["complete"] = True
+          state["finished_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+          state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n")
+          run("git", "add", str(state_path.relative_to(root)))
+          run("git", "commit", "-m", "Complete 2022-2000 backfill attempt")
+          run("git", "push", "origin", "HEAD:main")
+
+          lines = ["## Hitachi City Hall backfill (2022–2000)", "",
+                   "| Year | Result | Records | Commit / Error |",
+                   "|---|---|---:|---|"]
+          for year in years:
+              item = state["years"].get(str(year), {})
+              lines.append(f"| {year} | {item.get('status', 'not attempted')} | "
+                           f"{item.get('records', '—')} | "
+                           f"{item.get('commit', item.get('error', '—'))} |")
+          failed = [str(y) for y in years if state["years"].get(str(y), {}).get("status") != "success"]
+          lines += ["", "**Failed years:** " + (", ".join(failed) if failed else "None")]
+          summary_path.write_text("\n".join(lines) + "\n")
+          if failed:
+              raise SystemExit(f"Backfill finished with failed years: {', '.join(failed)}")
+          PY
