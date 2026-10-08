@@ -33,6 +33,11 @@
       "status": "success",
       "records": 8784,
       "commit": "526c500be4e39fd4cd96d50a7a08f30a37031122"
+    },
+    "2015": {
+      "status": "success",
+      "records": 8760,
+      "commit": "6e73361eaba7bdfb7ac193eb25134439936b7c3e"
     }
   }
 }
