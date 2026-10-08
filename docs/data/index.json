@@ -16,6 +16,102 @@
     "report_path": "reports/validation-2000-01.md"
   },
   {
+    "year": 2012,
+    "month": 1,
+    "label": "2012年1月",
+    "data_path": "2012/01.json",
+    "yaml_path": "data/hitachi-city-hall/2012/01.yaml",
+    "report_path": "reports/validation-2012-01.md"
+  },
+  {
+    "year": 2012,
+    "month": 2,
+    "label": "2012年2月",
+    "data_path": "2012/02.json",
+    "yaml_path": "data/hitachi-city-hall/2012/02.yaml",
+    "report_path": "reports/validation-2012-02.md"
+  },
+  {
+    "year": 2012,
+    "month": 3,
+    "label": "2012年3月",
+    "data_path": "2012/03.json",
+    "yaml_path": "data/hitachi-city-hall/2012/03.yaml",
+    "report_path": "reports/validation-2012-03.md"
+  },
+  {
+    "year": 2012,
+    "month": 4,
+    "label": "2012年4月",
+    "data_path": "2012/04.json",
+    "yaml_path": "data/hitachi-city-hall/2012/04.yaml",
+    "report_path": "reports/validation-2012-04.md"
+  },
+  {
+    "year": 2012,
+    "month": 5,
+    "label": "2012年5月",
+    "data_path": "2012/05.json",
+    "yaml_path": "data/hitachi-city-hall/2012/05.yaml",
+    "report_path": "reports/validation-2012-05.md"
+  },
+  {
+    "year": 2012,
+    "month": 6,
+    "label": "2012年6月",
+    "data_path": "2012/06.json",
+    "yaml_path": "data/hitachi-city-hall/2012/06.yaml",
+    "report_path": "reports/validation-2012-06.md"
+  },
+  {
+    "year": 2012,
+    "month": 7,
+    "label": "2012年7月",
+    "data_path": "2012/07.json",
+    "yaml_path": "data/hitachi-city-hall/2012/07.yaml",
+    "report_path": "reports/validation-2012-07.md"
+  },
+  {
+    "year": 2012,
+    "month": 8,
+    "label": "2012年8月",
+    "data_path": "2012/08.json",
+    "yaml_path": "data/hitachi-city-hall/2012/08.yaml",
+    "report_path": "reports/validation-2012-08.md"
+  },
+  {
+    "year": 2012,
+    "month": 9,
+    "label": "2012年9月",
+    "data_path": "2012/09.json",
+    "yaml_path": "data/hitachi-city-hall/2012/09.yaml",
+    "report_path": "reports/validation-2012-09.md"
+  },
+  {
+    "year": 2012,
+    "month": 10,
+    "label": "2012年10月",
+    "data_path": "2012/10.json",
+    "yaml_path": "data/hitachi-city-hall/2012/10.yaml",
+    "report_path": "reports/validation-2012-10.md"
+  },
+  {
+    "year": 2012,
+    "month": 11,
+    "label": "2012年11月",
+    "data_path": "2012/11.json",
+    "yaml_path": "data/hitachi-city-hall/2012/11.yaml",
+    "report_path": "reports/validation-2012-11.md"
+  },
+  {
+    "year": 2012,
+    "month": 12,
+    "label": "2012年12月",
+    "data_path": "2012/12.json",
+    "yaml_path": "data/hitachi-city-hall/2012/12.yaml",
+    "report_path": "reports/validation-2012-12.md"
+  },
+  {
     "year": 2013,
     "month": 1,
     "label": "2013年1月",
