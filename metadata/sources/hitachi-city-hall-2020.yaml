@@ -1,0 +1,45 @@
+schema_version: 0.2.0
+source_collection:
+  id: hitachi-city-hall-2020
+  station_id: hitachi-city-hall
+  year: 2020
+  publisher_ja: 日立市天気相談所
+  landing_page: https://tenki.city.hitachi.lg.jp/obs/contents/919
+  published_update_date: '2026-01-13'
+  retrieved_date: '2026-10-08'
+  format: application/vnd.ms-excel
+files:
+- element: temperature
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000607.xls
+  sha256: fb917b6327cbb71349e38a9663e64fb43f506cff53333d823f3e9a5fb4a4593d
+- element: humidity
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000492.xls
+  sha256: 50c1030bbb17b99185680933cde3765e1112ecfc833c5e40a00b7ea0f0f65fbe
+- element: precipitation
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000515.xls
+  sha256: 17585f19db32b583aaed1928558bede1271ea4aa854fc37e10efc89cfa031a47
+- element: pressure
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000537.xls
+  sha256: 28c0f441ac354f8cac99198af1b0dba2965a55df815407ec84cc68e0a1d715f0
+- element: solar_radiation
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000561.xls
+  sha256: 676a67ade32e5d6269c8cce55aa4bc1527ce129879cc23534ea41fee832e3b78
+- element: sunshine_duration
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000584.xls
+  sha256: a048fac387cf5bb811cac0d6276c58af8e241bccec85fb11f7d5811f69e956ea
+- element: wind_speed
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000676.xls
+  sha256: b5af6f4754104be06ae07a33f33a006f1e66c94f267f7e266962c6b415fb46f7
+- element: wind_direction
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000630.xls
+  sha256: 934c94415c99ed4d10e46d75b4263d23a7596d684de55e3e8197e55c59aa0827
+- element: dew_point_temperature
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000469.xls
+  sha256: f43f0cec21dc738ab15990ac2987bae56f584bc1d3f1d02c1739c0b1b01fe1dd
+- element: weather_code
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20250205_00000004.xls
+  sha256: 33c950f7fa8df9c1c0ebd495727166313c52550f2cf2236a3bb44a76daf6f3f1
+notes:
+- 公式の年別観測データ一覧からURLを取得した。
+- URLのファイル名は内容を示さないため、表の列順によりelementとの対応を記録した。
+- 原Excelは再配布せず、公式URLと取得時のSHA-256を記録する。
