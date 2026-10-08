@@ -182,6 +182,21 @@ h2 {
   font-weight: 700;
 }
 
+.availability-message {
+  margin: 0 0 24px;
+  padding: 14px 16px;
+  color: var(--color-blue-deep);
+  background: #fff4d4;
+  border: 1px solid #f5cc74;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.availability-message a {
+  margin-left: 0.5em;
+  white-space: nowrap;
+}
+
 /* ==========================================
    Date and hour controls
 ========================================== */

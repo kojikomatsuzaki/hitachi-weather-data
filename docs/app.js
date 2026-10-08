@@ -23,6 +23,11 @@ const chartElements = {
   precipitation_mm: { label: "降水量", unit: "mm" },
 };
 
+const elementNames = {
+  global_solar_radiation_mj_m2: "全天日射量",
+  dew_point_temperature_c: "露点温度",
+};
+
 
 /* ==========================================
    Application state
@@ -31,8 +36,10 @@ const chartElements = {
 const state = {
   availableDatasets: [],
   selectedDataset: null,
+  datasetMetadata: {},
   observations: [],
   observationsByDateAndHour: new Map(),
+  dailySummariesByDate: new Map(),
   availableDates: [],
   selectedDate: null,
   selectedHour: 12,
@@ -55,6 +62,9 @@ const elements = {
   chartEmptyMessage: document.querySelector("#chart-empty-message"),
   canonicalDataLink: document.querySelector("#canonical-data-link"),
   validationReportLink: document.querySelector("#validation-report-link"),
+  availabilityMessage: document.querySelector("#availability-message"),
+  availabilityMessageText: document.querySelector("#availability-message-text"),
+  weatherLabel: document.querySelector("#weather-label"),
 };
 
 
@@ -111,10 +121,12 @@ async function loadSelectedDataset() {
     }
 
     const documentData = await response.json();
+    state.datasetMetadata = documentData.dataset;
     state.observations = documentData.observations;
     state.availableDates = [...new Set(state.observations.map((item) => item.source_date))];
     state.selectedDate = state.availableDates[0];
     state.observationsByDateAndHour.clear();
+    state.dailySummariesByDate.clear();
 
     for (const observation of state.observations) {
       state.observationsByDateAndHour.set(
@@ -122,9 +134,17 @@ async function loadSelectedDataset() {
         observation,
       );
     }
+    for (const summary of documentData.daily_summaries ?? []) {
+      state.dailySummariesByDate.set(summary.date, summary);
+    }
+
+    const weatherHours = state.datasetMetadata.observation_schedules?.weather_code ?? [12];
+    state.selectedHour = weatherHours[0];
+    elements.hourRange.value = state.selectedHour;
 
     populateDateOptions();
     updateProvenanceLinks();
+    renderAvailabilityMessage();
     elements.loadingMessage.hidden = true;
     elements.observationGrid.hidden = false;
     renderSelectedObservation();
@@ -195,8 +215,7 @@ function updateProvenanceLinks() {
 function renderSelectedObservation() {
   const observation = state.observationsByDateAndHour.get(
     `${state.selectedDate}#${state.selectedHour}`,
-  );
-  if (!observation) return;
+  ) ?? { values: {}, flags: {} };
 
   elements.hourOutput.textContent = `${state.selectedHour}時`;
   elements.selectedMoment.textContent = `${formatJapaneseDate(state.selectedDate)} ${state.selectedHour}時`;
@@ -204,19 +223,33 @@ function renderSelectedObservation() {
   const displayValues = {
     ...observation.values,
     wind_direction: formatWindDirection(observation.values.wind_direction),
-    weather_at_noon: formatWeather(observation.values.weather_at_noon, state.selectedHour),
+    weather_code: formatWeather(observation.values.weather_code),
   };
+  const precipitationLayout = state.datasetMetadata.source_table_layouts?.precipitation_mm;
+  if (precipitationLayout?.available_as === "daily_summary") {
+    displayValues.precipitation_mm =
+      state.dailySummariesByDate.get(state.selectedDate)?.precipitation?.total_mm;
+  }
 
   for (const target of document.querySelectorAll("[data-value]")) {
     const elementId = target.dataset.value;
-    target.textContent = formatValue(displayValues[elementId]);
+    const unavailable = isUnavailableForPeriod(elementId);
+    target.textContent = unavailable ? "資料収録なし" : formatValue(displayValues[elementId]);
+    const unit = target.parentElement?.querySelector(".unit");
+    if (unit) unit.hidden = unavailable;
   }
 
   const precipitationNote = document.querySelector('[data-note="precipitation_mm"]');
-  precipitationNote.textContent = formatSourceFlag(observation.flags?.precipitation_mm);
+  precipitationNote.textContent = precipitationLayout?.available_as === "daily_summary"
+    ? "時刻別値はなく、この日の日合計を表示"
+    : formatSourceFlag(observation.flags?.precipitation_mm);
 
-  const weatherNote = document.querySelector('[data-note="weather_at_noon"]');
-  weatherNote.textContent = state.selectedHour === 12 ? "原資料の天気表記から表示" : "12時のみ観測";
+  const weatherNote = document.querySelector('[data-note="weather_code"]');
+  const weatherHour = state.datasetMetadata.observation_schedules?.weather_code?.[0];
+  elements.weatherLabel.textContent = weatherHour ? `${weatherHour}時の天気` : "天気";
+  weatherNote.textContent = state.selectedHour === weatherHour
+    ? "原資料の天気表記から表示"
+    : weatherHour ? `${weatherHour}時のみ記録` : "記録時刻を確認できません";
 
   renderDailyChart();
 }
@@ -232,9 +265,46 @@ function formatWindDirection(code) {
   return `${name}（${code}）`;
 }
 
-function formatWeather(code, hour) {
-  if (hour !== 12 || code === null || code === undefined) return null;
+function formatWeather(code) {
+  if (code === null || code === undefined) return null;
   return weatherNames[code] ?? `コード ${code}`;
+}
+
+function isUnavailableForPeriod(elementId) {
+  return state.datasetMetadata.element_availability?.[elementId]?.status
+    === "not_available_for_period";
+}
+
+function renderAvailabilityMessage() {
+  const unavailableElements = Object.entries(
+    state.datasetMetadata.element_availability ?? {},
+  ).filter(([, details]) => details.status === "not_available_for_period");
+
+  const sourceTableMessages = [];
+  const sourceTableLayouts = state.datasetMetadata.source_table_layouts ?? {};
+  if (sourceTableLayouts.precipitation_mm?.status === "no_hourly_values_in_month") {
+    sourceTableMessages.push("降水量は時刻別欄が空白のため、日合計を表示します");
+  }
+  if (sourceTableLayouts.sea_level_pressure_hpa?.status === "no_values_in_month") {
+    sourceTableMessages.push("海面気圧は表がありますが、この月の値はありません");
+  }
+
+  if (!unavailableElements.length && !sourceTableMessages.length) {
+    elements.availabilityMessage.hidden = true;
+    elements.availabilityMessageText.textContent = "";
+    return;
+  }
+
+  const names = unavailableElements.map(([elementId]) => elementNames[elementId] ?? elementId);
+  const messages = [];
+  if (names.length) {
+    messages.push(
+      `${names.join("・")}は、この年の公開資料に収録されていません。欠測値とは区別しています`,
+    );
+  }
+  messages.push(...sourceTableMessages);
+  elements.availabilityMessageText.textContent = `${messages.join("。")}。`;
+  elements.availabilityMessage.hidden = false;
 }
 
 function formatSourceFlag(flag) {
@@ -272,7 +342,7 @@ function renderDailyChart() {
 
   elements.dailyChart.querySelectorAll("g").forEach((group) => group.remove());
   elements.chartTitle.textContent = `${formatJapaneseDate(state.selectedDate)}の${elementDefinition.label}`;
-  elements.chartDescription.textContent = `原資料上の1時から24時までの${elementDefinition.label}を${elementDefinition.unit}で示します。`;
+  elements.chartDescription.textContent = `原資料に記録された時刻の${elementDefinition.label}を${elementDefinition.unit}で示します。`;
 
   if (points.length === 0) {
     elements.chartEmptyMessage.hidden = false;

@@ -55,7 +55,7 @@ WEATHER_TEXT_TO_CODE = {
 # 2014 weather representation
 # ==========================================
 
-def extract_weather_at_noon_2014(
+def extract_weather_code_2014(
     path: Path,
     month: int,
 ) -> common.ElementExtraction:
@@ -84,7 +84,7 @@ def extract_weather_at_noon_2014(
             raw_cell.flag,
         )
 
-    return common.ElementExtraction("weather_at_noon", cells)
+    return common.ElementExtraction("weather_code", cells)
 
 
 # ==========================================
@@ -115,7 +115,8 @@ def configure_common_processing() -> None:
     common.YEAR = YEAR
     common.SOURCE_MANIFEST_PATH = SOURCE_MANIFEST_PATH
     common.GENERATOR_PATH = GENERATOR_PATH
-    common.extract_weather_at_noon = extract_weather_at_noon_2014
+    common.SOURCE_PERIOD_ID = "current_workbooks"
+    common.extract_weather_code = extract_weather_code_2014
 
 
 def main() -> int:

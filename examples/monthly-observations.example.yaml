@@ -1,11 +1,15 @@
-schema_version: 0.1.0
+schema_version: 0.2.0
 
 dataset:
   station_id: hitachi-city-hall
   year: 2025
   month: 1
   timezone: Asia/Tokyo
+  source_period_id: current_workbooks
   source_manifest: ../metadata/sources/hitachi-city-hall-2025.yaml
+  observation_schedules:
+    temperature_c: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+    weather_code: [12]
 
 observations:
   - source_date: "2025-01-01"
@@ -37,7 +41,7 @@ observations:
       wind_speed_m_s: 4.5
       wind_direction: WSW
       dew_point_temperature_c: -5.1
-      weather_at_noon: 1
+      weather_code: 1
     flags:
       precipitation_mm: source_blank
 

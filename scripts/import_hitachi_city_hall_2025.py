@@ -35,6 +35,7 @@ SOURCE_MANIFEST_PATH = (
 YEAR = 2025
 STATION_ID = "hitachi-city-hall"
 GENERATOR_PATH = "scripts/import_hitachi_city_hall_2025.py"
+SOURCE_PERIOD_ID = "current_workbooks"
 
 SOURCE_FILE_NAMES = {
     "temperature": "temperature.xls",
@@ -46,7 +47,7 @@ SOURCE_FILE_NAMES = {
     "wind_speed": "wind_speed.xls",
     "wind_direction": "wind_direction.xls",
     "dew_point_temperature": "dew_point.xls",
-    "weather_at_noon": "weather.xls",
+    "weather_code": "weather.xls",
 }
 
 WIND_DIRECTION_CODES = {
@@ -315,7 +316,7 @@ def extract_wind_direction(path: Path, month: int) -> ElementExtraction:
     return ElementExtraction(raw.element_id, converted)
 
 
-def extract_weather_at_noon(path: Path, month: int) -> ElementExtraction:
+def extract_weather_code(path: Path, month: int) -> ElementExtraction:
     workbook = xlrd.open_workbook(path)
     sheet = workbook.sheet_by_name("天気")
     code_column = 18 + month
@@ -329,7 +330,7 @@ def extract_weather_at_noon(path: Path, month: int) -> ElementExtraction:
             raise ValueError(f"Unknown weather code: {cell.value!r} on day {day}")
         cells[(day, 12)] = cell
 
-    return ElementExtraction("weather_at_noon", cells)
+    return ElementExtraction("weather_code", cells)
 
 
 def extract_all_elements(
@@ -372,7 +373,7 @@ def extract_all_elements(
             "dew_point_temperature_c",
             full_day_hours,
         ),
-        extract_weather_at_noon(source_paths["weather_at_noon"], month),
+        extract_weather_code(source_paths["weather_code"], month),
     ]
     return extractions
 
@@ -419,10 +420,10 @@ def assemble_month_document(
                     flags[element_id] = cell.flag
 
             if hour == 12:
-                weather_cell = extraction_by_element["weather_at_noon"].cells[(day, hour)]
-                values["weather_at_noon"] = weather_cell.value
+                weather_cell = extraction_by_element["weather_code"].cells[(day, hour)]
+                values["weather_code"] = weather_cell.value
                 if weather_cell.flag is not None:
-                    flags["weather_at_noon"] = weather_cell.flag
+                    flags["weather_code"] = weather_cell.flag
 
             observation: dict[str, Any] = {
                 "source_date": source_date,
@@ -434,14 +435,28 @@ def assemble_month_document(
             observations.append(observation)
 
     return {
-        "schema_version": "0.1.0",
+        "schema_version": "0.2.0",
         "dataset": {
             "station_id": STATION_ID,
             "year": YEAR,
             "month": month,
             "timezone": "Asia/Tokyo",
+            "source_period_id": SOURCE_PERIOD_ID,
             "source_manifest": "../../../metadata/sources/hitachi-city-hall-2025.yaml",
             "generator": GENERATOR_PATH,
+            "observation_schedules": {
+                "temperature_c": FlowSequence(range(1, 25)),
+                "relative_humidity_percent": FlowSequence(range(1, 25)),
+                "precipitation_mm": FlowSequence(range(1, 25)),
+                "station_pressure_hpa": FlowSequence(range(1, 25)),
+                "sea_level_pressure_hpa": FlowSequence(range(1, 25)),
+                "global_solar_radiation_mj_m2": FlowSequence(range(4, 21)),
+                "sunshine_duration_h": FlowSequence(range(4, 21)),
+                "wind_speed_m_s": FlowSequence(range(1, 25)),
+                "wind_direction": FlowSequence(range(1, 25)),
+                "dew_point_temperature_c": FlowSequence(range(1, 25)),
+                "weather_code": FlowSequence([12]),
+            },
         },
         "observations": observations,
         "notes": [
@@ -450,6 +465,10 @@ def assemble_month_document(
             "降水量などの特殊表現は0に変換せず、nullとflagsへ分けて保存する。",
         ],
     }
+
+
+class FlowSequence(list):
+    """短い定義用配列をYAMLの1行表記にする。"""
 
 
 class QuotedDateStringDumper(yaml.SafeDumper):
@@ -466,6 +485,12 @@ def represent_string(dumper: yaml.SafeDumper, value: str) -> yaml.Node:
 
 
 QuotedDateStringDumper.add_representer(str, represent_string)
+QuotedDateStringDumper.add_representer(
+    FlowSequence,
+    lambda dumper, value: dumper.represent_sequence(
+        "tag:yaml.org,2002:seq", value, flow_style=True
+    ),
+)
 
 
 def write_yaml(path: Path, document: dict[str, Any]) -> None:
@@ -583,7 +608,7 @@ def write_validation_report(
             f"{noon['relative_humidity_percent']} | {noon['station_pressure_hpa']} | "
             f"{noon['sea_level_pressure_hpa']} | {noon['wind_speed_m_s']} | "
             f"{noon['wind_direction']} | {noon['dew_point_temperature_c']} | "
-            f"{noon['weather_at_noon']} |",
+            f"{noon['weather_code']} |",
             "",
             "## 現段階での保留事項",
             "",

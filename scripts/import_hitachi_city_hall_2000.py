@@ -36,6 +36,7 @@ def configure_importer() -> None:
         "../../../metadata/sources/hitachi-city-hall-2000.yaml"
     )
     importer.GENERATOR_PATH = "scripts/import_hitachi_city_hall_2000.py"
+    importer.SOURCE_PERIOD_ID = "transitional_workbooks"
     importer.FORMAT_COMPARISON_HEADING = "2014年・2025年版との形式差"
     importer.WEATHER_FORMAT_DIFFERENCE = (
         "12時の天気は2014年版と同じ日本語表記で、2025年版は数値コードだった。"

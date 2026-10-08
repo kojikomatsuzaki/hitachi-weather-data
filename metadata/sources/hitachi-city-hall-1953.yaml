@@ -1,0 +1,65 @@
+schema_version: 0.2.0
+
+source_collection:
+  id: hitachi-city-hall-1953
+  station_id: hitachi-city-hall
+  year: 1953
+  publisher_ja: 日立市天気相談所
+  landing_page: https://tenki.city.hitachi.lg.jp/obs/contents/920
+  published_update_date: "2010-03-30"
+  retrieved_date: "2026-10-08"
+  container_format: application/zip
+  workbook_format: application/vnd.ms-excel
+
+files:
+  - element: temperature
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000586.zip
+    sha256: 7dc3c5078eb87370eb55911c15bdd8124b8f35927cefa120772a380258087292
+    archive_member: temp1953.xls
+
+  - element: humidity
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000471.zip
+    sha256: 5e18b17b46d494d920901513c89f5d9cf9f75ba07c24d03607eeb3db6f4a65b4
+    archive_member: humi1953.xls
+
+  - element: precipitation
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000494.zip
+    sha256: 716c1ef34a34d0308d5352674b4bac94e20d2d770ffc11b83e971745828ea6d5
+    archive_member: prec1953.xls
+
+  - element: pressure
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000539.zip
+    sha256: 36b2f96654092b8d794401208fb849d856772debdc9195be87a44aea2ba8632c
+    archive_member: pres1953.xls
+
+  - element: sunshine_duration
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000563.zip
+    sha256: 19b99d40c215cf344c3ff35f3c8ba5cd7695f98c93b6295ce291740a7605ed08
+    archive_member: sunL1953.xls
+
+  - element: wind_speed
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000655.zip
+    sha256: 616710658b0cd8ef4887fc5a7e7d94a8f818e3a8675f05a4639a8829a736aa21
+    archive_member: wv1953.xls
+
+  - element: wind_direction
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000609.zip
+    sha256: 44d89d7328636f56afcc7f78ebea68797faedf9ec415b3098b1340a49bdf3e5d
+    archive_member: wd1953.xls
+
+  - element: weather_code
+    url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000654.zip
+    sha256: b3d1d73ad8d066eebea448eeae55ac3ffc9ee1a8b2ae6632eab294a69417846c
+    archive_member: weat1953.xls
+
+not_available_for_period:
+  global_solar_radiation_mj_m2:
+    source_available_from_year: 1981
+  dew_point_temperature_c:
+    source_available_from_year: 1983
+
+notes:
+  - 公式の一括資料は、観測要素ごとのZIPに1953–2007年の年別Excelを収録している。
+  - 公式ページは一括資料を「1時間値データ」と説明するが、1953年の帳票には要素ごとに異なる時刻の値と日別集計値が収録されている。
+  - 1953年の公開資料に露点温度と全天日射量は含まれないため、欠測とは区別する。
+  - 原Excelファイルはリポジトリへ複製せず、ZIPのURL、ハッシュ値、内部ファイル名を記録する。

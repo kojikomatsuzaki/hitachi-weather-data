@@ -1,4 +1,4 @@
-schema_version: 0.1.0
+schema_version: 0.2.0
 
 source_collection:
   id: hitachi-city-hall-2000
@@ -20,7 +20,7 @@ files:
   - {element: wind_speed, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000656.xls, sha256: 5415cec686420caed36bf13e3621a4f7baf08a35c3de0d6fa5a17014685d4cd7}
   - {element: wind_direction, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000610.xls, sha256: 993583fe42afa01c08f28a2dadca0b187bbcc2e237eed1d4218c30cf1d60c3b9}
   - {element: dew_point_temperature, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000449.xls, sha256: 3a2e4e22f9023c2473b60688677eda37755746262bf6b602aefc7955b3e8372d}
-  - {element: weather_at_noon, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20250205_00000024.xls, sha256: b83460f4494f5538eb91b47af5dd5947aabaecea98cf046e3e47fda35e4035ab}
+  - {element: weather_code, url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20250205_00000024.xls, sha256: b83460f4494f5538eb91b47af5dd5947aabaecea98cf046e3e47fda35e4035ab}
 
 notes:
   - URLのファイル名は内容を示さないため、elementで対応関係を明示する。

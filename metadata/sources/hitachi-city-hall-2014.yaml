@@ -1,4 +1,4 @@
-schema_version: 0.1.0
+schema_version: 0.2.0
 
 source_collection:
   id: hitachi-city-hall-2014
@@ -47,7 +47,7 @@ files:
     url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000463.xls
     sha256: 1dbe53f8bc685bab6e22861b24e7b76b78bddf77de38cfff9704cd70ba989643
 
-  - element: weather_at_noon
+  - element: weather_code
     url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20250205_00000010.xls
     sha256: eff74169afd4c30a8ad07bd7cef8c18637d5fd85164e1526fee4e302e3873871
 

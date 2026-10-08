@@ -1,12 +1,264 @@
 {
-  "schema_version": "0.1.0",
+  "schema_version": "0.2.0",
   "dataset": {
     "station_id": "hitachi-city-hall",
     "year": 2000,
     "month": 1,
     "timezone": "Asia/Tokyo",
+    "source_period_id": "current_workbooks",
     "source_manifest": "../../../metadata/sources/hitachi-city-hall-2000.yaml",
-    "generator": "scripts/import_hitachi_city_hall_2000.py"
+    "generator": "scripts/import_hitachi_city_hall_2000.py",
+    "observation_schedules": {
+      "temperature_c": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "relative_humidity_percent": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "precipitation_mm": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "station_pressure_hpa": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "sea_level_pressure_hpa": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "global_solar_radiation_mj_m2": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "sunshine_duration_h": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "wind_speed_m_s": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "wind_direction": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "dew_point_temperature_c": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "weather_code": [
+        12
+      ]
+    }
   },
   "observations": [
     {
@@ -232,7 +484,7 @@
         "wind_speed_m_s": 4.1,
         "wind_direction": "W",
         "dew_point_temperature_c": -4.1,
-        "weather_at_noon": 0
+        "weather_code": 0
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -689,7 +941,7 @@
         "wind_speed_m_s": 2.1,
         "wind_direction": "ESE",
         "dew_point_temperature_c": -2.2,
-        "weather_at_noon": 0
+        "weather_code": 0
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -1119,7 +1371,7 @@
         "wind_speed_m_s": 4.8,
         "wind_direction": "WSW",
         "dew_point_temperature_c": 3.5,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -1567,7 +1819,7 @@
         "wind_speed_m_s": 4.1,
         "wind_direction": "W",
         "dew_point_temperature_c": -5.1,
-        "weather_at_noon": 0
+        "weather_code": 0
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -2024,7 +2276,7 @@
         "wind_speed_m_s": 1.4,
         "wind_direction": "SSE",
         "dew_point_temperature_c": 0.5,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -2469,7 +2721,7 @@
         "wind_speed_m_s": 3.7,
         "wind_direction": "NNE",
         "dew_point_temperature_c": 8.7,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -2875,7 +3127,7 @@
         "wind_speed_m_s": 1.9,
         "wind_direction": "NE",
         "dew_point_temperature_c": 12.8,
-        "weather_at_noon": 3
+        "weather_code": 3
       }
     },
     {
@@ -3330,7 +3582,7 @@
         "wind_speed_m_s": 1.0,
         "wind_direction": "NNE",
         "dew_point_temperature_c": 0.9,
-        "weather_at_noon": 3
+        "weather_code": 3
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -3788,7 +4040,7 @@
         "wind_speed_m_s": 3.0,
         "wind_direction": "ENE",
         "dew_point_temperature_c": 2.0,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -4206,7 +4458,7 @@
         "wind_speed_m_s": 2.4,
         "wind_direction": "ENE",
         "dew_point_temperature_c": 11.0,
-        "weather_at_noon": 0
+        "weather_code": 0
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -4663,7 +4915,7 @@
         "wind_speed_m_s": 3.6,
         "wind_direction": "NW",
         "dew_point_temperature_c": -6.3,
-        "weather_at_noon": 0
+        "weather_code": 0
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -5120,7 +5372,7 @@
         "wind_speed_m_s": 3.1,
         "wind_direction": "NNE",
         "dew_point_temperature_c": -4.0,
-        "weather_at_noon": 3
+        "weather_code": 3
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -5508,7 +5760,7 @@
         "wind_speed_m_s": 1.8,
         "wind_direction": "NE",
         "dew_point_temperature_c": 9.9,
-        "weather_at_noon": 60
+        "weather_code": 60
       }
     },
     {
@@ -5914,7 +6166,7 @@
         "wind_speed_m_s": 2.6,
         "wind_direction": "WNW",
         "dew_point_temperature_c": 4.9,
-        "weather_at_noon": 0
+        "weather_code": 0
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -6350,7 +6602,7 @@
         "wind_speed_m_s": 4.3,
         "wind_direction": "NE",
         "dew_point_temperature_c": -0.4,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -6798,7 +7050,7 @@
         "wind_speed_m_s": 2.1,
         "wind_direction": "ENE",
         "dew_point_temperature_c": -3.3,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -7231,7 +7483,7 @@
         "wind_speed_m_s": 3.5,
         "wind_direction": "NNE",
         "dew_point_temperature_c": 4.7,
-        "weather_at_noon": 1
+        "weather_code": 1
       }
     },
     {
@@ -7658,7 +7910,7 @@
         "wind_speed_m_s": 3.5,
         "wind_direction": "NE",
         "dew_point_temperature_c": 0.2,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -8109,7 +8361,7 @@
         "wind_speed_m_s": 2.3,
         "wind_direction": "NE",
         "dew_point_temperature_c": -0.7,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -8552,7 +8804,7 @@
         "wind_speed_m_s": 3.4,
         "wind_direction": "SE",
         "dew_point_temperature_c": 1.7,
-        "weather_at_noon": 0
+        "weather_code": 0
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -9009,7 +9261,7 @@
         "wind_speed_m_s": 6.3,
         "wind_direction": "WNW",
         "dew_point_temperature_c": -11.9,
-        "weather_at_noon": 0
+        "weather_code": 0
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -9466,7 +9718,7 @@
         "wind_speed_m_s": 4.2,
         "wind_direction": "WSW",
         "dew_point_temperature_c": -8.7,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -9918,7 +10170,7 @@
         "wind_speed_m_s": 2.7,
         "wind_direction": "W",
         "dew_point_temperature_c": -2.9,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -10360,7 +10612,7 @@
         "wind_speed_m_s": 3.0,
         "wind_direction": "E",
         "dew_point_temperature_c": 3.4,
-        "weather_at_noon": 3
+        "weather_code": 3
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -10817,7 +11069,7 @@
         "wind_speed_m_s": 2.4,
         "wind_direction": "NW",
         "dew_point_temperature_c": -10.0,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -11274,7 +11526,7 @@
         "wind_speed_m_s": 3.5,
         "wind_direction": "NW",
         "dew_point_temperature_c": -11.3,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -11731,7 +11983,7 @@
         "wind_speed_m_s": 4.9,
         "wind_direction": "NE",
         "dew_point_temperature_c": -7.8,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -12188,7 +12440,7 @@
         "wind_speed_m_s": 3.0,
         "wind_direction": "SE",
         "dew_point_temperature_c": -5.6,
-        "weather_at_noon": 0
+        "weather_code": 0
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -12645,7 +12897,7 @@
         "wind_speed_m_s": 2.8,
         "wind_direction": "S",
         "dew_point_temperature_c": -5.2,
-        "weather_at_noon": 0
+        "weather_code": 0
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -13102,7 +13354,7 @@
         "wind_speed_m_s": 5.2,
         "wind_direction": "WSW",
         "dew_point_temperature_c": -3.6,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"
@@ -13559,7 +13811,7 @@
         "wind_speed_m_s": 5.1,
         "wind_direction": "WNW",
         "dew_point_temperature_c": -8.0,
-        "weather_at_noon": 1
+        "weather_code": 1
       },
       "flags": {
         "precipitation_mm": "source_blank"

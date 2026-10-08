@@ -1,0 +1,35 @@
+schema_version: 0.2.0
+
+scope:
+  primary_station_id: hitachi-city-hall
+  other_stations:
+    status: deferred
+    review_after: hitachi-city-hall-1953-to-latest-completed
+
+source_periods:
+  - id: historical_annual_workbooks
+    from_year: 1953
+    through_year: 1999
+
+  - id: transitional_workbooks
+    from_year: 2000
+    through_year: 2013
+
+  - id: current_workbooks
+    from_year: 2014
+    through_year: null
+    through_year_meaning: latest_year_published_by_source
+
+collection_policy:
+  update_model: annual_publication
+  source_check_frequency: monthly
+  realtime_collection: false
+
+publication_status:
+  latest_published_year: 2025
+  checked_on: "2026-10-08"
+  landing_page: https://tenki.city.hitachi.lg.jp/obs/contents/919
+
+notes:
+  - 「現在」は暦上の当年ではなく、公式サイトで年別観測ファイルが公開されている最新年までを指す。
+  - 月1回の確認は運用方針であり、毎時または毎日の観測値収集を意味しない。

@@ -1,4 +1,4 @@
-schema_version: 0.1.0
+schema_version: 0.2.0
 
 elements:
   temperature_c:
@@ -72,11 +72,11 @@ elements:
     unit: Cel
     value_type: number
 
-  weather_at_noon:
-    name_ja: 12時の天気
+  weather_code:
+    name_ja: 天気
     unit: source_weather_code
     value_type: code
-    observed_hour: 12
+    observation_time: dataset_specific
     vocabulary:
       0: 快晴
       1: 晴れ

@@ -23,7 +23,7 @@
 | `wind_speed_m_s` | 744 | 744 | 0 | — |
 | `wind_direction` | 744 | 744 | 0 | — |
 | `dew_point_temperature_c` | 744 | 744 | 0 | — |
-| `weather_at_noon` | 31 | 31 | 0 | — |
+| `weather_code` | 31 | 31 | 0 | — |
 
 ## 原Excelの整合性確認
 
@@ -38,7 +38,7 @@
 | `wind_speed` | `wind_speed.xls` | `44459b9d6eaf0a856fb70860ee48be69ba498efaa76360cfacf79b1557afa2f3` | verified |
 | `wind_direction` | `wind_direction.xls` | `4ef47f923f568958ec01621eaeefdba7bcc5afa002f3a5da7b77401eba698b86` | verified |
 | `dew_point_temperature` | `dew_point.xls` | `1dbe53f8bc685bab6e22861b24e7b76b78bddf77de38cfff9704cd70ba989643` | verified |
-| `weather_at_noon` | `weather.xls` | `eff74169afd4c30a8ad07bd7cef8c18637d5fd85164e1526fee4e302e3873871` | verified |
+| `weather_code` | `weather.xls` | `eff74169afd4c30a8ad07bd7cef8c18637d5fd85164e1526fee4e302e3873871` | verified |
 
 ## 代表値の確認
 

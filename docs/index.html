@@ -14,7 +14,7 @@
         <p class="site-header__eyebrow">Hitachi Weather Data Archive</p>
         <div class="site-header__title-row">
           <h1>日立市天気相談所<br class="mobile-break"> 観測データアーカイブ</h1>
-          <span class="publication-badge">非公式・2000年／2014年／2025年1月公開</span>
+          <span class="publication-badge">非公式・4年代の1月を公開</span>
         </div>
         <p class="site-header__description">
           日立市役所観測所の観測値を、日付と時刻からたどれます。
@@ -66,6 +66,10 @@
 
         <div id="loading-message" class="status-message">観測データを読み込んでいます。</div>
         <div id="error-message" class="status-message status-message--error" hidden></div>
+        <div id="availability-message" class="availability-message" hidden>
+          <span id="availability-message-text"></span>
+          <a href="https://github.com/kojikomatsuzaki/hitachi-weather-data/blob/main/docs/collection-policy.md#4-値が存在しない状態の区別">採録方針</a>
+        </div>
 
         <div id="observation-grid" class="observation-grid" hidden>
           <article class="observation-card observation-card--temperature">
@@ -91,9 +95,9 @@
             <p class="observation-card__note"><span data-value="wind_speed_m_s">—</span> m/s</p>
           </article>
           <article class="observation-card">
-            <p class="observation-card__label">12時の天気</p>
-            <p class="observation-card__value observation-card__value--text"><span data-value="weather_at_noon">—</span></p>
-            <p class="observation-card__note" data-note="weather_at_noon">12時のみ観測</p>
+            <p class="observation-card__label" id="weather-label">天気</p>
+            <p class="observation-card__value observation-card__value--text"><span data-value="weather_code">—</span></p>
+            <p class="observation-card__note" data-note="weather_code"></p>
           </article>
         </div>
 
@@ -102,7 +106,7 @@
           <dl class="detail-values">
             <div><dt>現地気圧</dt><dd><span data-value="station_pressure_hpa">—</span> hPa</dd></div>
             <div><dt>海面気圧</dt><dd><span data-value="sea_level_pressure_hpa">—</span> hPa</dd></div>
-            <div><dt>全天日射量</dt><dd><span data-value="global_solar_radiation_mj_m2">—</span> <small>単位確認中</small></dd></div>
+            <div><dt>全天日射量</dt><dd><span data-value="global_solar_radiation_mj_m2">—</span> <small class="unit">単位確認中</small></dd></div>
             <div><dt>日照時間</dt><dd><span data-value="sunshine_duration_h">—</span> h</dd></div>
           </dl>
         </details>
