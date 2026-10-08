@@ -58,6 +58,11 @@
       "status": "success",
       "records": 8760,
       "commit": "9c59d3e44ea4848703f88a744f34e06c75a46164"
+    },
+    "2010": {
+      "status": "success",
+      "records": 8760,
+      "commit": "dad7def831b77b72cc33c9d79a2224a3e9753adb"
     }
   }
 }
