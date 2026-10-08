@@ -1,4 +1,5 @@
 name: Archive Hitachi City Hall
+# 日立市役所観測所の年別公開ファイルを採録する。
 
 on:
   workflow_dispatch:
