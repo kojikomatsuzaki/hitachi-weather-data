@@ -23,6 +23,11 @@
     "2018": {
       "status": "failed",
       "error": "Command '('python', 'scripts/import_hitachi_city_hall_year.py', '--year', '2018', '--month', '1', '--download-missing')' returned non-zero exit status 1."
+    },
+    "2017": {
+      "status": "success",
+      "records": 8760,
+      "commit": "76b2be3df5ee7bf27bdd03de9568ea7f3d6fccd7"
     }
   }
 }
