@@ -6,7 +6,7 @@ dataset:
   timezone: Asia/Tokyo
   source_period_id: current_workbooks
   source_manifest: ../../../metadata/sources/hitachi-city-hall-2014.yaml
-  generator: scripts/import_hitachi_city_hall_2014.py
+  generator: scripts/import_hitachi_city_hall_year.py
   observation_schedules:
     temperature_c: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
       24]
@@ -11179,4 +11179,3 @@ notes:
   - 原資料の1時から24時という時刻表記をsource_hourへそのまま保存する。
   - 全天日射量と日照時間は、原資料に列がある4時から20時のみ値を収録する。
   - 降水量などの特殊表現は0に変換せず、nullとflagsへ分けて保存する。
-  - 12時の天気は原資料の日本語表記を共通語彙の数値コードへ正規化した。

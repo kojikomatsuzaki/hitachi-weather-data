@@ -24,6 +24,94 @@
     "report_path": "reports/validation-2014-01.md"
   },
   {
+    "year": 2014,
+    "month": 2,
+    "label": "2014年2月",
+    "data_path": "2014/02.json",
+    "yaml_path": "data/hitachi-city-hall/2014/02.yaml",
+    "report_path": "reports/validation-2014-02.md"
+  },
+  {
+    "year": 2014,
+    "month": 3,
+    "label": "2014年3月",
+    "data_path": "2014/03.json",
+    "yaml_path": "data/hitachi-city-hall/2014/03.yaml",
+    "report_path": "reports/validation-2014-03.md"
+  },
+  {
+    "year": 2014,
+    "month": 4,
+    "label": "2014年4月",
+    "data_path": "2014/04.json",
+    "yaml_path": "data/hitachi-city-hall/2014/04.yaml",
+    "report_path": "reports/validation-2014-04.md"
+  },
+  {
+    "year": 2014,
+    "month": 5,
+    "label": "2014年5月",
+    "data_path": "2014/05.json",
+    "yaml_path": "data/hitachi-city-hall/2014/05.yaml",
+    "report_path": "reports/validation-2014-05.md"
+  },
+  {
+    "year": 2014,
+    "month": 6,
+    "label": "2014年6月",
+    "data_path": "2014/06.json",
+    "yaml_path": "data/hitachi-city-hall/2014/06.yaml",
+    "report_path": "reports/validation-2014-06.md"
+  },
+  {
+    "year": 2014,
+    "month": 7,
+    "label": "2014年7月",
+    "data_path": "2014/07.json",
+    "yaml_path": "data/hitachi-city-hall/2014/07.yaml",
+    "report_path": "reports/validation-2014-07.md"
+  },
+  {
+    "year": 2014,
+    "month": 8,
+    "label": "2014年8月",
+    "data_path": "2014/08.json",
+    "yaml_path": "data/hitachi-city-hall/2014/08.yaml",
+    "report_path": "reports/validation-2014-08.md"
+  },
+  {
+    "year": 2014,
+    "month": 9,
+    "label": "2014年9月",
+    "data_path": "2014/09.json",
+    "yaml_path": "data/hitachi-city-hall/2014/09.yaml",
+    "report_path": "reports/validation-2014-09.md"
+  },
+  {
+    "year": 2014,
+    "month": 10,
+    "label": "2014年10月",
+    "data_path": "2014/10.json",
+    "yaml_path": "data/hitachi-city-hall/2014/10.yaml",
+    "report_path": "reports/validation-2014-10.md"
+  },
+  {
+    "year": 2014,
+    "month": 11,
+    "label": "2014年11月",
+    "data_path": "2014/11.json",
+    "yaml_path": "data/hitachi-city-hall/2014/11.yaml",
+    "report_path": "reports/validation-2014-11.md"
+  },
+  {
+    "year": 2014,
+    "month": 12,
+    "label": "2014年12月",
+    "data_path": "2014/12.json",
+    "yaml_path": "data/hitachi-city-hall/2014/12.yaml",
+    "report_path": "reports/validation-2014-12.md"
+  },
+  {
     "year": 2015,
     "month": 1,
     "label": "2015年1月",

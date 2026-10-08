@@ -1,11 +1,11 @@
-# 2014年1月データ検証報告
+# 2014年11月データ検証報告
 
 ## 検証結果
 
 - 判定：合格
-- 生成ファイル：`data/hitachi-city-hall/2014/01.yaml`
-- 日数：31
-- 時間観測レコード数：744
+- 生成ファイル：`data/hitachi-city-hall/2014/11.yaml`
+- 日数：30
+- 時間観測レコード数：720
 - YAML再読込：成功（生成直前のデータ構造と一致）
 - 原ExcelのSHA-256：10ファイルすべて一致
 
@@ -13,17 +13,17 @@
 
 | 観測要素 | 原資料上のセル数 | 値あり | null | フラグ |
 |---|---:|---:|---:|---|
-| `temperature_c` | 744 | 744 | 0 | — |
-| `relative_humidity_percent` | 744 | 744 | 0 | — |
-| `precipitation_mm` | 744 | 22 | 722 | `source_blank`: 722 |
-| `station_pressure_hpa` | 744 | 744 | 0 | — |
-| `sea_level_pressure_hpa` | 744 | 744 | 0 | — |
-| `global_solar_radiation_mj_m2` | 527 | 527 | 0 | — |
-| `sunshine_duration_h` | 527 | 527 | 0 | — |
-| `wind_speed_m_s` | 744 | 744 | 0 | — |
-| `wind_direction` | 744 | 744 | 0 | — |
-| `dew_point_temperature_c` | 744 | 744 | 0 | — |
-| `weather_code` | 31 | 31 | 0 | — |
+| `temperature_c` | 720 | 720 | 0 | — |
+| `relative_humidity_percent` | 720 | 720 | 0 | — |
+| `precipitation_mm` | 720 | 101 | 619 | `source_blank`: 619 |
+| `station_pressure_hpa` | 720 | 720 | 0 | — |
+| `sea_level_pressure_hpa` | 720 | 720 | 0 | — |
+| `global_solar_radiation_mj_m2` | 510 | 510 | 0 | — |
+| `sunshine_duration_h` | 510 | 510 | 0 | — |
+| `wind_speed_m_s` | 720 | 720 | 0 | — |
+| `wind_direction` | 720 | 720 | 0 | — |
+| `dew_point_temperature_c` | 720 | 720 | 0 | — |
+| `weather_code` | 30 | 30 | 0 | — |
 
 ## 原Excelの整合性確認
 
@@ -46,8 +46,8 @@
 
 | 原資料上の日時 | 気温 | 湿度 | 現地気圧 | 海面気圧 | 風速 | 風向 | 露点 | 天気 |
 |---|---:|---:|---:|---:|---:|---|---:|---:|
-| 2014-01-01 1時 | 5.2 | 83.3 | 1000.4 | 1007.8 | 1.3 | NW | 2.6 | — |
-| 2014-01-01 12時 | 12.1 | 33.0 | 996.7 | 1003.8 | 5.4 | WSW | -3.7 | 0 |
+| 2014-11-01 1時 | 16.8 | 92.1 | 1015.3 | 1022.4 | 0.7 | NNW | 15.5 | — |
+| 2014-11-01 12時 | 18.4 | 96.9 | 1011.8 | 1018.9 | 1.2 | ESE | 17.9 | 3 |
 
 ## 現段階での保留事項
 
