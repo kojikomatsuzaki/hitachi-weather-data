@@ -1,11 +1,11 @@
-# 2000年1月データ検証報告
+# 2000年11月データ検証報告
 
 ## 検証結果
 
 - 判定：合格
-- 生成ファイル：`data/hitachi-city-hall/2000/01.yaml`
-- 日数：31
-- 時間観測レコード数：744
+- 生成ファイル：`data/hitachi-city-hall/2000/11.yaml`
+- 日数：30
+- 時間観測レコード数：720
 - YAML再読込：成功（生成直前のデータ構造と一致）
 - 原ExcelのSHA-256：10ファイルすべて一致
 
@@ -13,17 +13,17 @@
 
 | 観測要素 | 原資料上のセル数 | 値あり | null | フラグ |
 |---|---:|---:|---:|---|
-| `temperature_c` | 744 | 744 | 0 | — |
-| `relative_humidity_percent` | 744 | 744 | 0 | — |
-| `precipitation_mm` | 744 | 130 | 614 | `source_blank`: 614 |
-| `station_pressure_hpa` | 744 | 744 | 0 | — |
-| `sea_level_pressure_hpa` | 744 | 744 | 0 | — |
-| `global_solar_radiation_mj_m2` | 527 | 527 | 0 | — |
-| `sunshine_duration_h` | 527 | 527 | 0 | — |
-| `wind_speed_m_s` | 744 | 744 | 0 | — |
-| `wind_direction` | 744 | 739 | 5 | `source_dash`: 5 |
-| `dew_point_temperature_c` | 744 | 744 | 0 | — |
-| `weather_code` | 31 | 31 | 0 | — |
+| `temperature_c` | 720 | 720 | 0 | — |
+| `relative_humidity_percent` | 720 | 720 | 0 | — |
+| `precipitation_mm` | 720 | 154 | 566 | `source_blank`: 566 |
+| `station_pressure_hpa` | 720 | 720 | 0 | — |
+| `sea_level_pressure_hpa` | 720 | 720 | 0 | — |
+| `global_solar_radiation_mj_m2` | 510 | 510 | 0 | — |
+| `sunshine_duration_h` | 510 | 510 | 0 | — |
+| `wind_speed_m_s` | 720 | 720 | 0 | — |
+| `wind_direction` | 720 | 718 | 2 | `source_dash`: 2 |
+| `dew_point_temperature_c` | 720 | 720 | 0 | — |
+| `weather_code` | 30 | 30 | 0 | — |
 
 ## 原Excelの整合性確認
 
@@ -46,8 +46,8 @@
 
 | 原資料上の日時 | 気温 | 湿度 | 現地気圧 | 海面気圧 | 風速 | 風向 | 露点 | 天気 |
 |---|---:|---:|---:|---:|---:|---|---:|---:|
-| 2000-01-01 1時 | 6.1 | 62.5 | 1012.3 | 1019.8 | 2.1 | NNW | -0.5 | — |
-| 2000-01-01 12時 | 12.8 | 30.7 | 1011.5 | 1018.8 | 4.1 | W | -4.1 | 0 |
+| 2000-11-01 1時 | 13.9 | 86.1 | 1017.5 | 1024.7 | 0.9 | NW | 11.7 | — |
+| 2000-11-01 12時 | 16.1 | 97.8 | 1010.8 | 1017.9 | 2.5 | NNE | 15.8 | 60 |
 
 ## 現段階での保留事項
 
