@@ -16,6 +16,102 @@
     "report_path": "reports/validation-2000-01.md"
   },
   {
+    "year": 2001,
+    "month": 1,
+    "label": "2001年1月",
+    "data_path": "2001/01.json",
+    "yaml_path": "data/hitachi-city-hall/2001/01.yaml",
+    "report_path": "reports/validation-2001-01.md"
+  },
+  {
+    "year": 2001,
+    "month": 2,
+    "label": "2001年2月",
+    "data_path": "2001/02.json",
+    "yaml_path": "data/hitachi-city-hall/2001/02.yaml",
+    "report_path": "reports/validation-2001-02.md"
+  },
+  {
+    "year": 2001,
+    "month": 3,
+    "label": "2001年3月",
+    "data_path": "2001/03.json",
+    "yaml_path": "data/hitachi-city-hall/2001/03.yaml",
+    "report_path": "reports/validation-2001-03.md"
+  },
+  {
+    "year": 2001,
+    "month": 4,
+    "label": "2001年4月",
+    "data_path": "2001/04.json",
+    "yaml_path": "data/hitachi-city-hall/2001/04.yaml",
+    "report_path": "reports/validation-2001-04.md"
+  },
+  {
+    "year": 2001,
+    "month": 5,
+    "label": "2001年5月",
+    "data_path": "2001/05.json",
+    "yaml_path": "data/hitachi-city-hall/2001/05.yaml",
+    "report_path": "reports/validation-2001-05.md"
+  },
+  {
+    "year": 2001,
+    "month": 6,
+    "label": "2001年6月",
+    "data_path": "2001/06.json",
+    "yaml_path": "data/hitachi-city-hall/2001/06.yaml",
+    "report_path": "reports/validation-2001-06.md"
+  },
+  {
+    "year": 2001,
+    "month": 7,
+    "label": "2001年7月",
+    "data_path": "2001/07.json",
+    "yaml_path": "data/hitachi-city-hall/2001/07.yaml",
+    "report_path": "reports/validation-2001-07.md"
+  },
+  {
+    "year": 2001,
+    "month": 8,
+    "label": "2001年8月",
+    "data_path": "2001/08.json",
+    "yaml_path": "data/hitachi-city-hall/2001/08.yaml",
+    "report_path": "reports/validation-2001-08.md"
+  },
+  {
+    "year": 2001,
+    "month": 9,
+    "label": "2001年9月",
+    "data_path": "2001/09.json",
+    "yaml_path": "data/hitachi-city-hall/2001/09.yaml",
+    "report_path": "reports/validation-2001-09.md"
+  },
+  {
+    "year": 2001,
+    "month": 10,
+    "label": "2001年10月",
+    "data_path": "2001/10.json",
+    "yaml_path": "data/hitachi-city-hall/2001/10.yaml",
+    "report_path": "reports/validation-2001-10.md"
+  },
+  {
+    "year": 2001,
+    "month": 11,
+    "label": "2001年11月",
+    "data_path": "2001/11.json",
+    "yaml_path": "data/hitachi-city-hall/2001/11.yaml",
+    "report_path": "reports/validation-2001-11.md"
+  },
+  {
+    "year": 2001,
+    "month": 12,
+    "label": "2001年12月",
+    "data_path": "2001/12.json",
+    "yaml_path": "data/hitachi-city-hall/2001/12.yaml",
+    "report_path": "reports/validation-2001-12.md"
+  },
+  {
     "year": 2002,
     "month": 1,
     "label": "2002年1月",
