@@ -584,6 +584,102 @@
     "report_path": "reports/validation-2006-12.md"
   },
   {
+    "year": 2007,
+    "month": 1,
+    "label": "2007年1月",
+    "data_path": "2007/01.json",
+    "yaml_path": "data/hitachi-city-hall/2007/01.yaml",
+    "report_path": "reports/validation-2007-01.md"
+  },
+  {
+    "year": 2007,
+    "month": 2,
+    "label": "2007年2月",
+    "data_path": "2007/02.json",
+    "yaml_path": "data/hitachi-city-hall/2007/02.yaml",
+    "report_path": "reports/validation-2007-02.md"
+  },
+  {
+    "year": 2007,
+    "month": 3,
+    "label": "2007年3月",
+    "data_path": "2007/03.json",
+    "yaml_path": "data/hitachi-city-hall/2007/03.yaml",
+    "report_path": "reports/validation-2007-03.md"
+  },
+  {
+    "year": 2007,
+    "month": 4,
+    "label": "2007年4月",
+    "data_path": "2007/04.json",
+    "yaml_path": "data/hitachi-city-hall/2007/04.yaml",
+    "report_path": "reports/validation-2007-04.md"
+  },
+  {
+    "year": 2007,
+    "month": 5,
+    "label": "2007年5月",
+    "data_path": "2007/05.json",
+    "yaml_path": "data/hitachi-city-hall/2007/05.yaml",
+    "report_path": "reports/validation-2007-05.md"
+  },
+  {
+    "year": 2007,
+    "month": 6,
+    "label": "2007年6月",
+    "data_path": "2007/06.json",
+    "yaml_path": "data/hitachi-city-hall/2007/06.yaml",
+    "report_path": "reports/validation-2007-06.md"
+  },
+  {
+    "year": 2007,
+    "month": 7,
+    "label": "2007年7月",
+    "data_path": "2007/07.json",
+    "yaml_path": "data/hitachi-city-hall/2007/07.yaml",
+    "report_path": "reports/validation-2007-07.md"
+  },
+  {
+    "year": 2007,
+    "month": 8,
+    "label": "2007年8月",
+    "data_path": "2007/08.json",
+    "yaml_path": "data/hitachi-city-hall/2007/08.yaml",
+    "report_path": "reports/validation-2007-08.md"
+  },
+  {
+    "year": 2007,
+    "month": 9,
+    "label": "2007年9月",
+    "data_path": "2007/09.json",
+    "yaml_path": "data/hitachi-city-hall/2007/09.yaml",
+    "report_path": "reports/validation-2007-09.md"
+  },
+  {
+    "year": 2007,
+    "month": 10,
+    "label": "2007年10月",
+    "data_path": "2007/10.json",
+    "yaml_path": "data/hitachi-city-hall/2007/10.yaml",
+    "report_path": "reports/validation-2007-10.md"
+  },
+  {
+    "year": 2007,
+    "month": 11,
+    "label": "2007年11月",
+    "data_path": "2007/11.json",
+    "yaml_path": "data/hitachi-city-hall/2007/11.yaml",
+    "report_path": "reports/validation-2007-11.md"
+  },
+  {
+    "year": 2007,
+    "month": 12,
+    "label": "2007年12月",
+    "data_path": "2007/12.json",
+    "yaml_path": "data/hitachi-city-hall/2007/12.yaml",
+    "report_path": "reports/validation-2007-12.md"
+  },
+  {
     "year": 2008,
     "month": 1,
     "label": "2008年1月",
