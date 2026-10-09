@@ -680,6 +680,102 @@
     "report_path": "reports/validation-2008-12.md"
   },
   {
+    "year": 2009,
+    "month": 1,
+    "label": "2009年1月",
+    "data_path": "2009/01.json",
+    "yaml_path": "data/hitachi-city-hall/2009/01.yaml",
+    "report_path": "reports/validation-2009-01.md"
+  },
+  {
+    "year": 2009,
+    "month": 2,
+    "label": "2009年2月",
+    "data_path": "2009/02.json",
+    "yaml_path": "data/hitachi-city-hall/2009/02.yaml",
+    "report_path": "reports/validation-2009-02.md"
+  },
+  {
+    "year": 2009,
+    "month": 3,
+    "label": "2009年3月",
+    "data_path": "2009/03.json",
+    "yaml_path": "data/hitachi-city-hall/2009/03.yaml",
+    "report_path": "reports/validation-2009-03.md"
+  },
+  {
+    "year": 2009,
+    "month": 4,
+    "label": "2009年4月",
+    "data_path": "2009/04.json",
+    "yaml_path": "data/hitachi-city-hall/2009/04.yaml",
+    "report_path": "reports/validation-2009-04.md"
+  },
+  {
+    "year": 2009,
+    "month": 5,
+    "label": "2009年5月",
+    "data_path": "2009/05.json",
+    "yaml_path": "data/hitachi-city-hall/2009/05.yaml",
+    "report_path": "reports/validation-2009-05.md"
+  },
+  {
+    "year": 2009,
+    "month": 6,
+    "label": "2009年6月",
+    "data_path": "2009/06.json",
+    "yaml_path": "data/hitachi-city-hall/2009/06.yaml",
+    "report_path": "reports/validation-2009-06.md"
+  },
+  {
+    "year": 2009,
+    "month": 7,
+    "label": "2009年7月",
+    "data_path": "2009/07.json",
+    "yaml_path": "data/hitachi-city-hall/2009/07.yaml",
+    "report_path": "reports/validation-2009-07.md"
+  },
+  {
+    "year": 2009,
+    "month": 8,
+    "label": "2009年8月",
+    "data_path": "2009/08.json",
+    "yaml_path": "data/hitachi-city-hall/2009/08.yaml",
+    "report_path": "reports/validation-2009-08.md"
+  },
+  {
+    "year": 2009,
+    "month": 9,
+    "label": "2009年9月",
+    "data_path": "2009/09.json",
+    "yaml_path": "data/hitachi-city-hall/2009/09.yaml",
+    "report_path": "reports/validation-2009-09.md"
+  },
+  {
+    "year": 2009,
+    "month": 10,
+    "label": "2009年10月",
+    "data_path": "2009/10.json",
+    "yaml_path": "data/hitachi-city-hall/2009/10.yaml",
+    "report_path": "reports/validation-2009-10.md"
+  },
+  {
+    "year": 2009,
+    "month": 11,
+    "label": "2009年11月",
+    "data_path": "2009/11.json",
+    "yaml_path": "data/hitachi-city-hall/2009/11.yaml",
+    "report_path": "reports/validation-2009-11.md"
+  },
+  {
+    "year": 2009,
+    "month": 12,
+    "label": "2009年12月",
+    "data_path": "2009/12.json",
+    "yaml_path": "data/hitachi-city-hall/2009/12.yaml",
+    "report_path": "reports/validation-2009-12.md"
+  },
+  {
     "year": 2010,
     "month": 1,
     "label": "2010年1月",
