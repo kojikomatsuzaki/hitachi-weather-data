@@ -96,6 +96,30 @@ flags:
 
 値が存在しない状態の定義と年代別の採録規則は、[採録方針](collection-policy.md)に定める。
 
+### 5.1 原表記を保持する値
+
+既知の値へ安全に正規化できない文字列・数値は、処理を停止する理由とはせず、
+`values`を`null`、`flags`を`unrecognized_source_value`として保存する。同時に
+`raw_values`へ原Excelのセル値を保持し、推測による補正を行わない。
+
+```yaml
+values:
+  wind_direction: null
+flags:
+  wind_direction: unrecognized_source_value
+raw_values:
+  wind_direction: "****"
+```
+
+空セルは`source_blank`、半角・全角空白やタブなど不可視文字だけのセルは
+`source_whitespace`として区別する。後者は不可視文字を含む原文字列を
+`raw_values`へ保持する。観測要素自体が原資料にない
+`not_available_for_period`とも区別する。
+
+ただし、表題、見出し、シート構造、観測要素とファイルの対応に異常がある場合は、
+セル値のフォールバックを適用しない。資料の取り違えを疑う検証エラーとして、その
+観測要素または年の取り込みを保留する。
+
 ## 6. 時間観測値と日別集計値
 
 時間観測値と日別集計値を分離する。

@@ -83,6 +83,8 @@ class SourceCell:
 
     value: Any
     flag: str | None = None
+    raw_value: Any = None
+    has_raw_value: bool = False
 
 
 @dataclass(frozen=True)
@@ -172,14 +174,18 @@ def source_cell(value: Any, *, integer: bool = False) -> SourceCell:
 
     if isinstance(value, str):
         normalized = value.strip()
+        if normalized == "":
+            # 空セルとは区別し、不可視文字を含む原文字列を保持する。
+            return SourceCell(None, "source_whitespace", value, True)
         if normalized == "-":
-            return SourceCell(None, "source_dash")
+            return SourceCell(None, "source_dash", value, True)
         if normalized == "***":
-            return SourceCell(None, "source_triple_asterisk")
+            return SourceCell(None, "source_triple_asterisk", value, True)
         if normalized == "欠測":
             # 原資料が明示する欠測を、空欄や未提供と区別して保存する。
-            return SourceCell(None, "source_missing")
-        return SourceCell(normalized)
+            return SourceCell(None, "source_missing", value, True)
+        # 後段で未知語と判定した場合に原表記を失わないよう保持する。
+        return SourceCell(normalized, raw_value=value, has_raw_value=True)
 
     if isinstance(value, (int, float)):
         # 観測値は1.0のような小数表現を保ち、コードだけ整数化する。
@@ -187,6 +193,16 @@ def source_cell(value: Any, *, integer: bool = False) -> SourceCell:
         return SourceCell(numeric_value)
 
     raise TypeError(f"Unsupported Excel cell value: {value!r}")
+
+
+def numeric_source_cell(value: Any) -> SourceCell:
+    """数値要素に現れた未知の文字列を、原表記付きnullとして返す。"""
+
+    cell = source_cell(value)
+    if cell.value is None or isinstance(cell.value, (int, float)):
+        return cell
+    raw_value = cell.raw_value if cell.has_raw_value else cell.value
+    return SourceCell(None, "unrecognized_source_value", raw_value, True)
 
 
 def open_first_twelve_sheets(path: Path) -> list[xlrd.sheet.Sheet]:
@@ -263,6 +279,8 @@ def extract_regular_hourly_element(
     month: int,
     element_id: str,
     expected_hours: list[int],
+    *,
+    allow_text: bool = False,
 ) -> ElementExtraction:
     sheet = open_first_twelve_sheets(path)[month - 1]
     header_row = find_hour_header_row(sheet, expected_hours)
@@ -270,7 +288,9 @@ def extract_regular_hourly_element(
 
     for day, row in read_day_rows(sheet, header_row + 1, month):
         for offset, hour in enumerate(expected_hours, start=1):
-            cells[(day, hour)] = source_cell(sheet.cell_value(row, offset))
+            raw_value = sheet.cell_value(row, offset)
+            cell = source_cell(raw_value) if allow_text else numeric_source_cell(raw_value)
+            cells[(day, hour)] = cell
 
     return ElementExtraction(element_id, cells)
 
@@ -293,18 +313,38 @@ def extract_pressure_elements(path: Path, month: int) -> list[ElementExtraction]
         cells: dict[tuple[int, int], SourceCell] = {}
         for day, row in read_day_rows(sheet, header_row + 1, month):
             for hour in expected_hours:
-                cells[(day, hour)] = source_cell(sheet.cell_value(row, hour))
+                cells[(day, hour)] = numeric_source_cell(sheet.cell_value(row, hour))
         extractions.append(ElementExtraction(element_id, cells))
 
     return extractions
 
 
 def extract_wind_direction(path: Path, month: int) -> ElementExtraction:
+    workbook = xlrd.open_workbook(path)
+    if workbook.nsheets < 12:
+        raise ValueError(
+            f"Wind-direction workbook structure mismatch in {path.name}: "
+            f"expected at least 12 monthly sheets, got {workbook.nsheets}"
+        )
+    for sheet_index in range(12):
+        sheet = workbook.sheet_by_index(sheet_index)
+        title_cells = [
+            str(sheet.cell_value(row, column))
+            for row in range(min(3, sheet.nrows))
+            for column in range(min(4, sheet.ncols))
+        ]
+        if not any("風向" in text for text in title_cells):
+            raise ValueError(
+                f"Wind-direction workbook structure mismatch in {path.name}: "
+                f"sheet {sheet.name!r} has no wind-direction title"
+            )
+
     raw = extract_regular_hourly_element(
         path,
         month,
         "wind_direction",
         list(range(1, 25)),
+        allow_text=True,
     )
     converted: dict[tuple[int, int], SourceCell] = {}
 
@@ -313,7 +353,14 @@ def extract_wind_direction(path: Path, month: int) -> ElementExtraction:
             converted[key] = cell
             continue
         if cell.value not in WIND_DIRECTION_CODES:
-            raise ValueError(f"Unknown wind direction: {cell.value!r} at {key}")
+            raw_value = cell.raw_value if cell.has_raw_value else cell.value
+            converted[key] = SourceCell(
+                None,
+                "unrecognized_source_value",
+                raw_value,
+                True,
+            )
+            continue
         converted[key] = SourceCell(WIND_DIRECTION_CODES[cell.value], cell.flag)
 
     return ElementExtraction(raw.element_id, converted)
@@ -414,6 +461,7 @@ def assemble_month_document(
         for hour in range(1, 25):
             values: dict[str, Any] = {}
             flags: dict[str, str] = {}
+            raw_values: dict[str, Any] = {}
 
             for element_id in HOURLY_VALUE_ORDER:
                 extraction = extraction_by_element[element_id]
@@ -421,12 +469,16 @@ def assemble_month_document(
                 values[element_id] = cell.value
                 if cell.flag is not None:
                     flags[element_id] = cell.flag
+                if cell.flag is not None and cell.has_raw_value:
+                    raw_values[element_id] = cell.raw_value
 
             if hour == 12:
                 weather_cell = extraction_by_element["weather_code"].cells[(day, hour)]
                 values["weather_code"] = weather_cell.value
                 if weather_cell.flag is not None:
                     flags["weather_code"] = weather_cell.flag
+                if weather_cell.flag is not None and weather_cell.has_raw_value:
+                    raw_values["weather_code"] = weather_cell.raw_value
 
             observation: dict[str, Any] = {
                 "source_date": source_date,
@@ -435,6 +487,8 @@ def assemble_month_document(
             }
             if flags:
                 observation["flags"] = flags
+            if raw_values:
+                observation["raw_values"] = raw_values
             observations.append(observation)
 
     return {
@@ -543,13 +597,21 @@ def write_validation_report(
 ) -> None:
     days_in_month = calendar.monthrange(YEAR, month)[1]
     record_count = days_in_month * 24
+    unrecognized_cells = [
+        (extraction.element_id, key, cell.raw_value)
+        for extraction in extractions
+        for key, cell in extraction.cells.items()
+        if cell.flag == "unrecognized_source_value"
+    ]
 
     lines = [
         f"# {YEAR}年{month}月データ検証報告",
         "",
         "## 検証結果",
         "",
-        "- 判定：合格",
+        "- 判定：合格（未知の原表記は推測せず保持）"
+        if unrecognized_cells
+        else "- 判定：合格",
         f"- 生成ファイル：`{yaml_path.relative_to(REPOSITORY_ROOT)}`",
         f"- 日数：{days_in_month}",
         f"- 時間観測レコード数：{record_count}",
@@ -593,6 +655,23 @@ def write_validation_report(
             f"| `{row['element']}` | `{row['file']}` | "
             f"`{row['sha256']}` | {row['status']} |"
         )
+
+    if unrecognized_cells:
+        lines.extend(
+            [
+                "",
+                "## 解釈を保留した原表記",
+                "",
+                "次のセルは正常値へ推測変換せず、`raw_values`と"
+                "`unrecognized_source_value`へ保持した。",
+                "",
+                "| 観測要素 | 日 | 時 | 原表記 |",
+                "|---|---:|---:|---|",
+            ]
+        )
+        for element_id, (day, hour), raw_value in unrecognized_cells:
+            escaped = str(raw_value).replace("|", "\\|").replace("`", "\\`")
+            lines.append(f"| `{element_id}` | {day} | {hour} | `{escaped}` |")
 
     lines.extend(
         [

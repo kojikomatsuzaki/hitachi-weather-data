@@ -234,9 +234,14 @@ function renderSelectedObservation() {
   for (const target of document.querySelectorAll("[data-value]")) {
     const elementId = target.dataset.value;
     const unavailable = isUnavailableForPeriod(elementId);
-    target.textContent = unavailable ? "資料収録なし" : formatValue(displayValues[elementId]);
+    const flag = observation.flags?.[elementId];
+    const rawValue = observation.raw_values?.[elementId];
+    target.textContent = unavailable
+      ? "原データに項目なし"
+      : formatSourceValue(displayValues[elementId], flag, rawValue);
     const unit = target.parentElement?.querySelector(".unit");
-    if (unit) unit.hidden = unavailable;
+    if (unit) unit.hidden = unavailable || displayValues[elementId] === null
+      || displayValues[elementId] === undefined;
   }
 
   const precipitationNote = document.querySelector('[data-note="precipitation_mm"]');
@@ -257,6 +262,16 @@ function renderSelectedObservation() {
 function formatValue(value) {
   if (value === null || value === undefined) return "—";
   return String(value);
+}
+
+function formatSourceValue(value, flag, rawValue) {
+  if (flag === "unrecognized_source_value") {
+    return `「${String(rawValue)}」と原データに表記`;
+  }
+  if (flag === "source_blank" || flag === "source_whitespace") {
+    return "原データで無表記";
+  }
+  return formatValue(value);
 }
 
 function formatWindDirection(code) {
@@ -309,9 +324,11 @@ function renderAvailabilityMessage() {
 
 function formatSourceFlag(flag) {
   const flagLabels = {
-    source_blank: "原資料では空欄",
+    source_blank: "原データで無表記",
+    source_whitespace: "原データで無表記",
     source_dash: "原資料では「-」",
     source_triple_asterisk: "原資料では「***」",
+    unrecognized_source_value: "原データの未解釈表記",
   };
   return flagLabels[flag] ?? "";
 }

@@ -1,0 +1,16 @@
+schema_version: 0.1.0
+station_id: hitachi-city-hall
+year: 2018
+element: wind_direction
+status: import_held
+checked_date: "2026-10-09"
+landing_page: https://tenki.city.hitachi.lg.jp/obs/contents/919
+listed_url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000674.xls
+listed_url_sha256: 1ed5457a39e57ba0f1639e20056fce629f34f87a25fad42338f8da740d529e78
+findings:
+  - 公式HTMLでは2018年の風速と風向が同じURLを参照している。
+  - 取得ファイルの月別シート表題は「風速」であり、風速用の集計シートを含む。
+  - 2018年1月1日1時のB4は数値1.3、表示形式は0.0である。
+  - 連番から推測される20220329_00000628.xlsはExcelではなく404ページを返した。
+decision: 正しい公式風向ファイルを確認できるまで、2018年の取り込みを保留する。
+prohibited_inference: 風速ファイルの値から風向を推測・生成しない。
