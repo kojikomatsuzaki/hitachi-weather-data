@@ -111,5 +111,7 @@
       "records": 8784,
       "commit": "f505d2ca0227744a214496ed43fc54eae949ddfd"
     }
-  }
+  },
+  "complete": true,
+  "finished_at": "2026-10-09T00:33:23.048501+00:00"
 }
