@@ -5,7 +5,8 @@
 ## 現在の収録対象
 
 - 観測所：日立市役所観測所
-- 収録済み：1953年、2000年、2014年の各1月、2025年1月–12月
+- 収録済み：1999–2017年・2019–2025年の各1月–12月、1953年1月
+- 保留中：2018年（公式ページの風向リンクが風速Excelを参照しているため）
 - 観測要素：気温、湿度、降水量、現地気圧、海面気圧、全天日射量、日照時間、風速、風向、露点温度、天気
 - 正本形式：YAML
 
@@ -72,7 +73,8 @@ flags:
 ```
 
 `null` 自体は欠測の理由を意味しません。また、当該資料で提供されていない観測要素については、現時点でフラグ名を一律に決めず、歴史資料のデータモデル検討時に扱いを定めます。
-未知の風向表記は欠測へ読み替えず、検証エラーとして扱います。
+未知の原表記は欠測へ読み替えず、`raw_values`と品質フラグへ保持します。
+ファイルの取り違えや列ずれなど、資料構造そのものが疑わしい場合は取り込みを保留します。
 
 詳しい採録規則は、[採録方針](docs/collection-policy.md)を参照してください。
 
@@ -122,6 +124,16 @@ python scripts/import_hitachi_city_hall_1953.py --month 1 --download-missing
 
 - `data/hitachi-city-hall/1953/01.yaml`
 - `reports/validation-1953-01.md`
+
+1999年は、要素別ZIP内の年別ExcelをLibreOffice Calcで読取用XLSXへ一時変換して生成します。
+原ZIPと内部Excelは変更せず、双方のSHA-256を検証します。
+
+```console
+python scripts/import_hitachi_city_hall_historical_year.py --year 1999 --month 1 --download-missing
+```
+
+- `data/hitachi-city-hall/1999/01.yaml`
+- `reports/validation-1999-01.md`
 
 ## 注意事項
 

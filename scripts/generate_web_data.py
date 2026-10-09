@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -29,27 +30,45 @@ def generate_month_json(source_path: Path) -> Path:
     return output_path
 
 
+def parse_arguments() -> argparse.Namespace:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--year",
+        type=int,
+        help="指定年のJSONだけを再生成する。index.jsonは全収録年から再構成する。",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
+    arguments = parse_arguments()
     source_paths = sorted(CANONICAL_DATA_ROOT.glob("*/*.yaml"))
     if not source_paths:
         raise SystemExit("正本YAMLが見つかりません。")
 
-    available_datasets = []
-    for source_path in source_paths:
+    generation_paths = [
+        source_path
+        for source_path in source_paths
+        if arguments.year is None or int(source_path.parent.name) == arguments.year
+    ]
+    for source_path in generation_paths:
         output_path = generate_month_json(source_path)
         print(f"Generated: {output_path.relative_to(REPOSITORY_ROOT)}")
 
-        document = yaml.safe_load(source_path.read_text(encoding="utf-8"))
-        dataset = document["dataset"]
+    available_datasets = []
+    for source_path in source_paths:
+        year = int(source_path.parent.name)
+        month = int(source_path.stem)
+        output_path = WEB_DATA_ROOT / source_path.relative_to(CANONICAL_DATA_ROOT).with_suffix(".json")
         available_datasets.append(
             {
-                "year": dataset["year"],
-                "month": dataset["month"],
-                "label": f"{dataset['year']}年{dataset['month']}月",
+                "year": year,
+                "month": month,
+                "label": f"{year}年{month}月",
                 "data_path": str(output_path.relative_to(WEB_DATA_ROOT)),
                 "yaml_path": str(source_path.relative_to(REPOSITORY_ROOT)),
                 "report_path": (
-                    f"reports/validation-{dataset['year']}-{dataset['month']:02d}.md"
+                    f"reports/validation-{year}-{month:02d}.md"
                 ),
             }
         )
