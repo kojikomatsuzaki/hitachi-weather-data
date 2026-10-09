@@ -137,8 +137,9 @@ jobs:
               run("git", "add", str(state_path.relative_to(root)))
               run("git", "config", "user.name", "github-actions[bot]")
               run("git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com")
-              run("git", "commit", "-m", f"Record {year} backfill result")
-              run("git", "push", "origin", "HEAD:main")
+              if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode:
+                  run("git", "commit", "-m", f"Record {year} backfill result")
+                  run("git", "push", "origin", "HEAD:main")
 
           if retry_mode:
               state["last_retry_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
