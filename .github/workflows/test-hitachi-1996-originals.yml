@@ -32,13 +32,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes libreoffice-calc
           python -m pip install -r requirements.txt
-      - name: Prepare verified source manifest
-        run: python scripts/discover_hitachi_city_hall_historical_sources.py --year 1996
       - name: Prepare original archives from cache
         shell: bash
         run: |
           mkdir -p build/source-1996
           find build/historical-archives -maxdepth 1 -type f -name '*.zip' -exec cp -n {} build/source-1996/ \;
+      - name: Prepare verified source manifest
+        run: python scripts/discover_hitachi_city_hall_historical_sources.py --year 1996
       - name: Run read-only original workbook tests
         shell: bash
         env:
