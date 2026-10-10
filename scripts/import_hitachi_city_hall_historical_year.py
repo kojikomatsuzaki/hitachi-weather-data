@@ -358,9 +358,15 @@ def numeric_value(
             duration_unit_hours=duration_unit_hours,
         )
     except TypeError as error:
+        left = max(1, column - 3)
+        right = column + 2
+        neighborhood = ", ".join(
+            f"{sheet.cell(row, offset).coordinate}={sheet.cell(row, offset).value!r}"
+            for offset in range(left, right + 1)
+        )
         raise TypeError(
             f"{error} in daily summary {context!r}, sheet={sheet.title!r}, "
-            f"cell={source_excel_cell.coordinate}"
+            f"cell={source_excel_cell.coordinate}, nearby=[{neighborhood}]"
         ) from error
     return cell.value if isinstance(cell.value, (int, float)) else None
 
