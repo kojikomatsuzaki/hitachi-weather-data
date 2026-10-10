@@ -8,6 +8,102 @@
     "report_path": "reports/validation-1953-01.md"
   },
   {
+    "year": 1997,
+    "month": 1,
+    "label": "1997年1月",
+    "data_path": "1997/01.json",
+    "yaml_path": "data/hitachi-city-hall/1997/01.yaml",
+    "report_path": "reports/validation-1997-01.md"
+  },
+  {
+    "year": 1997,
+    "month": 2,
+    "label": "1997年2月",
+    "data_path": "1997/02.json",
+    "yaml_path": "data/hitachi-city-hall/1997/02.yaml",
+    "report_path": "reports/validation-1997-02.md"
+  },
+  {
+    "year": 1997,
+    "month": 3,
+    "label": "1997年3月",
+    "data_path": "1997/03.json",
+    "yaml_path": "data/hitachi-city-hall/1997/03.yaml",
+    "report_path": "reports/validation-1997-03.md"
+  },
+  {
+    "year": 1997,
+    "month": 4,
+    "label": "1997年4月",
+    "data_path": "1997/04.json",
+    "yaml_path": "data/hitachi-city-hall/1997/04.yaml",
+    "report_path": "reports/validation-1997-04.md"
+  },
+  {
+    "year": 1997,
+    "month": 5,
+    "label": "1997年5月",
+    "data_path": "1997/05.json",
+    "yaml_path": "data/hitachi-city-hall/1997/05.yaml",
+    "report_path": "reports/validation-1997-05.md"
+  },
+  {
+    "year": 1997,
+    "month": 6,
+    "label": "1997年6月",
+    "data_path": "1997/06.json",
+    "yaml_path": "data/hitachi-city-hall/1997/06.yaml",
+    "report_path": "reports/validation-1997-06.md"
+  },
+  {
+    "year": 1997,
+    "month": 7,
+    "label": "1997年7月",
+    "data_path": "1997/07.json",
+    "yaml_path": "data/hitachi-city-hall/1997/07.yaml",
+    "report_path": "reports/validation-1997-07.md"
+  },
+  {
+    "year": 1997,
+    "month": 8,
+    "label": "1997年8月",
+    "data_path": "1997/08.json",
+    "yaml_path": "data/hitachi-city-hall/1997/08.yaml",
+    "report_path": "reports/validation-1997-08.md"
+  },
+  {
+    "year": 1997,
+    "month": 9,
+    "label": "1997年9月",
+    "data_path": "1997/09.json",
+    "yaml_path": "data/hitachi-city-hall/1997/09.yaml",
+    "report_path": "reports/validation-1997-09.md"
+  },
+  {
+    "year": 1997,
+    "month": 10,
+    "label": "1997年10月",
+    "data_path": "1997/10.json",
+    "yaml_path": "data/hitachi-city-hall/1997/10.yaml",
+    "report_path": "reports/validation-1997-10.md"
+  },
+  {
+    "year": 1997,
+    "month": 11,
+    "label": "1997年11月",
+    "data_path": "1997/11.json",
+    "yaml_path": "data/hitachi-city-hall/1997/11.yaml",
+    "report_path": "reports/validation-1997-11.md"
+  },
+  {
+    "year": 1997,
+    "month": 12,
+    "label": "1997年12月",
+    "data_path": "1997/12.json",
+    "yaml_path": "data/hitachi-city-hall/1997/12.yaml",
+    "report_path": "reports/validation-1997-12.md"
+  },
+  {
     "year": 1998,
     "month": 1,
     "label": "1998年1月",
