@@ -475,8 +475,8 @@ def extract_daily_summaries(
                     "time": time_value(precipitation, rows["precipitation"], 29),
                 },
                 "maximum_ten_minutes": {
-                    "value_mm": numeric_value(precipitation, rows["precipitation"], 31),
-                    "time": time_value(precipitation, rows["precipitation"], 32),
+                    "value_mm": numeric_value(precipitation, rows["precipitation"], 30),
+                    "time": time_value(precipitation, rows["precipitation"], 31),
                 },
             },
             "station_pressure": {
