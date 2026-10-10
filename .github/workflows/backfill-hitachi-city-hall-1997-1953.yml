@@ -1,0 +1,189 @@
+name: Backfill Hitachi City Hall (1997-1953)
+
+on:
+  workflow_dispatch:
+    inputs:
+      year:
+        description: "再処理する年（空欄なら未処理の最新年を1年だけ実行）"
+        required: false
+        type: string
+  schedule:
+    # 1回につき1年。UTC 18:47 = JST 03:47。
+    - cron: "47 18 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: archive-hitachi-city-hall
+  cancel-in-progress: false
+
+jobs:
+  backfill-one-year:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Restore the immutable historical ZIP archives
+        uses: actions/cache@v4
+        with:
+          path: build/historical-archives
+          key: hitachi-city-hall-historical-archives-v1
+      - name: Install the historical workbook reader
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libreoffice-calc
+          python -m pip install -r requirements.txt
+      - name: Import exactly one historical year
+        shell: bash
+        env:
+          REQUESTED_YEAR: ${{ inputs.year }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import datetime
+          import json
+          import os
+          import subprocess
+          from pathlib import Path
+
+          import yaml
+
+          root = Path.cwd()
+          state_path = root / "metadata" / "backfill-1997-1953.json"
+          summary_path = Path(os.environ["GITHUB_STEP_SUMMARY"])
+          requested_year = os.environ.get("REQUESTED_YEAR", "").strip()
+          state = (
+              json.loads(state_path.read_text(encoding="utf-8"))
+              if state_path.exists()
+              else {"next_year": 1997, "years": {}, "automation_enabled": False}
+          )
+          state.setdefault("automation_enabled", False)
+          if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and not state["automation_enabled"]:
+              summary_path.write_text(
+                  "## Historical backfill waiting for the 1997 manual test\n"
+              )
+              raise SystemExit(0)
+          year = int(requested_year) if requested_year else state.get("next_year")
+          if year is None:
+              summary_path.write_text("## Historical backfill complete\nNo year remains.\n")
+              raise SystemExit(0)
+          if not 1953 <= year <= 1997:
+              raise SystemExit("year must be within 1953-1997")
+
+          def run(*arguments: str) -> None:
+              subprocess.run(arguments, check=True, text=True)
+
+          def remove_partial_outputs() -> None:
+              paths = [
+                  f"data/hitachi-city-hall/{year}",
+                  f"docs/data/{year}",
+                  f"metadata/sources/hitachi-city-hall-{year}.yaml",
+                  *[f"reports/validation-{year}-{month:02d}.md" for month in range(1, 13)],
+              ]
+              subprocess.run(["git", "reset", "--hard", "HEAD"], check=True)
+              subprocess.run(["git", "clean", "-fd", "--", *paths], check=True)
+
+          def validate_year() -> int:
+              total = 0
+              for month in range(1, 13):
+                  yaml_path = root / "data" / "hitachi-city-hall" / str(year) / f"{month:02d}.yaml"
+                  json_path = root / "docs" / "data" / str(year) / f"{month:02d}.json"
+                  report_path = root / "reports" / f"validation-{year}-{month:02d}.md"
+                  if not (yaml_path.is_file() and json_path.is_file() and report_path.is_file()):
+                      raise RuntimeError(f"Incomplete outputs for {year}-{month:02d}")
+                  canonical = yaml.safe_load(yaml_path.read_text(encoding="utf-8"))
+                  web = json.loads(json_path.read_text(encoding="utf-8"))
+                  if canonical != web:
+                      raise RuntimeError(f"YAML/JSON mismatch for {year}-{month:02d}")
+                  if canonical["dataset"]["year"] != year or canonical["dataset"]["month"] != month:
+                      raise RuntimeError(f"Dataset identity mismatch for {year}-{month:02d}")
+                  if not canonical["observations"]:
+                      raise RuntimeError(f"Empty observations for {year}-{month:02d}")
+                  total += len(canonical["observations"])
+              return total
+
+          status = "failed"
+          result_detail = ""
+          try:
+              source_directory = root / "build" / f"source-{year}"
+              archive_cache = root / "build" / "historical-archives"
+              source_directory.mkdir(parents=True, exist_ok=True)
+              archive_cache.mkdir(parents=True, exist_ok=True)
+              for archive_path in archive_cache.glob("*.zip"):
+                  (source_directory / archive_path.name).write_bytes(archive_path.read_bytes())
+              run("python", "scripts/discover_hitachi_city_hall_historical_sources.py",
+                  "--year", str(year))
+              for archive_path in source_directory.glob("*.zip"):
+                  cached_path = archive_cache / archive_path.name
+                  if not cached_path.exists():
+                      cached_path.write_bytes(archive_path.read_bytes())
+              for month in range(1, 13):
+                  run("python", "scripts/import_hitachi_city_hall_historical_year.py",
+                      "--year", str(year), "--month", str(month), "--download-missing")
+              run("python", "scripts/generate_web_data.py", "--year", str(year))
+              run("python", "-m", "unittest", "discover", "-s", "tests", "-v")
+              records = validate_year()
+
+              run("git", "config", "user.name", "github-actions[bot]")
+              run("git", "config", "user.email",
+                  "41898282+github-actions[bot]@users.noreply.github.com")
+              run("git", "add",
+                  f"metadata/sources/hitachi-city-hall-{year}.yaml",
+                  f"data/hitachi-city-hall/{year}",
+                  f"docs/data/{year}", "docs/data/index.json",
+                  *[f"reports/validation-{year}-{month:02d}.md" for month in range(1, 13)])
+              run("git", "commit", "-m", f"{year}年の歴史観測データを追加")
+              run("git", "push", "origin", "HEAD:main")
+              data_commit = subprocess.check_output(
+                  ["git", "rev-parse", "HEAD"], text=True
+              ).strip()
+              status = "success"
+              result_detail = data_commit
+              state["years"][str(year)] = {
+                  "status": status,
+                  "records": records,
+                  "commit": data_commit,
+              }
+          except Exception as error:
+              remove_partial_outputs()
+              result_detail = str(error)[:500]
+              state["years"][str(year)] = {
+                  "status": status,
+                  "error": result_detail,
+              }
+
+          if not requested_year or (status == "success" and year == state.get("next_year")):
+              state["next_year"] = year - 1 if year > 1953 else None
+          if year == 1997 and status == "success":
+              state["automation_enabled"] = True
+          state["last_attempt_at"] = datetime.datetime.now(
+              datetime.timezone.utc
+          ).isoformat()
+          state["last_attempt_year"] = year
+          state_path.write_text(
+              json.dumps(state, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+
+          run("git", "config", "user.name", "github-actions[bot]")
+          run("git", "config", "user.email",
+              "41898282+github-actions[bot]@users.noreply.github.com")
+          run("git", "add", str(state_path.relative_to(root)))
+          if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode:
+              run("git", "commit", "-m", f"Record {year} historical backfill result")
+              run("git", "push", "origin", "HEAD:main")
+
+          summary_path.write_text(
+              f"## Hitachi City Hall historical backfill\n\n"
+              f"- Year: {year}\n- Result: {status}\n- Commit / error: {result_detail}\n"
+          )
+          if status != "success":
+              raise SystemExit(f"Historical backfill failed for {year}: {result_detail}")
+          PY

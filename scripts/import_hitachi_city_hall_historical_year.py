@@ -543,7 +543,7 @@ def main() -> int:
     document["dataset"]["source_manifest"] = f"../../../metadata/sources/{manifest_path.name}"
     document["dataset"]["generator"] = GENERATOR_PATH
     document["notes"] = [
-        "1953–2007年一括ZIP内の1999年Excelから生成した。",
+        f"1953–2007年一括ZIP内の{arguments.year}年Excelから生成した。",
         "原Excelは変更せず、ZIPと内部ExcelのSHA-256を検証した。",
         "古いBIFFレコードを読むため、一時XLSXへ変換した後に値を抽出した。",
         "1時から24時という原資料上の時刻表記をsource_hourへ保持する。",
