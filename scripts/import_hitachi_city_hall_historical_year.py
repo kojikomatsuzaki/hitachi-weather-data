@@ -22,6 +22,7 @@ from typing import Any
 
 import yaml
 from openpyxl import load_workbook
+from openpyxl.utils import get_column_letter
 
 import import_hitachi_city_hall_2025 as common
 
@@ -361,7 +362,7 @@ def numeric_value(
         left = max(1, column - 3)
         right = column + 2
         neighborhood = ", ".join(
-            f"{sheet.cell(row, offset).coordinate}={sheet.cell(row, offset).value!r}"
+            f"{get_column_letter(offset)}{row}={sheet.cell(row, offset).value!r}"
             for offset in range(left, right + 1)
         )
         raise TypeError(
