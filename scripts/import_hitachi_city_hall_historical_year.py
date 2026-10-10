@@ -25,6 +25,7 @@ from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
 
 import import_hitachi_city_hall_2025 as common
+from hitachi_historical_layout import detect_observation_layout, extract_observed_cells, THREE_HOURLY, HOURLY, DAYLIGHT
 
 
 # ==========================================
@@ -243,6 +244,18 @@ def extract_hourly(
 ) -> common.ElementExtraction:
     sheet = month_sheet(path, month)
     start_row = find_title_row(sheet, title_fragment) + 1 if title_fragment else 1
+    # 1996 temperature has verified 3-hour observations, not 24 hourly values.
+    # Reject any unknown header rather than interpreting a summary column as data.
+    verified_1996_temperature = year == 1996 and element_id == "temperature_c"
+    if verified_1996_temperature:
+        layout = detect_observation_layout(
+            sheet, expected_schedules=(THREE_HOURLY,),
+            start_row=start_row, summary_labels=("日平均", "最高", "時刻1", "最低", "時刻2"))
+        return common.ElementExtraction(
+            element_id,
+            extract_observed_cells(
+                sheet, layout, year, month,
+                lambda value: historical_numeric_cell(value)))
     header_row = find_hour_header_row(sheet, hours, start_row)
     cells: dict[tuple[int, int], common.SourceCell] = {}
     for day, row in day_rows(sheet, header_row, year, month):
