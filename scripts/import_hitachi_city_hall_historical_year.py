@@ -532,8 +532,8 @@ def extract_daily_summaries(
                     "time": time_value(dew_point, rows["dew_point_temperature"], 28),
                 },
                 "minimum": {
-                    "value_c": numeric_value(dew_point, rows["dew_point_temperature"], 30, context="dew_point_temperature.minimum.value_c"),
-                    "time": time_value(dew_point, rows["dew_point_temperature"], 31),
+                    "value_c": numeric_value(dew_point, rows["dew_point_temperature"], 29, context="dew_point_temperature.minimum.value_c"),
+                    "time": time_value(dew_point, rows["dew_point_temperature"], 30),
                 },
             },
         })
