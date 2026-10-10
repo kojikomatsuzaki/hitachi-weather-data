@@ -1,12 +1,13 @@
 {
-  "next_year": 1997,
-  "automation_enabled": false,
+  "next_year": 1996,
+  "automation_enabled": true,
   "years": {
     "1997": {
-      "status": "failed",
-      "error": "Command '('python', '-m', 'unittest', 'discover', '-s', 'tests', '-v')' returned non-zero exit status 1."
+      "status": "success",
+      "records": 8760,
+      "commit": "8b4b8439e383991fb0e9c4c658c80ad484b6bf1f"
     }
   },
-  "last_attempt_at": "2026-10-10T08:10:50.842365+00:00",
+  "last_attempt_at": "2026-10-10T08:24:08.614254+00:00",
   "last_attempt_year": 1997
 }
