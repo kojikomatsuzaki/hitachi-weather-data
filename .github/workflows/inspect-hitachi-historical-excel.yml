@@ -1,0 +1,49 @@
+name: Inspect Hitachi historical Excel
+
+on:
+  workflow_dispatch:
+    inputs:
+      years:
+        description: "Space-separated years to inspect"
+        required: false
+        default: "1996 1997"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Restore historical archive cache
+        uses: actions/cache/restore@v4
+        with:
+          path: build/historical-archives
+          key: hitachi-city-hall-historical-archives-v1
+      - name: Install readers
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libreoffice-calc
+          python -m pip install -r requirements.txt
+      - name: Inspect originals without generating observations
+        env:
+          YEARS: ${{ inputs.years }}
+        shell: bash
+        run: |
+          read -ra selected_years <<< "$YEARS"
+          python scripts/inspect_hitachi_historical_excel.py --years "${selected_years[@]}"
+      - name: Upload diagnostics (no original ZIP or XLS)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hitachi-excel-diagnostics
+          path: build/historical-inspection/
+          if-no-files-found: warn
+          retention-days: 30
