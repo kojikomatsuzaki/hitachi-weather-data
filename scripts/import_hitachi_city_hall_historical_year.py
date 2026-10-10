@@ -246,11 +246,21 @@ def extract_hourly(
     start_row = find_title_row(sheet, title_fragment) + 1 if title_fragment else 1
     # 1996 temperature has verified 3-hour observations, not 24 hourly values.
     # Reject any unknown header rather than interpreting a summary column as data.
-    verified_1996_temperature = year == 1996 and element_id == "temperature_c"
+    verified_1996_temperature = year == 1996 and element_id in {
+        "temperature_c", "relative_humidity_percent", "dew_point_temperature_c",
+        "station_pressure_hpa", "sea_level_pressure_hpa",
+    }
     if verified_1996_temperature:
+        labels = {
+            "temperature_c": ("日平均", "最高", "時刻1", "最低", "時刻2"),
+            "relative_humidity_percent": ("日平均", "最小", "時刻1"),
+            "dew_point_temperature_c": ("日平均", "最高", "時刻1", "最低", "時刻2"),
+            "station_pressure_hpa": ("日平均", "最高", "時刻1"),
+            "sea_level_pressure_hpa": (),
+        }[element_id]
         layout = detect_observation_layout(
             sheet, expected_schedules=(THREE_HOURLY,),
-            start_row=start_row, summary_labels=("日平均", "最高", "時刻1", "最低", "時刻2"))
+            start_row=start_row, summary_labels=labels)
         return common.ElementExtraction(
             element_id,
             extract_observed_cells(
