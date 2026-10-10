@@ -246,14 +246,22 @@ def extract_hourly(
     cells: dict[tuple[int, int], common.SourceCell] = {}
     for day, row in day_rows(sheet, header_row, year, month):
         for offset, hour in enumerate(hours, start=2):
-            raw_value = sheet.cell(row, offset).value
-            if allow_text:
-                cell = common.source_cell(raw_value)
-            else:
-                cell = historical_numeric_cell(
-                    raw_value,
-                    duration_unit_hours=element_id == "sunshine_duration_h",
-                )
+            source_excel_cell = sheet.cell(row, offset)
+            raw_value = source_excel_cell.value
+            try:
+                if allow_text:
+                    cell = common.source_cell(raw_value)
+                else:
+                    cell = historical_numeric_cell(
+                        raw_value,
+                        duration_unit_hours=element_id == "sunshine_duration_h",
+                    )
+            except TypeError as error:
+                raise TypeError(
+                    f"{error} in {path.name}, sheet={sheet.title!r}, "
+                    f"date={year}-{month:02d}-{day:02d}, hour={hour}, "
+                    f"cell={source_excel_cell.coordinate}"
+                ) from error
             cells[(day, hour)] = cell
     return common.ElementExtraction(element_id, cells)
 
@@ -342,10 +350,17 @@ def numeric_value(
     *,
     duration_unit_hours: bool = False,
 ) -> float | None:
-    cell = historical_numeric_cell(
-        sheet.cell(row, column).value,
-        duration_unit_hours=duration_unit_hours,
-    )
+    source_excel_cell = sheet.cell(row, column)
+    try:
+        cell = historical_numeric_cell(
+            source_excel_cell.value,
+            duration_unit_hours=duration_unit_hours,
+        )
+    except TypeError as error:
+        raise TypeError(
+            f"{error} in daily summary, sheet={sheet.title!r}, "
+            f"cell={source_excel_cell.coordinate}"
+        ) from error
     return cell.value if isinstance(cell.value, (int, float)) else None
 
 
