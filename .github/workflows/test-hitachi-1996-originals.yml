@@ -1,0 +1,57 @@
+name: Validate 1996 originals (read only)
+
+on:
+  workflow_dispatch:
+    inputs:
+      months:
+        description: "Space-separated months; use 1 for first-stage validation"
+        required: true
+        default: "1"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  original-workbook-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Restore historical source archives
+        uses: actions/cache/restore@v4
+        with:
+          path: build/historical-archives
+          key: hitachi-city-hall-historical-archives-v1
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libreoffice-calc
+          python -m pip install -r requirements.txt
+      - name: Prepare verified source manifest
+        run: python scripts/discover_hitachi_city_hall_historical_sources.py --year 1996
+      - name: Prepare original archives from cache
+        shell: bash
+        run: |
+          mkdir -p build/source-1996
+          find build/historical-archives -maxdepth 1 -type f -name '*.zip' -exec cp -n {} build/source-1996/ \;
+      - name: Run read-only original workbook tests
+        shell: bash
+        env:
+          MONTHS: ${{ inputs.months }}
+        run: |
+          read -ra selected_months <<< "$MONTHS"
+          python scripts/test_hitachi_1996_originals.py --year 1996 --months "${selected_months[@]}" --download-missing
+      - name: Run unit and regression tests
+        run: python -m unittest discover -s tests -v
+      - name: Upload test report only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hitachi-1996-original-integration
+          path: build/integration-results.json
+          if-no-files-found: warn
