@@ -7,6 +7,6 @@
       "error": "Command '('python', 'scripts/import_hitachi_city_hall_historical_year.py', '--year', '1997', '--month', '1', '--download-missing')' returned non-zero exit status 1."
     }
   },
-  "last_attempt_at": "2026-10-10T07:59:33.996917+00:00",
+  "last_attempt_at": "2026-10-10T08:02:24.033573+00:00",
   "last_attempt_year": 1997
 }
