@@ -457,8 +457,8 @@ def extract_daily_summaries(
                     "time": time_value(temperature, rows["temperature"], 28),
                 },
                 "minimum": {
-                    "value_c": numeric_value(temperature, rows["temperature"], 30, context="temperature.minimum.value_c"),
-                    "time": time_value(temperature, rows["temperature"], 31),
+                    "value_c": numeric_value(temperature, rows["temperature"], 29, context="temperature.minimum.value_c"),
+                    "time": time_value(temperature, rows["temperature"], 30),
                 },
             },
             "humidity": {
