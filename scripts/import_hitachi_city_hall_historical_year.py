@@ -247,9 +247,32 @@ def extract_hourly(
     for day, row in day_rows(sheet, header_row, year, month):
         for offset, hour in enumerate(hours, start=2):
             raw_value = sheet.cell(row, offset).value
-            cell = common.source_cell(raw_value) if allow_text else common.numeric_source_cell(raw_value)
+            if allow_text:
+                cell = common.source_cell(raw_value)
+            else:
+                cell = historical_numeric_cell(
+                    raw_value,
+                    duration_unit_hours=element_id == "sunshine_duration_h",
+                )
             cells[(day, hour)] = cell
     return common.ElementExtraction(element_id, cells)
+
+
+def historical_numeric_cell(
+    value: Any,
+    *,
+    duration_unit_hours: bool = False,
+) -> common.SourceCell:
+    """Excelの時間長を、時間単位の観測値として明示的に変換する。
+
+    openpyxlは時間長のセルを`timedelta`として返すことがある。
+    日照時間の帳票に限り、秒から時間へ換算する。別の項目に現れた
+    `timedelta`は意味を決めず、既存の厳格な検証で停止させる。
+    """
+
+    if duration_unit_hours and isinstance(value, timedelta):
+        return common.SourceCell(value.total_seconds() / 3600)
+    return common.numeric_source_cell(value)
 
 
 def extract_wind_direction(path: Path, year: int, month: int) -> common.ElementExtraction:
@@ -312,8 +335,17 @@ def extract_all_elements(
 # Daily summaries
 # ==========================================
 
-def numeric_value(sheet, row: int, column: int) -> float | None:
-    cell = common.numeric_source_cell(sheet.cell(row, column).value)
+def numeric_value(
+    sheet,
+    row: int,
+    column: int,
+    *,
+    duration_unit_hours: bool = False,
+) -> float | None:
+    cell = historical_numeric_cell(
+        sheet.cell(row, column).value,
+        duration_unit_hours=duration_unit_hours,
+    )
     return cell.value if isinstance(cell.value, (int, float)) else None
 
 
@@ -450,7 +482,12 @@ def extract_daily_summaries(
                 "total_mj_m2": numeric_value(solar, rows["solar_radiation"], 19),
             },
             "sunshine_duration": {
-                "total_h": numeric_value(sunshine, rows["sunshine_duration"], 19),
+                "total_h": numeric_value(
+                    sunshine,
+                    rows["sunshine_duration"],
+                    19,
+                    duration_unit_hours=True,
+                ),
             },
             "wind": {
                 "mean_speed_m_s": numeric_value(wind, rows["wind_speed"], 26),
