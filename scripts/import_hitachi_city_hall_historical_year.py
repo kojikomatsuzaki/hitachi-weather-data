@@ -520,9 +520,9 @@ def extract_daily_summaries(
                     "time": time_value(wind, rows["wind_speed"], 29),
                 },
                 "maximum_instantaneous": {
-                    "direction": text_value(wind, rows["wind_speed"], 31),
-                    "speed_m_s": numeric_value(wind, rows["wind_speed"], 32),
-                    "time": time_value(wind, rows["wind_speed"], 33),
+                    "direction": text_value(wind, rows["wind_speed"], 30),
+                    "speed_m_s": numeric_value(wind, rows["wind_speed"], 31),
+                    "time": time_value(wind, rows["wind_speed"], 32),
                 },
             },
             "dew_point_temperature": {
