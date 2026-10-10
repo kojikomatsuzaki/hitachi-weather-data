@@ -1,13 +1,17 @@
 {
-  "next_year": 1996,
+  "next_year": 1995,
   "automation_enabled": true,
   "years": {
     "1997": {
       "status": "success",
       "records": 8760,
       "commit": "8b4b8439e383991fb0e9c4c658c80ad484b6bf1f"
+    },
+    "1996": {
+      "status": "failed",
+      "error": "Command '('python', 'scripts/import_hitachi_city_hall_historical_year.py', '--year', '1996', '--month', '1', '--download-missing')' returned non-zero exit status 1."
     }
   },
-  "last_attempt_at": "2026-10-10T08:24:08.614254+00:00",
-  "last_attempt_year": 1997
+  "last_attempt_at": "2026-10-10T22:01:59.534016+00:00",
+  "last_attempt_year": 1996
 }
