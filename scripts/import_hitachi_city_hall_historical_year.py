@@ -349,6 +349,7 @@ def numeric_value(
     column: int,
     *,
     duration_unit_hours: bool = False,
+    context: str = "",
 ) -> float | None:
     source_excel_cell = sheet.cell(row, column)
     try:
@@ -358,7 +359,7 @@ def numeric_value(
         )
     except TypeError as error:
         raise TypeError(
-            f"{error} in daily summary, sheet={sheet.title!r}, "
+            f"{error} in daily summary {context!r}, sheet={sheet.title!r}, "
             f"cell={source_excel_cell.coordinate}"
         ) from error
     return cell.value if isinstance(cell.value, (int, float)) else None
@@ -449,7 +450,7 @@ def extract_daily_summaries(
                     "time": time_value(temperature, rows["temperature"], 28),
                 },
                 "minimum": {
-                    "value_c": numeric_value(temperature, rows["temperature"], 30),
+                    "value_c": numeric_value(temperature, rows["temperature"], 30, context="temperature.minimum.value_c"),
                     "time": time_value(temperature, rows["temperature"], 31),
                 },
             },
@@ -478,7 +479,7 @@ def extract_daily_summaries(
                     "time": time_value(pressure, rows["station_pressure"], 28),
                 },
                 "minimum": {
-                    "value_hpa": numeric_value(pressure, rows["station_pressure"], 30),
+                    "value_hpa": numeric_value(pressure, rows["station_pressure"], 30, context="station_pressure.minimum.value_hpa"),
                     "time": time_value(pressure, rows["station_pressure"], 31),
                 },
             },
@@ -489,7 +490,7 @@ def extract_daily_summaries(
                     "time": time_value(pressure, rows["sea_level_pressure"], 28),
                 },
                 "minimum": {
-                    "value_hpa": numeric_value(pressure, rows["sea_level_pressure"], 30),
+                    "value_hpa": numeric_value(pressure, rows["sea_level_pressure"], 30, context="sea_level_pressure.minimum.value_hpa"),
                     "time": time_value(pressure, rows["sea_level_pressure"], 31),
                 },
             },
@@ -524,7 +525,7 @@ def extract_daily_summaries(
                     "time": time_value(dew_point, rows["dew_point_temperature"], 28),
                 },
                 "minimum": {
-                    "value_c": numeric_value(dew_point, rows["dew_point_temperature"], 30),
+                    "value_c": numeric_value(dew_point, rows["dew_point_temperature"], 30, context="dew_point_temperature.minimum.value_c"),
                     "time": time_value(dew_point, rows["dew_point_temperature"], 31),
                 },
             },
