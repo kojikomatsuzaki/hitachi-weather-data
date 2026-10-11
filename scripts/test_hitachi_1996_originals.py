@@ -131,6 +131,27 @@ def main():
     if args.year != 1996:
         raise ValueError("This test explicitly validates the known 1996 three-hour layout")
     result = run(args.year, args.months, args.source_directory, args.download_missing)
+    # A clearly marked partial YAML preview, never the canonical data/ path.
+    # Only the five independently checked three-hour elements are included.
+    manifest_path, manifest = historical.load_manifest(args.year)
+    paths, _, _ = historical.prepare_source_files(
+        manifest, args.source_directory, args.download_missing)
+    preview = {
+        "status": "INCOMPLETE_DO_NOT_PUBLISH",
+        "year": args.year,
+        "source_manifest": str(manifest_path),
+        "months": {
+            f"{month:02d}": historical.extract_verified_1996_three_hour_summaries(
+                paths, month)
+            for month in args.months
+        },
+    }
+    preview_path = args.output.parent / "1996-daily-summary-PREVIEW-DO-NOT-PUBLISH.yaml"
+    preview_path.parent.mkdir(parents=True, exist_ok=True)
+    preview_path.write_text(
+        yaml.safe_dump(preview, allow_unicode=True, sort_keys=False),
+        encoding="utf-8")
+    print(f"PREVIEW ONLY: {preview_path}", flush=True)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"PASS: wrote {args.output}")
