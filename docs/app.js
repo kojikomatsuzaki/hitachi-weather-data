@@ -269,7 +269,7 @@ function formatSourceValue(value, flag, rawValue) {
     return `「${String(rawValue)}」と原データに表記`;
   }
   if (flag === "source_blank" || flag === "source_whitespace") {
-    return "原データで無表記";
+    return "元データに記載なし";
   }
   return formatValue(value);
 }
@@ -324,8 +324,8 @@ function renderAvailabilityMessage() {
 
 function formatSourceFlag(flag) {
   const flagLabels = {
-    source_blank: "原データで無表記",
-    source_whitespace: "原データで無表記",
+    source_blank: "元データに記載なし",
+    source_whitespace: "元データに記載なし",
     source_dash: "原資料では「-」",
     source_triple_asterisk: "原資料では「***」",
     unrecognized_source_value: "原データの未解釈表記",
