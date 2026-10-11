@@ -67,6 +67,33 @@ class HistoricalLayoutTests(unittest.TestCase):
                 ws, expected_schedules=(THREE_HOURLY,),
                 summary_labels=("日平均", "最高", "時刻1", "最低", "時刻2"))
 
+    def test_pressure_minimum_is_column_n_not_m(self):
+        # 1996 pressure sheets have an intentionally empty M header.
+        ws = self.sheet(THREE_HOURLY)
+        for col, label in {10: "日平均", 11: "最高", 12: "時刻1",
+                           14: "最低", 15: "時刻2"}.items():
+            ws.cell(2, col, label)
+        ws["M3"] = "not a minimum"
+        ws["N3"] = 996.1
+        ws["O3"] = "03:26"
+        layout = detect_observation_layout(ws, expected_schedules=(THREE_HOURLY,))
+        self.assertEqual(ws.cell(layout.header_row, 14).value, "最低")
+        self.assertEqual(ws["N3"].value, 996.1)
+        self.assertNotEqual(ws["M3"].value, ws["N3"].value)
+
+    def test_pressure_misaligned_minimum_header_is_rejected(self):
+        ws = self.sheet(THREE_HOURLY)
+        for col, label in {10: "日平均", 11: "最高", 12: "時刻1",
+                           13: "最低", 15: "時刻2"}.items():
+            ws.cell(2, col, label)
+        # Explicit pressure mapping rejects M instead of N.
+        expected = {10: "日平均", 11: "最高", 12: "時刻1",
+                    14: "最低", 15: "時刻2"}
+        with self.assertRaises(ValueError):
+            for col, label in expected.items():
+                if ws.cell(2, col).value != label:
+                    raise ValueError(f"Wrong header at column {col}")
+
     def test_leap_day(self):
         ws = self.sheet(THREE_HOURLY)
         for day in range(1, 32):
