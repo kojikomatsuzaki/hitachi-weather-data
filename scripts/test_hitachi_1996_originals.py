@@ -66,6 +66,25 @@ def run(year, months, source_directory, download_missing):
                 },
             }
             print(f"PASS {year}-{month:02d} {key}: {expected_count} scheduled cells", flush=True)
+        # Compare extracted source summaries with the independently located cells.
+        # Pressure summary mapping remains intentionally excluded until verified.
+        verified_summaries = historical.extract_verified_1996_three_hour_summaries(paths, month)
+        for key, expected_labels in (
+            ("temperature", ("日平均", "最高", "時刻1", "最低", "時刻2")),
+            ("humidity", ("日平均", "最小", "時刻1")),
+            ("dew_point_temperature", ("日平均", "最高", "時刻1", "最低", "時刻2")),
+        ):
+            sheet = historical.month_sheet(paths[key], month)
+            layout = detect_observation_layout(
+                sheet, expected_schedules=(THREE_HOURLY,), summary_labels=expected_labels)
+            day_rows = dict(historical.day_rows(sheet, layout.header_row, year, month))
+            assert len(verified_summaries[key]) == calendar.monthrange(year, month)[1]
+            for day, row in day_rows.items():
+                record = verified_summaries[key][f"{year}-{month:02d}-{day:02d}"]
+                mean = record["mean_percent"] if key == "humidity" else record["mean_c"]
+                assert mean == historical.numeric_value(
+                    sheet, row, layout.summary_columns["日平均"]), (key, month, day)
+            entry["elements"][key]["daily_summaries_verified"] = len(day_rows)
         results["months"].append(entry)
     return results
 
