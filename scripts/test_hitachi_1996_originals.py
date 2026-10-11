@@ -122,6 +122,54 @@ def run(year, months, source_directory, download_missing):
                     sheet, row, min_col), (name, month, day, "minimum")
                 assert record["minimum"]["time"] == historical.time_value(
                     sheet, row, min_time_col), (name, month, day, "minimum time")
+        # Exercise the complete production path, not only the three-hour subset.
+        all_elements = historical.extract_all_elements(paths, year, month)
+        all_summaries = historical.extract_daily_summaries(paths, year, month)
+        assert len(all_elements) == 11
+        assert len(all_summaries) == calendar.monthrange(year, month)[1]
+        # Independent coordinates from the diagnostic original workbook report.
+        fields = {
+            "precipitation": ("precipitation", list(range(1, 25)), {
+                ("total_mm",): 26,
+                ("maximum_one_hour", "value_mm"): 28,
+                ("maximum_one_hour", "time"): 29,
+                ("maximum_ten_minutes", "value_mm"): 31,
+                ("maximum_ten_minutes", "time"): 32}),
+            "wind_speed": ("wind", list(range(1, 25)), {
+                ("mean_speed_m_s",): 26,
+                ("maximum_10_minute", "direction"): 29,
+                ("maximum_10_minute", "speed_m_s"): 30,
+                ("maximum_10_minute", "time"): 31,
+                ("maximum_instantaneous", "direction"): 32,
+                ("maximum_instantaneous", "speed_m_s"): 33,
+                ("maximum_instantaneous", "time"): 34}),
+            "solar_radiation": ("global_solar_radiation", list(range(4, 21)), {
+                ("total_mj_m2",): 19}),
+            "sunshine_duration": ("sunshine_duration", list(range(4, 21)), {
+                ("total_h",): 19}),
+        }
+        for source_key, (summary_key, hours, mapping) in fields.items():
+            sheet = historical.month_sheet(paths[source_key], month)
+            header = historical.find_hour_header_row(sheet, hours)
+            rows = historical.rows_by_day(sheet, header, year, month)
+            for day, row in rows.items():
+                for keys, column in mapping.items():
+                    actual = all_summaries[day - 1][summary_key]
+                    for key in keys:
+                        actual = actual[key]
+                    if keys[-1] == "time":
+                        expected = historical.time_value(sheet, row, column)
+                    elif keys[-1] == "direction":
+                        expected = historical.text_value(sheet, row, column)
+                    else:
+                        expected = historical.numeric_value(
+                            sheet, row, column,
+                            duration_unit_hours=source_key == "sunshine_duration")
+                    assert actual == expected, (source_key, month, day, keys)
+        entry["production_path_verified"] = True
+        entry["all_element_count"] = len(all_elements)
+        entry["complete_daily_summary_count"] = len(all_summaries)
+        print(f"PASS {year}-{month:02d} complete production extraction", flush=True)
         results["months"].append(entry)
     return results
 
