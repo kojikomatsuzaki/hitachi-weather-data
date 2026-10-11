@@ -317,6 +317,10 @@ def extract_wind_direction(path: Path, year: int, month: int) -> common.ElementE
     for key, cell in raw.cells.items():
         if cell.value is None:
             converted[key] = cell
+        elif year == 1996 and cell.value in set(common.WIND_DIRECTION_CODES.values()):
+            # 1996 originals use already-normalized 16-point compass tokens.
+            # Unknown tokens and '-' retain their existing source flags.
+            converted[key] = common.SourceCell(cell.value, cell.flag)
         elif cell.value in common.WIND_DIRECTION_CODES:
             converted[key] = common.SourceCell(common.WIND_DIRECTION_CODES[cell.value], cell.flag)
         else:
