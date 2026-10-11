@@ -53,5 +53,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: hitachi-1996-original-integration
-          path: build/integration-results.json
+          path: |\n            build/integration-results.json\n            build/1996-daily-summary-PREVIEW-DO-NOT-PUBLISH.yaml
           if-no-files-found: warn
