@@ -422,6 +422,52 @@ def rows_by_day(sheet, header_row: int, year: int, month: int) -> dict[int, int]
     return {day: row for day, row in day_rows(sheet, header_row, year, month)}
 
 
+def extract_verified_1996_three_hour_summaries(source_paths, month):
+    """Read only independently verified summary columns; never recalculate.
+
+    This deliberately excludes pressure summaries pending confirmation of the
+    lower-block headers. It does not produce a publishable monthly document.
+    """
+    year = 1996
+    definitions = {
+        "temperature": ("temperature", ("日平均", "最高", "時刻1", "最低", "時刻2"),
+                        ("mean_c", "maximum", "minimum")),
+        "humidity": ("humidity", ("日平均", "最小", "時刻1"),
+                     ("mean_percent", "minimum")),
+        "dew_point_temperature": ("dew_point_temperature",
+                                  ("日平均", "最高", "時刻1", "最低", "時刻2"),
+                                  ("mean_c", "maximum", "minimum")),
+    }
+    output = {}
+    for name, (source_key, labels, _) in definitions.items():
+        sheet = month_sheet(source_paths[source_key], month)
+        layout = detect_observation_layout(
+            sheet, expected_schedules=(THREE_HOURLY,), summary_labels=labels)
+        rows = rows_by_day(sheet, layout.header_row, year, month)
+        daily = {}
+        for day, row in rows.items():
+            def number(label):
+                return numeric_value(sheet, row, layout.summary_columns[label],
+                                     context=f"{name}.{label}")
+            def moment(label):
+                return time_value(sheet, row, layout.summary_columns[label])
+            if name == "humidity":
+                value = {
+                    "mean_percent": number("日平均"),
+                    "minimum": {"value_percent": number("最小"),
+                                "time": moment("時刻1")},
+                }
+            else:
+                value = {
+                    "mean_c": number("日平均"),
+                    "maximum": {"value_c": number("最高"), "time": moment("時刻1")},
+                    "minimum": {"value_c": number("最低"), "time": moment("時刻2")},
+                }
+            daily[date(year, month, day).isoformat()] = value
+        output[name] = daily
+    return output
+
+
 def extract_daily_summaries(
     source_paths: dict[str, Path], year: int, month: int
 ) -> list[dict[str, Any]]:
