@@ -73,15 +73,23 @@ def run(year, months, source_directory, download_missing):
             ("temperature", ("日平均", "最高", "時刻1", "最低", "時刻2")),
             ("humidity", ("日平均", "最小", "時刻1")),
             ("dew_point_temperature", ("日平均", "最高", "時刻1", "最低", "時刻2")),
+            ("station_pressure", ()),
+            ("sea_level_pressure", ()),
         ):
-            sheet = historical.month_sheet(paths[key], month)
+            source_key = "pressure" if "pressure" in key else key
+            sheet = historical.month_sheet(paths[source_key], month)
+            fragment = ("現地気圧" if key == "station_pressure" else
+                        "海面気圧" if key == "sea_level_pressure" else None)
+            start = historical.find_title_row(sheet, fragment) + 1 if fragment else 1
             layout = detect_observation_layout(
-                sheet, expected_schedules=(THREE_HOURLY,), summary_labels=expected_labels)
+                sheet, expected_schedules=(THREE_HOURLY,),
+                start_row=start, summary_labels=expected_labels)
             day_rows = dict(historical.day_rows(sheet, layout.header_row, year, month))
             assert len(verified_summaries[key]) == calendar.monthrange(year, month)[1]
             for day, row in day_rows.items():
                 record = verified_summaries[key][f"{year}-{month:02d}-{day:02d}"]
-                mean = record["mean_percent"] if key == "humidity" else record["mean_c"]
+                mean = (record["mean_percent"] if key == "humidity" else
+                        record["mean_hpa"] if "pressure" in key else record["mean_c"])
                 assert mean == historical.numeric_value(
                     sheet, row, layout.summary_columns["日平均"]), (key, month, day)
             entry["elements"][key]["daily_summaries_verified"] = len(day_rows)
