@@ -5,9 +5,13 @@
     "1996": {
       "status": "success",
       "records": 8784,
-      "commit": "809ae3849da8bb206cd0872a64815292cfb47076",
-      "validation_method": "local checksum-verified original workbooks; all 12 months and 23 regression tests",
-      "validation_report": "reports/integration-1996-complete.json"
+      "commit": "b9c698c2194a2515e5b030f0e5605a6aa235089a",
+      "validation_method": "independent 11-element source-cell and canonical validation for all 12 months; 27 regression tests; GitHub Actions artifact byte comparison",
+      "validation_report": "reports/integration-1996-complete.json",
+      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38146479594",
+      "validated_observation_cells": 53802,
+      "unrecognized_source_cells": 2,
+      "last_validation_at": "2026-10-11T14:24:44.524133+00:00"
     },
     "1997": {
       "status": "success",
