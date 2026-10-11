@@ -3,8 +3,11 @@
   "automation_enabled": false,
   "years": {
     "1996": {
-      "status": "failed",
-      "error": "Command '('python', 'scripts/import_hitachi_city_hall_historical_year.py', '--year', '1996', '--month', '1', '--download-missing')' returned non-zero exit status 1."
+      "status": "success",
+      "records": 8784,
+      "commit": "809ae3849da8bb206cd0872a64815292cfb47076",
+      "validation_method": "local checksum-verified original workbooks; all 12 months and 23 regression tests",
+      "validation_report": "reports/integration-1996-complete.json"
     },
     "1997": {
       "status": "success",
@@ -12,6 +15,6 @@
       "commit": "8b4b8439e383991fb0e9c4c658c80ad484b6bf1f"
     }
   },
-  "last_attempt_at": "2026-10-11T00:53:49.307414+00:00",
+  "last_attempt_at": "2026-10-11T01:02:08.979728+00:00",
   "last_attempt_year": 1996
 }
