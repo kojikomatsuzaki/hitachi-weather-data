@@ -32,6 +32,8 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
     for month in months:
         entry = {"month": month, "elements": {}}
         for key, (element_id, labels) in ELEMENTS.items():
+            if year == 1995 and key == "dew_point_temperature":
+                labels = ("日平均", "最高", "時刻1", "日", "最低", "時刻2")
             if key.startswith("station_") or key.startswith("sea_"):
                 source = paths["pressure"]
                 fragment = "現地気圧" if key.startswith("station_") else "海面気圧"
@@ -77,6 +79,8 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
             ("station_pressure", ()),
             ("sea_level_pressure", ()),
         ):
+            if year == 1995 and key == "dew_point_temperature":
+                expected_labels = ("日平均", "最高", "時刻1", "日", "最低", "時刻2")
             source_key = "pressure" if "pressure" in key else key
             sheet = historical.month_sheet(paths[source_key], month)
             fragment = ("現地気圧" if key == "station_pressure" else
@@ -225,7 +229,7 @@ def main():
             for month in args.months
         },
     }
-    preview_path = args.output.parent / "1996-daily-summary-PREVIEW-DO-NOT-PUBLISH.yaml"
+    preview_path = args.output.parent / f"{args.year}-daily-summary-PREVIEW-DO-NOT-PUBLISH.yaml"
     preview_path.parent.mkdir(parents=True, exist_ok=True)
     preview_path.write_text(
         yaml.safe_dump(preview, allow_unicode=True, sort_keys=False),

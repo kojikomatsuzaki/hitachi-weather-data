@@ -260,6 +260,8 @@ def extract_hourly(
             "station_pressure_hpa": ("日平均", "最高", "時刻1"),
             "sea_level_pressure_hpa": (),
         }[element_id]
+        if year == 1995 and element_id == "dew_point_temperature_c":
+            labels = ("日平均", "最高", "時刻1", "日", "最低", "時刻2")
         layout = detect_observation_layout(
             sheet, expected_schedules=(THREE_HOURLY,),
             start_row=start_row, summary_labels=labels)
