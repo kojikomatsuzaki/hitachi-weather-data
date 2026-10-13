@@ -124,15 +124,17 @@ jobs:
                   cached_path = archive_cache / archive_path.name
                   if not cached_path.exists():
                       cached_path.write_bytes(archive_path.read_bytes())
-              if year == 1996:
+              if year in {1995, 1996}:
                   run("python", "scripts/test_hitachi_1996_originals.py",
+                      "--year", str(year), "--source-directory", str(source_directory),
                       "--months", *map(str, range(1, 13)))
               for month in range(1, 13):
                   run("python", "scripts/import_hitachi_city_hall_historical_year.py",
                       "--year", str(year), "--month", str(month), "--download-missing")
               run("python", "scripts/generate_web_data.py", "--year", str(year))
-              if year == 1996:
+              if year in {1995, 1996}:
                   run("python", "scripts/test_hitachi_1996_originals.py",
+                      "--year", str(year), "--source-directory", str(source_directory),
                       "--months", *map(str, range(1, 13)), "--verify-canonical")
               run("python", "-m", "unittest", "discover", "-s", "tests", "-v")
               records = validate_year()

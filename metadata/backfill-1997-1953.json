@@ -2,6 +2,18 @@
   "next_year": 1994,
   "automation_enabled": false,
   "years": {
+    "1995": {
+      "status": "success",
+      "records": 8760,
+      "validation_report": "reports/integration-1995-complete.json",
+      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38483551009",
+      "unrecognized_source_cells": 0,
+      "commit": "87ff1fd",
+      "validation_method": "independent 11-element original-cell and canonical verification for all 12 months; successful GitHub Actions",
+      "validated_observation_cells": 53655,
+      "last_validation_at": "2026-10-13T23:26:19Z",
+      "publication_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38484403086"
+    },
     "1996": {
       "status": "success",
       "records": 8784,
@@ -17,15 +29,8 @@
       "status": "success",
       "records": 8760,
       "commit": "8b4b8439e383991fb0e9c4c658c80ad484b6bf1f"
-    },
-    "1995": {
-      "status": "success",
-      "records": 8760,
-      "validation_report": "reports/integration-1995-complete.json",
-      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38483551009",
-      "unrecognized_source_cells": 0
     }
   },
-  "last_attempt_at": "2026-10-11T01:02:08.979728+00:00",
-  "last_attempt_year": 1996
+  "last_attempt_at": "2026-10-13T23:19:37Z",
+  "last_attempt_year": 1995
 }
