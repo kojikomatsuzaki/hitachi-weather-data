@@ -28,3 +28,26 @@ class Historical1995SummaryTests(unittest.TestCase):
         with patch.object(historical,'month_sheet',side_effect=lambda key,month:sheets[key]):
             result=historical.extract_verified_1996_three_hour_summaries({key:key for key in sheets},1,1995)
         self.assertEqual(result['dew_point_temperature']['1995-01-01']['minimum'],{'value_c':-10.0,'time':'15:03'})
+
+    def test_instantaneous_wind_skips_repeated_day(self):
+        source = json.loads((Path(__file__).parent / 'fixtures' /
+                             '1995-january-summary-cells.json').read_text())
+        sheets = {}
+        for element, rows in source.items():
+            sheet = Workbook().active
+            sheet.title = '1月'
+            for row in rows:
+                for cell in row['cells']:
+                    value = cell['value']
+                    try:
+                        value = float(value)
+                    except ValueError:
+                        pass
+                    sheet[cell['cell']] = value
+            sheets[element] = sheet
+        with patch.object(historical, 'month_sheet', side_effect=lambda key, month: sheets[key]), \
+             patch.object(historical, 'extract_verified_1996_three_hour_summaries', return_value={}):
+            records = historical.extract_daily_summaries({key: key for key in sheets}, 1995, 1)
+        self.assertEqual(records[0]['wind']['maximum_instantaneous'],
+                         {'direction': 'W', 'speed_m_s': 15.1, 'time': ' 12:39'})
+        self.assertIsNone(records[0]['precipitation']['total_mm'])

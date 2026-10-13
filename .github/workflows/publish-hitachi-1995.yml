@@ -1,0 +1,45 @@
+name: Publish independently verified 1995 artifact
+on:
+  workflow_dispatch:
+    inputs:
+      validation_run_id:
+        description: Successful full-year 1995 original validation run ID
+        required: true
+        type: string
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: publish-hitachi-1995
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          name: hitachi-1995-original-integration
+          run-id: ${{ inputs.validation_run_id }}
+          github-token: ${{ github.token }}
+          path: build/verified-1995-artifact
+      - name: Verify complete artifact before copying any data
+        env:
+          VALIDATION_RUN_ID: ${{ inputs.validation_run_id }}
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/publish_verified_1995.py
+      - run: python scripts/generate_web_data.py --year 1995
+      - name: Commit verified data and preserve automatic backfill pause
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/hitachi-city-hall/1995 docs/data/1995 docs/data/index.json metadata/sources/hitachi-city-hall-1995.yaml metadata/backfill-1997-1953.json reports/validation-1995-*.md reports/integration-1995-complete.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish independently verified 1995 archive'
+            git push origin HEAD:main
+          fi
