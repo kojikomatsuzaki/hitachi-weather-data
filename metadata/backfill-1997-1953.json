@@ -1,5 +1,5 @@
 {
-  "next_year": 1995,
+  "next_year": 1994,
   "automation_enabled": false,
   "years": {
     "1996": {
@@ -17,6 +17,13 @@
       "status": "success",
       "records": 8760,
       "commit": "8b4b8439e383991fb0e9c4c658c80ad484b6bf1f"
+    },
+    "1995": {
+      "status": "success",
+      "records": 8760,
+      "validation_report": "reports/integration-1995-complete.json",
+      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38483551009",
+      "unrecognized_source_cells": 0
     }
   },
   "last_attempt_at": "2026-10-11T01:02:08.979728+00:00",
