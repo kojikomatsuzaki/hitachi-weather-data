@@ -117,9 +117,9 @@ def source_table(paths, element, month):
     return sheet, headers[0], tuple(range(2, 2 + len(hours)))
 
 
-def expected_cells(paths, month):
+def expected_cells(paths, month, year=1996):
     output, addresses = {}, {}
-    days = calendar.monthrange(1996, month)[1]
+    days = calendar.monthrange(year, month)[1]
     for element, (_, hours, _) in TABLES.items():
         sheet, header, columns = source_table(paths, element, month)
         rows = {}
@@ -142,8 +142,8 @@ def expected_cells(paths, month):
     return output, addresses
 
 
-def verify_extractions(paths, month, extractions):
-    expected, refs = expected_cells(paths, month)
+def verify_extractions(paths, month, extractions, year=1996):
+    expected, refs = expected_cells(paths, month, year)
     assert {item.element_id for item in extractions} == set(TABLES)
     result = {}
     for item in extractions:
@@ -167,10 +167,10 @@ def verify_extractions(paths, month, extractions):
     return result
 
 
-def verify_document(paths, month, document):
-    expected, refs = expected_cells(paths, month)
-    days = calendar.monthrange(1996, month)[1]
-    assert document['dataset']['year'] == 1996 and document['dataset']['month'] == month
+def verify_document(paths, month, document, year=1996):
+    expected, refs = expected_cells(paths, month, year)
+    days = calendar.monthrange(year, month)[1]
+    assert document['dataset']['year'] == year and document['dataset']['month'] == month
     assert document['dataset']['observation_schedules'] == {
         element: list(spec[1]) for element, spec in TABLES.items()}
     records = {(int(record['source_date'][-2:]), record['source_hour']): record
@@ -178,7 +178,7 @@ def verify_document(paths, month, document):
     assert len(records) == len(document['observations']) == days * 24
     assert set(records) == {(day, hour) for day in range(1, days + 1) for hour in FULL}
     for (day, hour), record in records.items():
-        assert record['source_date'] == f'1996-{month:02}-{day:02}'
+        assert record['source_date'] == f'{year}-{month:02}-{day:02}'
         values, flags, raw_values = {}, {}, {}
         for element, cells in expected.items():
             if (day, hour) in cells:

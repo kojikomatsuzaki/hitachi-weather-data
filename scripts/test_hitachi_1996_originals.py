@@ -69,7 +69,7 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
             print(f"PASS {year}-{month:02d} {key}: {expected_count} scheduled cells", flush=True)
         # Compare extracted source summaries with the independently located cells.
         # Pressure summary mapping remains intentionally excluded until verified.
-        verified_summaries = historical.extract_verified_1996_three_hour_summaries(paths, month)
+        verified_summaries = historical.extract_verified_1996_three_hour_summaries(paths, month, year)
         for key, expected_labels in (
             ("temperature", ("日平均", "最高", "時刻1", "最低", "時刻2")),
             ("humidity", ("日平均", "最小", "時刻1")),
@@ -117,8 +117,8 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
                         sheet, row, 11), (name, month, day, "maximum")
                     assert record["maximum"]["time"] == oracle.moment(
                         sheet, row, 12), (name, month, day, "maximum time")
-                min_col = 14 if unit == "hpa" else (11 if unit == "percent" else 13)
-                min_time_col = 15 if unit == "hpa" else (12 if unit == "percent" else 14)
+                min_col = 14 if unit == "hpa" or (year == 1995 and name == "dew_point_temperature") else (11 if unit == "percent" else 13)
+                min_time_col = 15 if unit == "hpa" or (year == 1995 and name == "dew_point_temperature") else (12 if unit == "percent" else 14)
                 assert record["minimum"][f"value_{unit}"] == oracle.number(
                     sheet, row, min_col), (name, month, day, "minimum")
                 assert record["minimum"]["time"] == oracle.moment(
@@ -149,6 +149,12 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
             "sunshine_duration": ("sunshine_duration", list(range(4, 21)), {
                 ("total_h",): 19}),
         }
+        if year == 1995:
+            summary_key, hours, mapping = fields["wind_speed"]
+            fields["wind_speed"] = (summary_key, hours, {
+                keys: column + (1 if column >= 32 else 0)
+                for keys, column in mapping.items()
+            })
         for source_key, (summary_key, hours, mapping) in fields.items():
             sheet = historical.month_sheet(paths[source_key], month)
             header = historical.find_hour_header_row(sheet, hours)
@@ -167,12 +173,12 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
                             sheet, row, column,
                             duration=source_key == "sunshine_duration")
                     assert actual == expected, (source_key, month, day, keys)
-        entry["independent_observations"] = oracle.verify_extractions(paths, month, all_elements)
+        entry["independent_observations"] = oracle.verify_extractions(paths, month, all_elements, year)
         print(f"PASS {year}-{month:02d} independent observations: all 11 elements", flush=True)
         if verify_canonical:
             canonical_path = historical.REPOSITORY_ROOT / "data" / "hitachi-city-hall" / str(year) / f"{month:02d}.yaml"
             canonical = yaml.safe_load(canonical_path.read_text(encoding="utf-8"))
-            entry["canonical_records_verified"] = oracle.verify_document(paths, month, canonical)
+            entry["canonical_records_verified"] = oracle.verify_document(paths, month, canonical, year)
             assert canonical["daily_summaries"] == all_summaries
             web_path = historical.REPOSITORY_ROOT / "docs" / "data" / str(year) / f"{month:02d}.json"
             assert json.loads(web_path.read_text(encoding="utf-8")) == canonical
@@ -195,8 +201,8 @@ def main():
     parser.add_argument("--output", type=Path, default=Path("build/integration-results.json"))
     parser.add_argument("--verify-canonical", action="store_true")
     args = parser.parse_args()
-    if args.year != 1996:
-        raise ValueError("This test explicitly validates the known 1996 three-hour layout")
+    if args.year not in {1995, 1996}:
+        raise ValueError("This test explicitly validates the verified 1995/1996 three-hour layouts")
     if len(set(args.months)) != len(args.months) or any(month not in range(1, 13) for month in args.months):
         raise ValueError("Months must be unique integers from 1 to 12")
     result = run(args.year, args.months, args.source_directory, args.download_missing, args.verify_canonical)
@@ -215,7 +221,7 @@ def main():
         "source_manifest": str(manifest_path),
         "months": {
             f"{month:02d}": historical.extract_verified_1996_three_hour_summaries(
-                paths, month)
+                paths, month, args.year)
             for month in args.months
         },
     }
