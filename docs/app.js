@@ -47,7 +47,8 @@ const state = {
 };
 
 const elements = {
-  datasetSelect: document.querySelector("#dataset-select"),
+  yearSelect: document.querySelector("#year-select"),
+  monthSelect: document.querySelector("#month-select"),
   dateSelect: document.querySelector("#date-select"),
   hourRange: document.querySelector("#hour-range"),
   hourOutput: document.querySelector("#hour-output"),
@@ -84,23 +85,24 @@ async function initializeApplication() {
       throw new Error("No datasets are available");
     }
 
-    elements.datasetSelect.replaceChildren();
-    for (const dataset of state.availableDatasets) {
-      const option = document.createElement("option");
-      option.value = `${dataset.year}-${String(dataset.month).padStart(2, "0")}`;
-      option.textContent = dataset.label;
-      elements.datasetSelect.append(option);
-    }
-
     state.selectedDataset = state.availableDatasets.at(-1);
-    elements.datasetSelect.value = datasetKey(state.selectedDataset);
-    elements.datasetSelect.disabled = false;
-    elements.datasetSelect.addEventListener("change", async (event) => {
-      state.selectedDataset = state.availableDatasets.find(
-        (dataset) => datasetKey(dataset) === event.target.value,
-      );
-      await loadSelectedDataset();
+    const availableYears = [...new Set(state.availableDatasets.map((dataset) => dataset.year))];
+    elements.yearSelect.replaceChildren();
+    for (const year of availableYears) {
+      const option = document.createElement("option");
+      option.value = String(year);
+      option.textContent = `${year}年`;
+      elements.yearSelect.append(option);
+    }
+    elements.yearSelect.value = String(state.selectedDataset.year);
+    populateMonthOptions(state.selectedDataset.month);
+    elements.yearSelect.disabled = false;
+    elements.yearSelect.addEventListener("change", async () => {
+      // 年をまたいで比較しやすいよう、収録されていれば同じ月を引き継ぐ。
+      populateMonthOptions(state.selectedDataset.month);
+      await selectDatasetFromControls();
     });
+    elements.monthSelect.addEventListener("change", selectDatasetFromControls);
 
     initializeControls();
     await loadSelectedDataset();
@@ -153,8 +155,31 @@ async function loadSelectedDataset() {
   }
 }
 
-function datasetKey(dataset) {
-  return `${dataset.year}-${String(dataset.month).padStart(2, "0")}`;
+function populateMonthOptions(preferredMonth) {
+  const selectedYear = Number(elements.yearSelect.value);
+  const datasetsForYear = state.availableDatasets
+    .filter((dataset) => dataset.year === selectedYear)
+    .sort((first, second) => first.month - second.month);
+
+  elements.monthSelect.replaceChildren();
+  for (const dataset of datasetsForYear) {
+    const option = document.createElement("option");
+    option.value = String(dataset.month);
+    option.textContent = `${dataset.month}月`;
+    elements.monthSelect.append(option);
+  }
+  const selectedMonth = datasetsForYear.find((dataset) => dataset.month === preferredMonth)
+    ?? datasetsForYear[0];
+  elements.monthSelect.value = String(selectedMonth.month);
+  elements.monthSelect.disabled = false;
+}
+
+async function selectDatasetFromControls() {
+  state.selectedDataset = state.availableDatasets.find(
+    (dataset) => dataset.year === Number(elements.yearSelect.value)
+      && dataset.month === Number(elements.monthSelect.value),
+  );
+  await loadSelectedDataset();
 }
 
 function showLoadError(error) {
