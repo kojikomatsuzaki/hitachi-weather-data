@@ -8,6 +8,102 @@
     "report_path": "reports/validation-1953-01.md"
   },
   {
+    "year": 1992,
+    "month": 1,
+    "label": "1992年1月",
+    "data_path": "1992/01.json",
+    "yaml_path": "data/hitachi-city-hall/1992/01.yaml",
+    "report_path": "reports/validation-1992-01.md"
+  },
+  {
+    "year": 1992,
+    "month": 2,
+    "label": "1992年2月",
+    "data_path": "1992/02.json",
+    "yaml_path": "data/hitachi-city-hall/1992/02.yaml",
+    "report_path": "reports/validation-1992-02.md"
+  },
+  {
+    "year": 1992,
+    "month": 3,
+    "label": "1992年3月",
+    "data_path": "1992/03.json",
+    "yaml_path": "data/hitachi-city-hall/1992/03.yaml",
+    "report_path": "reports/validation-1992-03.md"
+  },
+  {
+    "year": 1992,
+    "month": 4,
+    "label": "1992年4月",
+    "data_path": "1992/04.json",
+    "yaml_path": "data/hitachi-city-hall/1992/04.yaml",
+    "report_path": "reports/validation-1992-04.md"
+  },
+  {
+    "year": 1992,
+    "month": 5,
+    "label": "1992年5月",
+    "data_path": "1992/05.json",
+    "yaml_path": "data/hitachi-city-hall/1992/05.yaml",
+    "report_path": "reports/validation-1992-05.md"
+  },
+  {
+    "year": 1992,
+    "month": 6,
+    "label": "1992年6月",
+    "data_path": "1992/06.json",
+    "yaml_path": "data/hitachi-city-hall/1992/06.yaml",
+    "report_path": "reports/validation-1992-06.md"
+  },
+  {
+    "year": 1992,
+    "month": 7,
+    "label": "1992年7月",
+    "data_path": "1992/07.json",
+    "yaml_path": "data/hitachi-city-hall/1992/07.yaml",
+    "report_path": "reports/validation-1992-07.md"
+  },
+  {
+    "year": 1992,
+    "month": 8,
+    "label": "1992年8月",
+    "data_path": "1992/08.json",
+    "yaml_path": "data/hitachi-city-hall/1992/08.yaml",
+    "report_path": "reports/validation-1992-08.md"
+  },
+  {
+    "year": 1992,
+    "month": 9,
+    "label": "1992年9月",
+    "data_path": "1992/09.json",
+    "yaml_path": "data/hitachi-city-hall/1992/09.yaml",
+    "report_path": "reports/validation-1992-09.md"
+  },
+  {
+    "year": 1992,
+    "month": 10,
+    "label": "1992年10月",
+    "data_path": "1992/10.json",
+    "yaml_path": "data/hitachi-city-hall/1992/10.yaml",
+    "report_path": "reports/validation-1992-10.md"
+  },
+  {
+    "year": 1992,
+    "month": 11,
+    "label": "1992年11月",
+    "data_path": "1992/11.json",
+    "yaml_path": "data/hitachi-city-hall/1992/11.yaml",
+    "report_path": "reports/validation-1992-11.md"
+  },
+  {
+    "year": 1992,
+    "month": 12,
+    "label": "1992年12月",
+    "data_path": "1992/12.json",
+    "yaml_path": "data/hitachi-city-hall/1992/12.yaml",
+    "report_path": "reports/validation-1992-12.md"
+  },
+  {
     "year": 1993,
     "month": 1,
     "label": "1993年1月",
