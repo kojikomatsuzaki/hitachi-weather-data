@@ -8,6 +8,102 @@
     "report_path": "reports/validation-1953-01.md"
   },
   {
+    "year": 1990,
+    "month": 1,
+    "label": "1990年1月",
+    "data_path": "1990/01.json",
+    "yaml_path": "data/hitachi-city-hall/1990/01.yaml",
+    "report_path": "reports/validation-1990-01.md"
+  },
+  {
+    "year": 1990,
+    "month": 2,
+    "label": "1990年2月",
+    "data_path": "1990/02.json",
+    "yaml_path": "data/hitachi-city-hall/1990/02.yaml",
+    "report_path": "reports/validation-1990-02.md"
+  },
+  {
+    "year": 1990,
+    "month": 3,
+    "label": "1990年3月",
+    "data_path": "1990/03.json",
+    "yaml_path": "data/hitachi-city-hall/1990/03.yaml",
+    "report_path": "reports/validation-1990-03.md"
+  },
+  {
+    "year": 1990,
+    "month": 4,
+    "label": "1990年4月",
+    "data_path": "1990/04.json",
+    "yaml_path": "data/hitachi-city-hall/1990/04.yaml",
+    "report_path": "reports/validation-1990-04.md"
+  },
+  {
+    "year": 1990,
+    "month": 5,
+    "label": "1990年5月",
+    "data_path": "1990/05.json",
+    "yaml_path": "data/hitachi-city-hall/1990/05.yaml",
+    "report_path": "reports/validation-1990-05.md"
+  },
+  {
+    "year": 1990,
+    "month": 6,
+    "label": "1990年6月",
+    "data_path": "1990/06.json",
+    "yaml_path": "data/hitachi-city-hall/1990/06.yaml",
+    "report_path": "reports/validation-1990-06.md"
+  },
+  {
+    "year": 1990,
+    "month": 7,
+    "label": "1990年7月",
+    "data_path": "1990/07.json",
+    "yaml_path": "data/hitachi-city-hall/1990/07.yaml",
+    "report_path": "reports/validation-1990-07.md"
+  },
+  {
+    "year": 1990,
+    "month": 8,
+    "label": "1990年8月",
+    "data_path": "1990/08.json",
+    "yaml_path": "data/hitachi-city-hall/1990/08.yaml",
+    "report_path": "reports/validation-1990-08.md"
+  },
+  {
+    "year": 1990,
+    "month": 9,
+    "label": "1990年9月",
+    "data_path": "1990/09.json",
+    "yaml_path": "data/hitachi-city-hall/1990/09.yaml",
+    "report_path": "reports/validation-1990-09.md"
+  },
+  {
+    "year": 1990,
+    "month": 10,
+    "label": "1990年10月",
+    "data_path": "1990/10.json",
+    "yaml_path": "data/hitachi-city-hall/1990/10.yaml",
+    "report_path": "reports/validation-1990-10.md"
+  },
+  {
+    "year": 1990,
+    "month": 11,
+    "label": "1990年11月",
+    "data_path": "1990/11.json",
+    "yaml_path": "data/hitachi-city-hall/1990/11.yaml",
+    "report_path": "reports/validation-1990-11.md"
+  },
+  {
+    "year": 1990,
+    "month": 12,
+    "label": "1990年12月",
+    "data_path": "1990/12.json",
+    "yaml_path": "data/hitachi-city-hall/1990/12.yaml",
+    "report_path": "reports/validation-1990-12.md"
+  },
+  {
     "year": 1991,
     "month": 1,
     "label": "1991年1月",
