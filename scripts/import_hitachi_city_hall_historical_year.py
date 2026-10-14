@@ -281,7 +281,7 @@ def extract_hourly(
     start_row = find_title_row(sheet, title_fragment) + 1 if title_fragment else 1
     # 1996 temperature has verified 3-hour observations, not 24 hourly values.
     # Reject any unknown header rather than interpreting a summary column as data.
-    verified_1996_temperature = year in range(1986, 1997) and element_id in {
+    verified_1996_temperature = year in range(1983, 1997) and element_id in {
         "temperature_c", "relative_humidity_percent", "dew_point_temperature_c",
         "station_pressure_hpa", "sea_level_pressure_hpa",
     }
@@ -295,7 +295,7 @@ def extract_hourly(
         }[element_id]
         if year in range(1992, 1996) and element_id == "dew_point_temperature_c":
             labels = ("日平均", "最高", "時刻1", "日", "最低", "時刻2")
-        schedule = (3, 9, 15, 21) if year in range(1986, 1993) and "pressure" in element_id else THREE_HOURLY
+        schedule = (3, 9, 15, 21) if year in range(1983, 1993) and "pressure" in element_id else THREE_HOURLY
         layout = detect_observation_layout(
             sheet, expected_schedules=(schedule,),
             start_row=start_row, summary_labels=labels)
@@ -353,7 +353,7 @@ def extract_wind_direction(path: Path, year: int, month: int) -> common.ElementE
     for key, cell in raw.cells.items():
         if cell.value is None:
             converted[key] = cell
-        elif year in range(1986, 1997) and cell.value in set(common.WIND_DIRECTION_CODES.values()):
+        elif year in range(1983, 1997) and cell.value in set(common.WIND_DIRECTION_CODES.values()):
             # 1996 originals use already-normalized 16-point compass tokens.
             # Unknown tokens and '-' retain their existing source flags.
             converted[key] = common.SourceCell(cell.value, cell.flag)
@@ -492,7 +492,7 @@ def extract_verified_1996_three_hour_summaries(source_paths, month, year=1996):
         specs["dew_point_temperature"] = ("dew_point_temperature", None,
             {10: "日平均", 11: "最高", 12: "時刻1", 14: "最低", 15: "時刻2"})
 
-    if year in range(1986, 1993):
+    if year in range(1983, 1993):
         for name, fragment in (("station_pressure", "現地気圧"), ("sea_level_pressure", "海面気圧")):
             specs[name] = ("pressure", fragment,
                 {6: "日平均", 7: "最高", 8: "時刻1", 9: "最低", 10: "時刻2"})
@@ -501,7 +501,7 @@ def extract_verified_1996_three_hour_summaries(source_paths, month, year=1996):
         sheet = month_sheet(source_paths[source_key], month)
         start_row = find_title_row(sheet, fragment) + 1 if fragment else 1
         layout = detect_observation_layout(
-            sheet, expected_schedules=((3, 9, 15, 21) if year in range(1986, 1993) and "pressure" in name else THREE_HOURLY,), start_row=start_row)
+            sheet, expected_schedules=((3, 9, 15, 21) if year in range(1983, 1993) and "pressure" in name else THREE_HOURLY,), start_row=start_row)
         for col, expected in headers.items():
             actual = str(sheet.cell(layout.header_row, col).value or "").strip()
             if actual != expected:
@@ -527,10 +527,10 @@ def extract_verified_1996_three_hour_summaries(source_paths, month, year=1996):
             else:
                 unit = "hpa" if "pressure" in name else "c"
                 value = {
-                    f"mean_{unit}": number(6 if year in range(1986, 1993) and unit == "hpa" else 10),
-                    "maximum": {f"value_{unit}": number(7 if year in range(1986, 1993) and unit == "hpa" else 11), "time": moment(8 if year in range(1986, 1993) and unit == "hpa" else 12)},
-                    "minimum": {f"value_{unit}": number(9 if year in range(1986, 1993) and unit == "hpa" else 14 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else 13),
-                                "time": moment(10 if year in range(1986, 1993) and unit == "hpa" else 15 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else 14)},
+                    f"mean_{unit}": number(6 if year in range(1983, 1993) and unit == "hpa" else 10),
+                    "maximum": {f"value_{unit}": number(7 if year in range(1983, 1993) and unit == "hpa" else 11), "time": moment(8 if year in range(1983, 1993) and unit == "hpa" else 12)},
+                    "minimum": {f"value_{unit}": number(9 if year in range(1983, 1993) and unit == "hpa" else 14 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else 13),
+                                "time": moment(10 if year in range(1983, 1993) and unit == "hpa" else 15 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else 14)},
                 }
             daily[date(year, month, day).isoformat()] = value
         output[name] = daily
@@ -557,7 +557,7 @@ def extract_1996_daily_summaries(source_paths, month, year=1996):
             (1, 30): "風速1", (1, 31): "時刻1",
             (1, 32): "風向2", (1, 33): "風速2", (1, 34): "時刻2"}),
     }
-    if year in range(1986, 1996):
+    if year in range(1983, 1996):
         # AF列の日付再掲により、瞬間風速の3項目だけ1996年より1列右にある。
         schedule, headers = specifications["wind_speed"]
         specifications["wind_speed"] = (schedule, {
@@ -603,9 +603,9 @@ def extract_1996_daily_summaries(source_paths, month, year=1996):
             "maximum_10_minute": {"direction": text_value(wind, row, 29),
                                   "speed_m_s": number("wind_speed", 30),
                                   "time": moment("wind_speed", 31)},
-            "maximum_instantaneous": {"direction": text_value(wind, row, 33 if year in range(1986, 1996) else 32),
-                                      "speed_m_s": number("wind_speed", 34 if year in range(1986, 1996) else 33),
-                                      "time": moment("wind_speed", 35 if year in range(1986, 1996) else 34)},
+            "maximum_instantaneous": {"direction": text_value(wind, row, 33 if year in range(1983, 1996) else 32),
+                                      "speed_m_s": number("wind_speed", 34 if year in range(1983, 1996) else 33),
+                                      "time": moment("wind_speed", 35 if year in range(1983, 1996) else 34)},
         }
         summaries.append(summary)
     return summaries
@@ -616,7 +616,7 @@ def extract_daily_summaries(
 ) -> list[dict[str, Any]]:
     """時間値と混在させず、原帳票の日別集計欄を採録する。"""
 
-    if year in range(1986, 1997):
+    if year in range(1983, 1997):
         return extract_1996_daily_summaries(source_paths, month, year)
 
     sheets = {
@@ -816,7 +816,7 @@ def main() -> int:
     for extraction in extractions:
         hours = sorted({hour for _, hour in extraction.cells})
         document["dataset"]["observation_schedules"][extraction.element_id] = common.FlowSequence(hours)
-    if arguments.year in range(1986, 1997):
+    if arguments.year in range(1983, 1997):
         for observation in document["observations"]:
             for extraction in extractions:
                 if extraction.element_id == "weather_code":
@@ -834,7 +834,7 @@ def main() -> int:
         "古いBIFFレコードを読むため、一時XLSXへ変換した後に値を抽出した。",
         "1時から24時という原資料上の時刻表記をsource_hourへ保持する。",
         "日平均・日合計・最高・最低などは時間値と混在させずdaily_summariesへ収録した。",
-        "観測時刻はobservation_schedulesで定義し、当該年の対象外時刻はnot_scheduledで区別する。" if arguments.year in range(1986, 1997) else "観測時刻はobservation_schedulesで定義する。",
+        "観測時刻はobservation_schedulesで定義し、当該年の対象外時刻はnot_scheduledで区別する。" if arguments.year in range(1983, 1997) else "観測時刻はobservation_schedulesで定義する。",
     ]
 
     yaml_path = REPOSITORY_ROOT / "data" / STATION_ID / str(arguments.year) / f"{arguments.month:02d}.yaml"

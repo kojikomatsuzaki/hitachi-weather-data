@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""1994→1991を順次照合し、成功した年だけをコミットする。
+"""指定した範囲を1年ずつ遡って照合し、成功した年だけをコミットする。
 
 一括スキップは行わない。途中のエラーで停止し、次の年へは進まない。
 原資料の取得、生成、独立照合、公開ファイルの一致を年ごとに完結させる。
@@ -66,8 +66,8 @@ def main():
     parser.add_argument('--start-year', type=int, default=1994)
     parser.add_argument('--end-year', type=int, default=1991)
     arguments = parser.parse_args()
-    if not 1986 <= arguments.end_year <= arguments.start_year <= 1994:
-        raise ValueError('Requested range must remain within inspected 1986–1994 sources')
+    if not 1983 <= arguments.end_year <= arguments.start_year <= 1994:
+        raise ValueError('Requested range must remain within inspected 1983–1994 sources')
     state = json.loads(STATE_PATH.read_text())
     assert state['automation_enabled'] is False and state['next_year'] == arguments.start_year
     run('git','config','user.name','github-actions[bot]')
