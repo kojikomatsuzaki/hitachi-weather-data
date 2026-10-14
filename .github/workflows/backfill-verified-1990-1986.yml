@@ -1,0 +1,48 @@
+name: Verify and backfill 1990 through 1986 (stop on error)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hitachi-verified-bounded-backfill
+  cancel-in-progress: false
+jobs:
+  sequential-backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/cache/restore@v4
+        with:
+          path: build/historical-archives
+          key: hitachi-city-hall-historical-archives-v1
+      - name: Install readers
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libreoffice-calc
+          python -m pip install -r requirements.txt
+      - name: Independently verify and publish one year at a time
+        run: python scripts/archive_verified_historical_range.py --start-year 1990 --end-year 1986
+      - name: Upload evidence and generated data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hitachi-verified-1990-1986
+          path: |
+            build/*integration-1990.json
+            build/*integration-198[6-9].json
+            data/hitachi-city-hall/1990/
+            data/hitachi-city-hall/198[6-9]/
+            docs/data/1990/
+            docs/data/198[6-9]/
+            docs/data/index.json
+            reports/*1990*
+            reports/*198[6-9]*
+            metadata/sources/hitachi-city-hall-1990.yaml
+            metadata/sources/hitachi-city-hall-198[6-9].yaml
+            metadata/backfill-1997-1953.json
+          if-no-files-found: warn

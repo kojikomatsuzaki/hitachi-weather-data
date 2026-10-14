@@ -103,7 +103,7 @@ def oracle_source_workbook(path):
 
 def table_specs(year):
     tables = dict(TABLES)
-    if year in {1991, 1992}:
+    if year in range(1986, 1993):
         for element in ('station_pressure_hpa', 'sea_level_pressure_hpa'):
             key, _, fragment = tables[element]
             tables[element] = (key, (3, 9, 15, 21), fragment)

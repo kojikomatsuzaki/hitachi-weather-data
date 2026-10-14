@@ -5,6 +5,7 @@
 原資料の取得、生成、独立照合、公開ファイルの一致を年ごとに完結させる。
 """
 from __future__ import annotations
+import argparse
 import calendar
 from collections import Counter
 from datetime import datetime, timezone
@@ -61,12 +62,18 @@ def check_year(year, result_path):
     return result
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--start-year', type=int, default=1994)
+    parser.add_argument('--end-year', type=int, default=1991)
+    arguments = parser.parse_args()
+    if not 1986 <= arguments.end_year <= arguments.start_year <= 1994:
+        raise ValueError('Requested range must remain within inspected 1986–1994 sources')
     state = json.loads(STATE_PATH.read_text())
-    assert state['automation_enabled'] is False and state['next_year'] == 1994
+    assert state['automation_enabled'] is False and state['next_year'] == arguments.start_year
     run('git','config','user.name','github-actions[bot]')
     run('git','config','user.email','41898282+github-actions[bot]@users.noreply.github.com')
     run(sys.executable,'-m','unittest','discover','-s','tests','-v')
-    for year in (1994,1993,1992,1991):
+    for year in range(arguments.start_year, arguments.end_year - 1, -1):
         print(f'BEGIN {year}',flush=True)
         source_directory = ROOT / f'build/source-{year}'
         source_directory.mkdir(parents=True,exist_ok=True)

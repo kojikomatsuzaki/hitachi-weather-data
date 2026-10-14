@@ -10,7 +10,7 @@ import verify_1996_source_cells as oracle
 
 class EarlierPressureLayoutTests(unittest.TestCase):
     def test_four_daily_pressure_observations_do_not_read_summary_as_hours(self):
-        for year in (1991, 1992):
+        for year in (1986, 1987, 1988, 1989, 1990, 1991, 1992):
             sheet = Workbook().active
             sheet.title = '1月'
             sheet.cell(1, 2, '現地気圧')
