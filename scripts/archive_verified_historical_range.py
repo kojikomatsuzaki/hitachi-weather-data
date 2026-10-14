@@ -66,8 +66,8 @@ def main():
     parser.add_argument('--start-year', type=int, default=1994)
     parser.add_argument('--end-year', type=int, default=1991)
     arguments = parser.parse_args()
-    if not 1983 <= arguments.end_year <= arguments.start_year <= 1994:
-        raise ValueError('Requested range must remain within inspected 1983–1994 sources')
+    if not 1981 <= arguments.end_year <= arguments.start_year <= 1994:
+        raise ValueError('Requested range must remain within inspected 1981–1994 sources')
     state = json.loads(STATE_PATH.read_text())
     assert state['automation_enabled'] is False and state['next_year'] == arguments.start_year
     run('git','config','user.name','github-actions[bot]')
@@ -107,10 +107,11 @@ def main():
             report_path = ROOT / f'reports/validation-{year}-independent-observations.md'
             report_path.write_text(f'# {year}年・全月原資料照合\n\n'
                 f'- 12か月、{result["daily_summary_count"]}日、{result["canonical_records_verified"]}時間レコード。\n'
-                f'- 11要素、{result["scheduled_observation_cells_verified"]}観測対象セルを独立照合。\n'
+                f'- {10 if year in (1981, 1982) else 11}要素、{result["scheduled_observation_cells_verified"]}観測対象セルを独立照合。\n'
                 f'- 未解釈の原表記：{len(result["unresolved_source_cells"])}件。値とフラグと原表記を保持。\n'
                 f'- 原ZIP・XLSのチェックサム、生成前後のセル照合、日別集計、YAML/JSON一致を検証。\n'
                 f'- 検証Actions：{RUN_URL}\n'
+                + ('- 露点温度は公開ZIPに年別原ファイルなし。補間せず、ファイル未収録と空欄・欠測・非観測時刻を区別。\n' if year in (1981, 1982) else '') +
                 '- 比較はLibreOfficeで読取用に変換したXLSXを使う。変換自体の完全性を別ソフトで保証するものではない。\n'
                 '- 原資料の空欄をゼロへ置換せず、非観測時刻をnot_scheduledで区別する。自動遡及は停止中。\n')
             readme_path = ROOT / 'README.md'

@@ -58,6 +58,16 @@ def discover_year(year: int, source_directory: Path) -> Path:
                 name for name in zip_file.namelist()
                 if Path(name).name.casefold() == expected_member.casefold()
             ]
+            if (archive["element"] == "dew_point_temperature" and year in (1981, 1982)
+                    and not matching_members):
+                files.append({
+                    "element": archive["element"], "url": archive["url"],
+                    "archive_sha256": actual_archive_sha,
+                    "status": "not_available_for_period",
+                    "expected_member": expected_member,
+                    "reason": "Checksum-verified dew-point archive starts at dewp1983.xls; requested annual file is absent.",
+                })
+                continue
             if len(matching_members) != 1:
                 raise ValueError(
                     f"Expected exactly one {expected_member} in {archive_path.name}; "

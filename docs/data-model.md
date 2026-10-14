@@ -228,3 +228,8 @@ dataset:
 生成直前のデータ構造と一致することを確認する。
 
 月別の検証結果は、`reports/validation-YYYY-MM.md`へ保存する。
+
+
+### 年別原ファイルの未収録
+
+1981・1982年の露点温度は、チェックサムを検証した公開ZIPに年別原Excelが存在しない（露点ZIPは1983年から）。観測値はnull、フラグは`source_file_unavailable`、観測時刻リストは空にし、`dataset.element_availability`で`not_available_for_period`と理由を記録する。空欄セル・欠測・非観測時刻とは区別し、露点の日別集計や推定値は生成しない。ほかの年・項目の予期しないファイル不在はエラーとして停止する。
