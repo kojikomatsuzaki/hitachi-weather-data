@@ -8,6 +8,102 @@
     "report_path": "reports/validation-1953-01.md"
   },
   {
+    "year": 1972,
+    "month": 1,
+    "label": "1972年1月",
+    "data_path": "1972/01.json",
+    "yaml_path": "data/hitachi-city-hall/1972/01.yaml",
+    "report_path": "reports/validation-1972-01.md"
+  },
+  {
+    "year": 1972,
+    "month": 2,
+    "label": "1972年2月",
+    "data_path": "1972/02.json",
+    "yaml_path": "data/hitachi-city-hall/1972/02.yaml",
+    "report_path": "reports/validation-1972-02.md"
+  },
+  {
+    "year": 1972,
+    "month": 3,
+    "label": "1972年3月",
+    "data_path": "1972/03.json",
+    "yaml_path": "data/hitachi-city-hall/1972/03.yaml",
+    "report_path": "reports/validation-1972-03.md"
+  },
+  {
+    "year": 1972,
+    "month": 4,
+    "label": "1972年4月",
+    "data_path": "1972/04.json",
+    "yaml_path": "data/hitachi-city-hall/1972/04.yaml",
+    "report_path": "reports/validation-1972-04.md"
+  },
+  {
+    "year": 1972,
+    "month": 5,
+    "label": "1972年5月",
+    "data_path": "1972/05.json",
+    "yaml_path": "data/hitachi-city-hall/1972/05.yaml",
+    "report_path": "reports/validation-1972-05.md"
+  },
+  {
+    "year": 1972,
+    "month": 6,
+    "label": "1972年6月",
+    "data_path": "1972/06.json",
+    "yaml_path": "data/hitachi-city-hall/1972/06.yaml",
+    "report_path": "reports/validation-1972-06.md"
+  },
+  {
+    "year": 1972,
+    "month": 7,
+    "label": "1972年7月",
+    "data_path": "1972/07.json",
+    "yaml_path": "data/hitachi-city-hall/1972/07.yaml",
+    "report_path": "reports/validation-1972-07.md"
+  },
+  {
+    "year": 1972,
+    "month": 8,
+    "label": "1972年8月",
+    "data_path": "1972/08.json",
+    "yaml_path": "data/hitachi-city-hall/1972/08.yaml",
+    "report_path": "reports/validation-1972-08.md"
+  },
+  {
+    "year": 1972,
+    "month": 9,
+    "label": "1972年9月",
+    "data_path": "1972/09.json",
+    "yaml_path": "data/hitachi-city-hall/1972/09.yaml",
+    "report_path": "reports/validation-1972-09.md"
+  },
+  {
+    "year": 1972,
+    "month": 10,
+    "label": "1972年10月",
+    "data_path": "1972/10.json",
+    "yaml_path": "data/hitachi-city-hall/1972/10.yaml",
+    "report_path": "reports/validation-1972-10.md"
+  },
+  {
+    "year": 1972,
+    "month": 11,
+    "label": "1972年11月",
+    "data_path": "1972/11.json",
+    "yaml_path": "data/hitachi-city-hall/1972/11.yaml",
+    "report_path": "reports/validation-1972-11.md"
+  },
+  {
+    "year": 1972,
+    "month": 12,
+    "label": "1972年12月",
+    "data_path": "1972/12.json",
+    "yaml_path": "data/hitachi-city-hall/1972/12.yaml",
+    "report_path": "reports/validation-1972-12.md"
+  },
+  {
     "year": 1973,
     "month": 1,
     "label": "1973年1月",
