@@ -217,6 +217,36 @@ function initializeControls() {
   });
 }
 
+/* ==========================================
+   Observed times: never invent hourly slots
+========================================== */
+function populateObservedHourOptions() {
+  const hours = [...new Set(state.observations
+    .filter(item => item.source_date === state.selectedDate)
+    .filter(item => Object.values(item.values ?? {}).some(value => value !== null && value !== undefined)
+      || Object.values(item.flags ?? {}).some(flag => flag !== 'not_scheduled'))
+    .map(item => Number(item.source_hour)))]
+    .filter(Number.isFinite).sort((a, b) => a - b);
+  elements.hourRange.replaceChildren();
+  for (const hour of hours) {
+    const option = document.createElement('option');
+    option.value = String(hour);
+    option.textContent = `${hour}時`;
+    elements.hourRange.append(option);
+  }
+  if (hours.length) {
+    state.selectedHour = hours.includes(state.selectedHour) ? state.selectedHour : hours[0];
+    elements.hourRange.value = String(state.selectedHour);
+    elements.hourRange.disabled = false;
+  } else {
+    const option = document.createElement('option');
+    option.textContent = '時刻別の記録なし';
+    elements.hourRange.append(option);
+    elements.hourRange.disabled = true;
+    state.selectedHour = null;
+  }
+}
+
 function populateDateOptions() {
   elements.dateSelect.replaceChildren();
   for (const sourceDate of state.availableDates) {
