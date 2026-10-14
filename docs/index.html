@@ -6,22 +6,12 @@
     <meta name="description" content="日立市天気相談所が公開する日立市役所観測所の気象観測データを、日付と時刻から閲覧できます。">
     <title>日立市天気相談所 観測データアーカイブ</title>
     <link rel="stylesheet" href="style.css?v=20261014-source-contrast">
+    <link rel="stylesheet" href="site-shell.css?v=1">
+    <script src="site-shell.js?v=1" defer></script>
     <script src="app.js?v=20261014-observed-hours-fix1" defer></script>
   </head>
   <body>
-    <header class="site-header">
-      <div class="site-header__inner">
-        <p class="site-header__eyebrow">Hitachi Weather Data Archive</p>
-        <div class="site-header__title-row">
-          <h1>日立市天気相談所<br class="mobile-break"> 観測データアーカイブ</h1>
-          <span class="publication-badge">非公式・観測データアーカイブ</span>
-        </div>
-        <p class="site-header__description">
-          日立市天気相談所（気象庁予報業務許可第2号）が公表した、1953年以降の日立市役所観測所の「気象観測データ」を、原資料の観測値・表記を変更することなく収録し、順次公開しています。
-          <a href="https://tenki.city.hitachi.lg.jp/obs/contents/919" style="color: #ffffff; font-weight: 700; text-decoration: underline; text-decoration-color: #ffffff; text-underline-offset: 3px;">出典：日立市天気相談所「気象観測データ」</a>
-        </p>
-      </div>
-    </header>
+    <div id="site-header-slot"></div>
 
     <main>
       <section class="observation-console" aria-labelledby="observation-heading">
@@ -163,9 +153,6 @@
       </section>
     </main>
 
-    <footer>
-      <p>本サイトは、日立市天気相談所の公式サイトではありません。</p>
-      <p><a href="https://github.com/kojikomatsuzaki/hitachi-weather-data">GitHubリポジトリ</a></p>
-    </footer>
+    <div id="site-footer-slot"></div>
   </body>
 </html>
