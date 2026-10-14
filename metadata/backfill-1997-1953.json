@@ -47,8 +47,13 @@
       "validated_observation_cells": 53655,
       "unrecognized_source_cells": 0,
       "last_validation_at": "2026-10-14T01:10:25.122991+00:00"
+    },
+    "1992": {
+      "status": "failed",
+      "error": "Command '('/opt/hostedtoolcache/Python/3.12.15/x64/bin/python', 'scripts/test_hitachi_1996_originals.py', '--year', '1992', '--source-directory', '/home/runner/work/hitachi-weather-data/hitachi-weather-data/build/source-1992', '--months', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '--download-missing', '--output', 'build/source-integration-1992.json')' returned non-zero exit status 1.",
+      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38493812950"
     }
   },
-  "last_attempt_at": "2026-10-14T01:10:25.123009+00:00",
-  "last_attempt_year": 1993
+  "last_attempt_at": "2026-10-14T01:10:40.782591+00:00",
+  "last_attempt_year": 1992
 }
