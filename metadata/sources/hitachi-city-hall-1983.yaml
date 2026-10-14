@@ -1,0 +1,70 @@
+schema_version: 0.2.0
+source_collection:
+  id: hitachi-city-hall-1983
+  station_id: hitachi-city-hall
+  year: 1983
+  publisher_ja: 日立市天気相談所
+  landing_page: https://tenki.city.hitachi.lg.jp/obs/contents/920
+  retrieved_date: '2026-10-14'
+  container_format: application/zip
+  workbook_format: application/vnd.ms-excel
+  archive_catalog: metadata/sources/hitachi-city-hall-historical-archives.yaml
+  reading_adapter:
+    software: LibreOffice Calc
+    purpose: 古いBIFFレコードを含む原Excelを、値を抽出できる一時的なXLSXへ変換する。
+    preservation_rule: 原ExcelおよびZIPは変更せず、変換後XLSXは派生データ生成時だけ使用する。
+files:
+- element: temperature
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000586.zip
+  archive_sha256: 7dc3c5078eb87370eb55911c15bdd8124b8f35927cefa120772a380258087292
+  archive_member: temp1983.xls
+  member_sha256: 9c28c2527ead706bd0197ac822ff86b09304251a3d20d2a168701bdfbe01f035
+- element: humidity
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000471.zip
+  archive_sha256: 5e18b17b46d494d920901513c89f5d9cf9f75ba07c24d03607eeb3db6f4a65b4
+  archive_member: humi1983.xls
+  member_sha256: ed25dcb544b6cccb8039f30c36bc5ced349d53779ef50bb7f8832e1cc0b0a564
+- element: precipitation
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000494.zip
+  archive_sha256: 716c1ef34a34d0308d5352674b4bac94e20d2d770ffc11b83e971745828ea6d5
+  archive_member: prec1983.xls
+  member_sha256: 34da6eb5b163b57bd7cc56ccc7f377255098d83ae3d8c1c26916d221824275e9
+- element: pressure
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000539.zip
+  archive_sha256: 36b2f96654092b8d794401208fb849d856772debdc9195be87a44aea2ba8632c
+  archive_member: pres1983.xls
+  member_sha256: 8e838ac51f1add321357e23be50c121f2935d9b369b8a83e38ad513a236c52dc
+- element: solar_radiation
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000540.zip
+  archive_sha256: f33cb9004daadeef887ac162eca59cfc6e87e263a3194289535fff7472d852c0
+  archive_member: sunF1983.xls
+  member_sha256: 2ba2e8efa2eece149150852866457c3990ab76616935edd2f82aa67b77fd5959
+- element: sunshine_duration
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000563.zip
+  archive_sha256: 19b99d40c215cf344c3ff35f3c8ba5cd7695f98c93b6295ce291740a7605ed08
+  archive_member: sunL1983.xls
+  member_sha256: 965bcdcb70bd9e2a1b054161ab5cd1113de6489e44040cf2b59ed93a9bee45d6
+- element: wind_speed
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000655.zip
+  archive_sha256: 616710658b0cd8ef4887fc5a7e7d94a8f818e3a8675f05a4639a8829a736aa21
+  archive_member: wv1983.xls
+  member_sha256: ec2be14ee02e4a65589e508683679197fd8e3dc92b8edac8769c5a0005b22d05
+- element: wind_direction
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000609.zip
+  archive_sha256: 44d89d7328636f56afcc7f78ebea68797faedf9ec415b3098b1340a49bdf3e5d
+  archive_member: wd1983.xls
+  member_sha256: f201df677bfd405bf502460db23809a5a670f582264fcab0bf25ae9dc535266d
+- element: dew_point_temperature
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000448.zip
+  archive_sha256: bf6957b65adafff5e0e612e58b374822ae0597730bc2678236d6460a20caf201
+  archive_member: dewp1983.xls
+  member_sha256: b0a353f67e478fec7575ae1066c91776feba4502c7ab378080658552abe0369f
+- element: weather_code
+  url: https://tenki.city.hitachi.lg.jp/storage/uploads/files/20220329_00000654.zip
+  archive_sha256: b3d1d73ad8d066eebea448eeae55ac3ffc9ee1a8b2ae6632eab294a69417846c
+  archive_member: weat1983.xls
+  member_sha256: c9aaf3626e46e18cdb245ea85148992bca329d5f0bcb689f6b080f0fd9f60a10
+notes:
+- 1983年は1953–2007年一括ZIPに収録された年別Excelを主原資料とする。
+- 原ZIPと内部Excelの双方についてSHA-256を記録する。
+- 原Excelはリポジトリへ複製しない。
