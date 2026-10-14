@@ -206,7 +206,7 @@ function initializeControls() {
     renderSelectedObservation();
   });
 
-  elements.hourRange.addEventListener("input", (event) => {
+  elements.hourRange.addEventListener("change", (event) => {
     state.selectedHour = Number(event.target.value);
     renderSelectedObservation();
   });
