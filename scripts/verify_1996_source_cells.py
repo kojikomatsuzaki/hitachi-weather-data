@@ -8,6 +8,7 @@ import calendar
 import math
 import unicodedata
 from collections import Counter
+from functools import lru_cache
 from datetime import datetime, time, timedelta
 
 from openpyxl import load_workbook
@@ -94,9 +95,24 @@ def text_cell(sheet, row, col):
     return raw.strip() if isinstance(raw, str) else str(float(raw))
 
 
-def source_table(paths, element, month):
-    key, hours, fragment = TABLES[element]
-    workbook = load_workbook(paths[key], data_only=True)
+@lru_cache(maxsize=16)
+def oracle_source_workbook(path):
+    # 検証器側でも不変の読取用ブックを保持する。本番のキャッシュは参照しない。
+    return load_workbook(path, data_only=True)
+
+
+def table_specs(year):
+    tables = dict(TABLES)
+    if year in {1991, 1992}:
+        for element in ('station_pressure_hpa', 'sea_level_pressure_hpa'):
+            key, _, fragment = tables[element]
+            tables[element] = (key, (3, 9, 15, 21), fragment)
+    return tables
+
+
+def source_table(paths, element, month, year=1996):
+    key, hours, fragment = table_specs(year)[element]
+    workbook = oracle_source_workbook(paths[key])
     if element == 'weather_code':
         sheet = workbook['天気']
         assert '12時' in unicodedata.normalize('NFKC', str(sheet.cell(1, 1).value))
@@ -120,8 +136,8 @@ def source_table(paths, element, month):
 def expected_cells(paths, month, year=1996):
     output, addresses = {}, {}
     days = calendar.monthrange(year, month)[1]
-    for element, (_, hours, _) in TABLES.items():
-        sheet, header, columns = source_table(paths, element, month)
+    for element, (_, hours, _) in table_specs(year).items():
+        sheet, header, columns = source_table(paths, element, month, year)
         rows = {}
         for row in range(header + 1, sheet.max_row + 1):
             raw_day = sheet.cell(row, 1).value
@@ -158,7 +174,7 @@ def verify_extractions(paths, month, extractions, year=1996):
             if has_raw:
                 assert actual.raw_value == raw
         result[item.element_id] = {
-            'hours': list(TABLES[item.element_id][1]),
+            'hours': list(table_specs(year)[item.element_id][1]),
             'observation_cells': len(oracle),
             'values_present': sum(cell[0] is not None for cell in oracle.values()),
             'flags': dict(Counter(cell[1] for cell in oracle.values() if cell[1])),
@@ -172,7 +188,7 @@ def verify_document(paths, month, document, year=1996):
     days = calendar.monthrange(year, month)[1]
     assert document['dataset']['year'] == year and document['dataset']['month'] == month
     assert document['dataset']['observation_schedules'] == {
-        element: list(spec[1]) for element, spec in TABLES.items()}
+        element: list(spec[1]) for element, spec in table_specs(year).items()}
     records = {(int(record['source_date'][-2:]), record['source_hour']): record
                for record in document['observations']}
     assert len(records) == len(document['observations']) == days * 24

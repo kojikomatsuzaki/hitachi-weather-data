@@ -32,7 +32,8 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
     for month in months:
         entry = {"month": month, "elements": {}}
         for key, (element_id, labels) in ELEMENTS.items():
-            if year == 1995 and key == "dew_point_temperature":
+            schedule = (3, 9, 15, 21) if year in {1991, 1992} and "pressure" in key else THREE_HOURLY
+            if year in range(1992, 1996) and key == "dew_point_temperature":
                 labels = ("日平均", "最高", "時刻1", "日", "最低", "時刻2")
             if key.startswith("station_") or key.startswith("sea_"):
                 source = paths["pressure"]
@@ -43,14 +44,14 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
             sheet = historical.month_sheet(source, month)
             start_row = historical.find_title_row(sheet, fragment) + 1 if fragment else 1
             layout = detect_observation_layout(
-                sheet, expected_schedules=(THREE_HOURLY,), start_row=start_row,
+                sheet, expected_schedules=(schedule,), start_row=start_row,
                 summary_labels=labels)
             extracted = historical.extract_hourly(
                 source, year, month, element_id, list(range(1, 25)),
                 title_fragment=fragment)
-            expected_count = calendar.monthrange(year, month)[1] * 8
+            expected_count = calendar.monthrange(year, month)[1] * len(schedule)
             assert len(extracted.cells) == expected_count, (key, month, len(extracted.cells))
-            assert all(hour in THREE_HOURLY for _, hour in extracted.cells)
+            assert all(hour in schedule for _, hour in extracted.cells)
             # Independent direct comparison with the original converted worksheet cells.
             for day, row in historical.day_rows(sheet, layout.header_row, year, month):
                 for hour, col in zip(layout.hours, layout.columns):
@@ -62,7 +63,7 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
                 "hours": list(layout.hours), "header_row": layout.header_row,
                 "observation_cells": len(extracted.cells),
                 "first_day": {str(hour): extracted.cells[(1, hour)].value
-                              for hour in THREE_HOURLY},
+                              for hour in schedule},
                 "first_day_summary": {
                     label: str(sheet.cell(layout.header_row + 1, col).value)
                     for label, col in layout.summary_columns.items()
@@ -79,15 +80,16 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
             ("station_pressure", ()),
             ("sea_level_pressure", ()),
         ):
-            if year == 1995 and key == "dew_point_temperature":
+            if year in range(1992, 1996) and key == "dew_point_temperature":
                 expected_labels = ("日平均", "最高", "時刻1", "日", "最低", "時刻2")
+            schedule = (3, 9, 15, 21) if year in {1991, 1992} and "pressure" in key else THREE_HOURLY
             source_key = "pressure" if "pressure" in key else key
             sheet = historical.month_sheet(paths[source_key], month)
             fragment = ("現地気圧" if key == "station_pressure" else
                         "海面気圧" if key == "sea_level_pressure" else None)
             start = historical.find_title_row(sheet, fragment) + 1 if fragment else 1
             layout = detect_observation_layout(
-                sheet, expected_schedules=(THREE_HOURLY,),
+                sheet, expected_schedules=(schedule,),
                 start_row=start, summary_labels=expected_labels)
             day_rows = dict(historical.day_rows(sheet, layout.header_row, year, month))
             assert len(verified_summaries[key]) == calendar.monthrange(year, month)[1]
@@ -96,33 +98,34 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
                 mean = (record["mean_percent"] if key == "humidity" else
                         record["mean_hpa"] if "pressure" in key else record["mean_c"])
                 assert mean == oracle.number(
-                    sheet, row, 10 if "pressure" in key else layout.summary_columns["日平均"]), (key, month, day)
+                    sheet, row, (6 if year in {1991, 1992} else 10) if "pressure" in key else layout.summary_columns["日平均"]), (key, month, day)
             entry["elements"][key]["daily_summaries_verified"] = len(day_rows)
         # Verify the entire daily source summary, including pressure extrema,
         # against independently addressed worksheet cells.
         for name in ("temperature", "humidity", "dew_point_temperature",
                      "station_pressure", "sea_level_pressure"):
+            schedule = (3, 9, 15, 21) if year in {1991, 1992} and "pressure" in name else THREE_HOURLY
             source_key = "pressure" if "pressure" in name else name
             sheet = historical.month_sheet(paths[source_key], month)
             fragment = ("現地気圧" if name == "station_pressure" else
                         "海面気圧" if name == "sea_level_pressure" else None)
             start_row = historical.find_title_row(sheet, fragment) + 1 if fragment else 1
             layout = detect_observation_layout(
-                sheet, expected_schedules=(THREE_HOURLY,), start_row=start_row)
+                sheet, expected_schedules=(schedule,), start_row=start_row)
             rows = historical.rows_by_day(sheet, layout.header_row, year, month)
             unit = ("percent" if name == "humidity" else
                     "hpa" if "pressure" in name else "c")
             for day, row in rows.items():
                 record = verified_summaries[name][f"{year}-{month:02d}-{day:02d}"]
                 assert record[f"mean_{unit}"] == oracle.number(
-                    sheet, row, 10), (name, month, day, "mean")
+                    sheet, row, 6 if year in {1991, 1992} and "pressure" in name else 10), (name, month, day, "mean")
                 if name != "humidity":
                     assert record["maximum"][f"value_{unit}"] == oracle.number(
-                        sheet, row, 11), (name, month, day, "maximum")
+                        sheet, row, 7 if year in {1991, 1992} and "pressure" in name else 11), (name, month, day, "maximum")
                     assert record["maximum"]["time"] == oracle.moment(
-                        sheet, row, 12), (name, month, day, "maximum time")
-                min_col = 14 if unit == "hpa" or (year == 1995 and name == "dew_point_temperature") else (11 if unit == "percent" else 13)
-                min_time_col = 15 if unit == "hpa" or (year == 1995 and name == "dew_point_temperature") else (12 if unit == "percent" else 14)
+                        sheet, row, 8 if year in {1991, 1992} and "pressure" in name else 12), (name, month, day, "maximum time")
+                min_col = 9 if year in {1991, 1992} and unit == "hpa" else 14 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else (11 if unit == "percent" else 13)
+                min_time_col = 10 if year in {1991, 1992} and unit == "hpa" else 15 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else (12 if unit == "percent" else 14)
                 assert record["minimum"][f"value_{unit}"] == oracle.number(
                     sheet, row, min_col), (name, month, day, "minimum")
                 assert record["minimum"]["time"] == oracle.moment(
@@ -153,7 +156,7 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
             "sunshine_duration": ("sunshine_duration", list(range(4, 21)), {
                 ("total_h",): 19}),
         }
-        if year == 1995:
+        if year in range(1991, 1996):
             summary_key, hours, mapping = fields["wind_speed"]
             fields["wind_speed"] = (summary_key, hours, {
                 keys: column + (1 if column >= 32 else 0)
@@ -205,7 +208,7 @@ def main():
     parser.add_argument("--output", type=Path, default=Path("build/integration-results.json"))
     parser.add_argument("--verify-canonical", action="store_true")
     args = parser.parse_args()
-    if args.year not in {1995, 1996}:
+    if args.year not in range(1991, 1997):
         raise ValueError("This test explicitly validates the verified 1995/1996 three-hour layouts")
     if len(set(args.months)) != len(args.months) or any(month not in range(1, 13) for month in args.months):
         raise ValueError("Months must be unique integers from 1 to 12")
