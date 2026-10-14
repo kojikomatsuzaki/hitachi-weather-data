@@ -36,6 +36,8 @@
 
 - 公開URL：https://kojikomatsuzaki.github.io/hitachi-weather-data/
 - 公開元：`docs/`
+- 日時選択では、当該日に観測値または原資料の状態記録が存在する時刻を候補として表示します。観測要素ごとの記録間隔は異なり、選択時刻に観測予定がない要素は値を補いません。
+- 操作確認用の独立プレビュー：`docs/preview/index.html`（正式版と同じ公開データを参照）
 - 表示用JSON：正本YAMLから`python scripts/generate_web_data.py`で生成
 
 ## データ整備方針
