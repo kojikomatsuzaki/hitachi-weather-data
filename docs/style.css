@@ -120,6 +120,21 @@ h1 {
   font-size: clamp(0.95rem, 2vw, 1.12rem);
 }
 
+.site-header__description a {
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.site-header__description a:hover,
+.site-header__description a:focus-visible {
+  color: #fff4d4;
+  text-decoration-thickness: 3px;
+}
+
+
 .mobile-break {
   display: none;
 }
