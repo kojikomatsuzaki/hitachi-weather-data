@@ -2,6 +2,32 @@
   "next_year": 1992,
   "automation_enabled": false,
   "years": {
+    "1992": {
+      "status": "failed",
+      "error": "風速原Excelの月別シート順が逆転：5番目のシートは6月、6番目は5月。シート名と月の一致を確認する独立検証で停止。1992年の生成・公開と1991年の処理は未実施。",
+      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38493812950",
+      "command_error": "Command '('/opt/hostedtoolcache/Python/3.12.15/x64/bin/python', 'scripts/test_hitachi_1996_originals.py', '--year', '1992', '--source-directory', '/home/runner/work/hitachi-weather-data/hitachi-weather-data/build/source-1992', '--months', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '--download-missing', '--output', 'build/source-integration-1992.json')' returned non-zero exit status 1.",
+      "error_code": "source_month_sheet_order_mismatch",
+      "affected_source": "wv1992.xls"
+    },
+    "1993": {
+      "status": "success",
+      "records": 8760,
+      "validation_report": "reports/integration-1993-complete.json",
+      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38493812950",
+      "validated_observation_cells": 53655,
+      "unrecognized_source_cells": 0,
+      "last_validation_at": "2026-10-14T01:10:25.122991+00:00"
+    },
+    "1994": {
+      "status": "success",
+      "records": 8760,
+      "validation_report": "reports/integration-1994-complete.json",
+      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38493812950",
+      "validated_observation_cells": 53655,
+      "unrecognized_source_cells": 0,
+      "last_validation_at": "2026-10-14T01:08:31.931870+00:00"
+    },
     "1995": {
       "status": "success",
       "records": 8760,
@@ -29,29 +55,6 @@
       "status": "success",
       "records": 8760,
       "commit": "8b4b8439e383991fb0e9c4c658c80ad484b6bf1f"
-    },
-    "1994": {
-      "status": "success",
-      "records": 8760,
-      "validation_report": "reports/integration-1994-complete.json",
-      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38493812950",
-      "validated_observation_cells": 53655,
-      "unrecognized_source_cells": 0,
-      "last_validation_at": "2026-10-14T01:08:31.931870+00:00"
-    },
-    "1993": {
-      "status": "success",
-      "records": 8760,
-      "validation_report": "reports/integration-1993-complete.json",
-      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38493812950",
-      "validated_observation_cells": 53655,
-      "unrecognized_source_cells": 0,
-      "last_validation_at": "2026-10-14T01:10:25.122991+00:00"
-    },
-    "1992": {
-      "status": "failed",
-      "error": "Command '('/opt/hostedtoolcache/Python/3.12.15/x64/bin/python', 'scripts/test_hitachi_1996_originals.py', '--year', '1992', '--source-directory', '/home/runner/work/hitachi-weather-data/hitachi-weather-data/build/source-1992', '--months', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '--download-missing', '--output', 'build/source-integration-1992.json')' returned non-zero exit status 1.",
-      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38493812950"
     }
   },
   "last_attempt_at": "2026-10-14T01:10:40.782591+00:00",
