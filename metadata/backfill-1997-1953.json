@@ -1,5 +1,5 @@
 {
-  "next_year": 1973,
+  "next_year": 1972,
   "automation_enabled": false,
   "years": {
     "1992": {
@@ -220,11 +220,15 @@
       "last_validation_at": "2026-10-14T06:05:16.375399+00:00"
     },
     "1973": {
-      "status": "failed",
-      "error": "Command '('/opt/hostedtoolcache/Python/3.12.15/x64/bin/python', 'scripts/import_hitachi_city_hall_historical_year.py', '--year', '1973', '--month', '1')' returned non-zero exit status 1.",
-      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38518938226"
+      "status": "success",
+      "records": 8760,
+      "validation_report": "reports/integration-1973-complete.json",
+      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38520594211",
+      "validated_observation_cells": 38690,
+      "unrecognized_source_cells": 0,
+      "last_validation_at": "2026-10-14T06:11:57.320244+00:00"
     }
   },
-  "last_attempt_at": "2026-10-14T06:05:35.294532+00:00",
+  "last_attempt_at": "2026-10-14T06:11:57.320268+00:00",
   "last_attempt_year": 1973
 }
