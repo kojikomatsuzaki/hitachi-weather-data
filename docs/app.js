@@ -142,11 +142,10 @@ async function loadSelectedDataset() {
       state.dailySummariesByDate.set(summary.date, summary);
     }
 
-    const weatherHours = state.datasetMetadata.observation_schedules?.weather_code ?? [12];
-    state.selectedHour = weatherHours[0];
-    elements.hourRange.value = state.selectedHour;
+    state.selectedHour = null;
 
     populateDateOptions();
+    populateObservedHourOptions();
     updateProvenanceLinks();
     renderAvailabilityMessage();
     elements.loadingMessage.hidden = true;
@@ -203,6 +202,7 @@ function initializeControls() {
 
   elements.dateSelect.addEventListener("change", (event) => {
     state.selectedDate = event.target.value;
+    populateObservedHourOptions();
     renderSelectedObservation();
   });
 
@@ -274,8 +274,9 @@ function renderSelectedObservation() {
     `${state.selectedDate}#${state.selectedHour}`,
   ) ?? { values: {}, flags: {} };
 
-  elements.hourOutput.textContent = `${state.selectedHour}時`;
-  elements.selectedMoment.textContent = `${formatJapaneseDate(state.selectedDate)} ${state.selectedHour}時`;
+  const hourLabel = state.selectedHour === null ? "時刻別記録なし" : `${state.selectedHour}時`;
+  elements.hourOutput.textContent = hourLabel;
+  elements.selectedMoment.textContent = `${formatJapaneseDate(state.selectedDate)} ${hourLabel}`;
 
   const displayValues = {
     ...observation.values,
