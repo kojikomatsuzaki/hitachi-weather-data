@@ -639,7 +639,9 @@ def write_validation_report(
         for observation in document["observations"]
     }
     first_hour = observation_index[(f"{YEAR}-{month:02d}-01", 1)]["values"]
-    noon = observation_index[(f"{YEAR}-{month:02d}-01", 12)]["values"]
+    # The representative weather row must follow the source observation hour.
+    weather_hour = document["dataset"]["observation_schedules"]["weather_code"][0]
+    weather_sample = observation_index[(f"{YEAR}-{month:02d}-01", weather_hour)]["values"]
 
     lines.extend(
         [
@@ -686,11 +688,11 @@ def write_validation_report(
             f"{first_hour['relative_humidity_percent']} | {first_hour['station_pressure_hpa']} | "
             f"{first_hour['sea_level_pressure_hpa']} | {first_hour['wind_speed_m_s']} | "
             f"{first_hour['wind_direction']} | {first_hour['dew_point_temperature_c']} | — |",
-            f"| {YEAR}-{month:02d}-01 12時 | {noon['temperature_c']} | "
-            f"{noon['relative_humidity_percent']} | {noon['station_pressure_hpa']} | "
-            f"{noon['sea_level_pressure_hpa']} | {noon['wind_speed_m_s']} | "
-            f"{noon['wind_direction']} | {noon['dew_point_temperature_c']} | "
-            f"{noon['weather_code']} |",
+            f"| {YEAR}-{month:02d}-01 {weather_hour}時 | {weather_sample['temperature_c']} | "
+            f"{weather_sample['relative_humidity_percent']} | {weather_sample['station_pressure_hpa']} | "
+            f"{weather_sample['sea_level_pressure_hpa']} | {weather_sample['wind_speed_m_s']} | "
+            f"{weather_sample['wind_direction']} | {weather_sample['dew_point_temperature_c']} | "
+            f"{weather_sample['weather_code']} |",
             "",
             "## 現段階での保留事項",
             "",

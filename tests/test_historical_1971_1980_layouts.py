@@ -1,6 +1,7 @@
 """古い帳票の時刻と集計位置を、毎時値や新しい帳票に寄せない。"""
 import sys
 import unittest
+import tempfile
 from pathlib import Path
 from unittest.mock import patch
 from openpyxl import Workbook
@@ -45,3 +46,14 @@ class OlderLayoutTests(unittest.TestCase):
             self.assertEqual(len(e.cells),744)
             self.assertTrue(all(c.flag=='source_file_unavailable' and c.value is None for c in e.cells.values()))
         with self.assertRaises(ValueError):historical.unavailable_source_element('sunshine_duration',1978,1)
+
+    def test_validation_report_uses_original_weather_hour(self):
+        for hour in (9,12):
+            extractions=[historical.common.ElementExtraction(e,{}) for e in historical.common.HOURLY_VALUE_ORDER]
+            extractions.append(historical.common.ElementExtraction('weather_code',{(day,hour):historical.common.SourceCell(1) for day in range(1,32)}))
+            with tempfile.TemporaryDirectory() as temp, patch.object(historical.common,'YEAR',1973), patch.object(historical.common,'REPOSITORY_ROOT',Path(temp)):
+                d=historical.common.assemble_month_document(1,extractions)
+                d['dataset']['observation_schedules']['weather_code']=[hour]
+                report=Path(temp)/'report.md'
+                historical.common.write_validation_report(report,1,Path(temp)/'data.yaml',d,extractions,[])
+                self.assertIn(f'1973-01-01 {hour}時',report.read_text())

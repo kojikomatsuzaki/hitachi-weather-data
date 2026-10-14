@@ -26,6 +26,7 @@ const chartElements = {
 const elementNames = {
   global_solar_radiation_mj_m2: "全天日射量",
   dew_point_temperature_c: "露点温度",
+  sunshine_duration_h: "日照時間",
 };
 
 
