@@ -118,8 +118,18 @@ def source_table(paths, element, month, year=1996):
         assert '12時' in unicodedata.normalize('NFKC', str(sheet.cell(1, 1).value))
         assert str(sheet.cell(3, 19 + month).value).strip() == str(month)
         return sheet, 4, (19 + month,)
-    sheet = workbook.worksheets[month - 1]
-    assert unicodedata.normalize('NFKC', sheet.title) == f'{month}月'
+    named_sheets = {unicodedata.normalize('NFKC', sheet.title).strip(): sheet
+                    for sheet in workbook.worksheets}
+    assert len(named_sheets) == len(workbook.worksheets), 'Duplicate normalized sheet names'
+    sheet = named_sheets[f'{month}月']
+    title_values = [unicodedata.normalize('NFKC', str(cell.value)).strip()
+                    for cell in sheet[1] if cell.value is not None]
+    assert str(year) in title_values or f'{year}年' in title_values
+    assert title_values[title_values.index('月') - 1] == str(month)
+    if year == 1992 and element == 'wind_speed_m_s' and month in (5, 6):
+        active = [row for row in range(4, 35)
+                  if any(sheet.cell(row, col).value is not None for col in range(2, 26))]
+        assert [sheet.cell(row, 1).value for row in active] == list(range(1, calendar.monthrange(year, month)[1] + 1))
     start = 1
     if fragment:
         title_rows = [row for row in range(1, sheet.max_row + 1)

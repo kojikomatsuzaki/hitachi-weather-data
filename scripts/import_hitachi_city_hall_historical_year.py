@@ -16,6 +16,8 @@ import subprocess
 import sys
 import urllib.request
 import zipfile
+import re
+import unicodedata
 from datetime import date, datetime, time, timedelta
 from functools import lru_cache
 from pathlib import Path
@@ -192,9 +194,33 @@ def month_sheet(path: Path, month: int):
     # Random cell access in read_only mode reparses worksheet XML repeatedly.
     # These small monthly tables fit in memory; source files remain unchanged.
     workbook = historical_source_workbook(path)
-    if len(workbook.worksheets) < 12:
-        raise ValueError(f"Expected 12 monthly sheets in {path.name}")
-    return workbook.worksheets[month - 1]
+    matches = [sheet for sheet in workbook.worksheets
+               if unicodedata.normalize("NFKC", sheet.title).strip() == f"{month}月"]
+    if len(matches) != 1:
+        raise ValueError(f"Expected one named sheet for month {month} in {path.name}")
+    sheet = matches[0]
+    year_match = re.search(r"(\d{4})$", path.stem)
+    if year_match:
+        year = int(year_match.group(1))
+        header_values = [unicodedata.normalize("NFKC", str(cell.value)).strip()
+                         for cell in sheet[1] if cell.value is not None]
+        if str(year) not in header_values and f"{year}年" not in header_values:
+            raise ValueError(f"Year header mismatch in {path.name}:{sheet.title}")
+        month_label = header_values.index("月")
+        if int(header_values[month_label - 1]) != month:
+            raise ValueError(f"Month header mismatch in {path.name}:{sheet.title}")
+        if path.stem == "wv1992" and month in {5, 6}:
+            # 31の行番号だけがある6月の空欄は、観測日として数えない。
+            observed_days = {
+                int(sheet.cell(row, 1).value)
+                for row in range(4, 35)
+                if integer_value(sheet.cell(row, 1).value) is not None
+                and any(sheet.cell(row, col).value is not None
+                        for col in range(2, 26))
+            }
+            if observed_days != set(range(1, calendar.monthrange(year, month)[1] + 1)):
+                raise ValueError(f"Observation-day mismatch in {path.name}:{sheet.title}")
+    return sheet
 
 
 def integer_value(value: Any) -> int | None:
