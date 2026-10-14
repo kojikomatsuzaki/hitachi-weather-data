@@ -1,5 +1,5 @@
 {
-  "next_year": 1986,
+  "next_year": 1985,
   "automation_enabled": false,
   "years": {
     "1992": {
@@ -101,8 +101,17 @@
       "validated_observation_cells": 50735,
       "unrecognized_source_cells": 0,
       "last_validation_at": "2026-10-14T03:20:58.529255+00:00"
+    },
+    "1986": {
+      "status": "success",
+      "records": 8760,
+      "validation_report": "reports/integration-1986-complete.json",
+      "validation_actions_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38505087756",
+      "validated_observation_cells": 50735,
+      "unrecognized_source_cells": 0,
+      "last_validation_at": "2026-10-14T03:22:44.603196+00:00"
     }
   },
-  "last_attempt_at": "2026-10-14T03:20:58.529276+00:00",
-  "last_attempt_year": 1987
+  "last_attempt_at": "2026-10-14T03:22:44.603215+00:00",
+  "last_attempt_year": 1986
 }
