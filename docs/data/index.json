@@ -8,6 +8,102 @@
     "report_path": "reports/validation-1953-01.md"
   },
   {
+    "year": 1974,
+    "month": 1,
+    "label": "1974年1月",
+    "data_path": "1974/01.json",
+    "yaml_path": "data/hitachi-city-hall/1974/01.yaml",
+    "report_path": "reports/validation-1974-01.md"
+  },
+  {
+    "year": 1974,
+    "month": 2,
+    "label": "1974年2月",
+    "data_path": "1974/02.json",
+    "yaml_path": "data/hitachi-city-hall/1974/02.yaml",
+    "report_path": "reports/validation-1974-02.md"
+  },
+  {
+    "year": 1974,
+    "month": 3,
+    "label": "1974年3月",
+    "data_path": "1974/03.json",
+    "yaml_path": "data/hitachi-city-hall/1974/03.yaml",
+    "report_path": "reports/validation-1974-03.md"
+  },
+  {
+    "year": 1974,
+    "month": 4,
+    "label": "1974年4月",
+    "data_path": "1974/04.json",
+    "yaml_path": "data/hitachi-city-hall/1974/04.yaml",
+    "report_path": "reports/validation-1974-04.md"
+  },
+  {
+    "year": 1974,
+    "month": 5,
+    "label": "1974年5月",
+    "data_path": "1974/05.json",
+    "yaml_path": "data/hitachi-city-hall/1974/05.yaml",
+    "report_path": "reports/validation-1974-05.md"
+  },
+  {
+    "year": 1974,
+    "month": 6,
+    "label": "1974年6月",
+    "data_path": "1974/06.json",
+    "yaml_path": "data/hitachi-city-hall/1974/06.yaml",
+    "report_path": "reports/validation-1974-06.md"
+  },
+  {
+    "year": 1974,
+    "month": 7,
+    "label": "1974年7月",
+    "data_path": "1974/07.json",
+    "yaml_path": "data/hitachi-city-hall/1974/07.yaml",
+    "report_path": "reports/validation-1974-07.md"
+  },
+  {
+    "year": 1974,
+    "month": 8,
+    "label": "1974年8月",
+    "data_path": "1974/08.json",
+    "yaml_path": "data/hitachi-city-hall/1974/08.yaml",
+    "report_path": "reports/validation-1974-08.md"
+  },
+  {
+    "year": 1974,
+    "month": 9,
+    "label": "1974年9月",
+    "data_path": "1974/09.json",
+    "yaml_path": "data/hitachi-city-hall/1974/09.yaml",
+    "report_path": "reports/validation-1974-09.md"
+  },
+  {
+    "year": 1974,
+    "month": 10,
+    "label": "1974年10月",
+    "data_path": "1974/10.json",
+    "yaml_path": "data/hitachi-city-hall/1974/10.yaml",
+    "report_path": "reports/validation-1974-10.md"
+  },
+  {
+    "year": 1974,
+    "month": 11,
+    "label": "1974年11月",
+    "data_path": "1974/11.json",
+    "yaml_path": "data/hitachi-city-hall/1974/11.yaml",
+    "report_path": "reports/validation-1974-11.md"
+  },
+  {
+    "year": 1974,
+    "month": 12,
+    "label": "1974年12月",
+    "data_path": "1974/12.json",
+    "yaml_path": "data/hitachi-city-hall/1974/12.yaml",
+    "report_path": "reports/validation-1974-12.md"
+  },
+  {
     "year": 1975,
     "month": 1,
     "label": "1975年1月",
