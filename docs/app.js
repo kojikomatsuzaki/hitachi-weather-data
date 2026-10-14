@@ -75,7 +75,8 @@ const elements = {
 
 async function initializeApplication() {
   try {
-    const response = await fetch("data/index.json");
+    // Revalidate the index so newly published years appear after a page refresh.
+    const response = await fetch("data/index.json?v=20261014-1986", { cache: "no-cache" });
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
