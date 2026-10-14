@@ -6,7 +6,7 @@
     <meta name="description" content="日立市天気相談所が公開する日立市役所観測所の気象観測データを、日付と時刻から閲覧できます。">
     <title>日立市天気相談所 観測データアーカイブ</title>
     <link rel="stylesheet" href="style.css?v=20261014-archive-1971">
-    <script src="app.js?v=20261013-year-month" defer></script>
+    <script src="app.js?v=20261014-observed-hours" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -57,10 +57,10 @@
 
           <div class="hour-control">
             <div class="hour-control__label-row">
-              <label for="hour-range">原資料上の時刻</label>
+              <label for="hour-range">原資料上の時刻（記録のある時刻のみ）</label>
               <output id="hour-output" for="hour-range">12時</output>
             </div>
-            <input id="hour-range" type="range" min="1" max="24" value="12" step="1" disabled>
+            <select id="hour-range" disabled aria-describedby="hour-availability-note"><option>読み込み中</option></select>\n            <p id="hour-availability-note">この日に記録がある時刻を選べます。観測項目ごとに時刻が異なる場合があります。</p>
             <div class="hour-scale" aria-hidden="true">
               <span>1時</span>
               <span>6時</span>
