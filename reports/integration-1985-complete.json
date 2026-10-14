@@ -1,0 +1,4718 @@
+{
+  "year": 1985,
+  "months": [
+    {
+      "month": 1,
+      "elements": {
+        "temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": -0.1,
+            "6": -1.0,
+            "9": 5.8,
+            "12": 8.2,
+            "15": 8.0,
+            "18": 4.7,
+            "21": 2.3,
+            "24": -0.3
+          },
+          "first_day_summary": {
+            "日平均": "3.45",
+            "最高": "9",
+            "時刻1": "12:50:00",
+            "最低": "-2.2",
+            "時刻2": "06:50:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "humidity": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 81.4,
+            "6": 66.2,
+            "9": 44.0,
+            "12": 40.6,
+            "15": 41.1,
+            "18": 40.1,
+            "21": 49.0,
+            "24": 61.5
+          },
+          "first_day_summary": {
+            "日平均": "52.9875",
+            "最小": "33",
+            "時刻1": "12:47:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "dew_point_temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": -2.9,
+            "6": -6.5,
+            "9": -5.5,
+            "12": -4.4,
+            "15": -4.4,
+            "18": -7.7,
+            "21": -7.3,
+            "24": -6.8
+          },
+          "first_day_summary": {
+            "日平均": "-5.6875",
+            "最高": "-1.5",
+            "時刻1": "00:04:00",
+            "最低": "-8.2",
+            "時刻2": "18:38:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "station_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 2,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 1015.4,
+            "9": 1017.4,
+            "15": 1015.0,
+            "21": 1016.9
+          },
+          "first_day_summary": {
+            "日平均": "1016.175",
+            "最高": "1017.6",
+            "時刻1": "None"
+          },
+          "daily_summaries_verified": 31
+        },
+        "sea_level_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 38,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 1022.9,
+            "9": 1024.8,
+            "15": 1022.3,
+            "21": 1024.4
+          },
+          "first_day_summary": {},
+          "daily_summaries_verified": 31
+        }
+      },
+      "independent_observations": {
+        "temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "relative_humidity_percent": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "precipitation_mm": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 27,
+          "flags": {
+            "source_blank": 717
+          },
+          "independent_source_comparison": true
+        },
+        "station_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "sea_level_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "global_solar_radiation_mj_m2": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 343,
+          "flags": {
+            "source_blank": 184
+          },
+          "independent_source_comparison": true
+        },
+        "sunshine_duration_h": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 248,
+          "flags": {
+            "source_blank": 279
+          },
+          "independent_source_comparison": true
+        },
+        "wind_speed_m_s": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 744,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "wind_direction": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 723,
+          "flags": {
+            "source_dash": 21
+          },
+          "independent_source_comparison": true
+        },
+        "dew_point_temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "weather_code": {
+          "hours": [
+            12
+          ],
+          "observation_cells": 31,
+          "values_present": 31,
+          "flags": {},
+          "independent_source_comparison": true
+        }
+      },
+      "canonical_records_verified": 744,
+      "canonical_web_equal": true,
+      "production_path_verified": true,
+      "all_element_count": 11,
+      "complete_daily_summary_count": 31
+    },
+    {
+      "month": 2,
+      "elements": {
+        "temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 224,
+          "first_day": {
+            "3": 3.2,
+            "6": 3.8,
+            "9": 6.3,
+            "12": 8.6,
+            "15": 11.9,
+            "18": 6.4,
+            "21": 4.3,
+            "24": 3.1
+          },
+          "first_day_summary": {
+            "日平均": "5.95",
+            "最高": "12",
+            "時刻1": "15:10:00",
+            "最低": "2.1",
+            "時刻2": "23:50:00"
+          },
+          "daily_summaries_verified": 28
+        },
+        "humidity": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 224,
+          "first_day": {
+            "3": 42.2,
+            "6": 35.2,
+            "9": 31.5,
+            "12": 32.4,
+            "15": 26.4,
+            "18": 48.4,
+            "21": 53.9,
+            "24": 54.0
+          },
+          "first_day_summary": {
+            "日平均": "40.5",
+            "最小": "24",
+            "時刻1": "15:22:00"
+          },
+          "daily_summaries_verified": 28
+        },
+        "dew_point_temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 224,
+          "first_day": {
+            "3": -8.4,
+            "6": -10.2,
+            "9": -9.4,
+            "12": -7.0,
+            "15": -6.8,
+            "18": -3.7,
+            "21": -4.2,
+            "24": -5.3
+          },
+          "first_day_summary": {
+            "日平均": "-6.875",
+            "最高": "-3.1",
+            "時刻1": "19:28:00",
+            "最低": "-10.9",
+            "時刻2": "07:11:00"
+          },
+          "daily_summaries_verified": 28
+        },
+        "station_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 2,
+          "observation_cells": 112,
+          "first_day": {
+            "3": 1003.9,
+            "9": 1000.5,
+            "15": 995.1,
+            "21": 996.7
+          },
+          "first_day_summary": {
+            "日平均": "999.05",
+            "最高": "1005.4",
+            "時刻1": "None"
+          },
+          "daily_summaries_verified": 28
+        },
+        "sea_level_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 38,
+          "observation_cells": 112,
+          "first_day": {
+            "3": 1011.2,
+            "9": 1007.8,
+            "15": 1002.2,
+            "21": 1004.0
+          },
+          "first_day_summary": {},
+          "daily_summaries_verified": 28
+        }
+      },
+      "independent_observations": {
+        "temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 224,
+          "values_present": 224,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "relative_humidity_percent": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 224,
+          "values_present": 224,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "precipitation_mm": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 672,
+          "values_present": 141,
+          "flags": {
+            "source_blank": 531
+          },
+          "independent_source_comparison": true
+        },
+        "station_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 112,
+          "values_present": 112,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "sea_level_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 112,
+          "values_present": 112,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "global_solar_radiation_mj_m2": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 476,
+          "values_present": 336,
+          "flags": {
+            "source_blank": 140
+          },
+          "independent_source_comparison": true
+        },
+        "sunshine_duration_h": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 476,
+          "values_present": 185,
+          "flags": {
+            "source_blank": 291
+          },
+          "independent_source_comparison": true
+        },
+        "wind_speed_m_s": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 672,
+          "values_present": 672,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "wind_direction": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 672,
+          "values_present": 661,
+          "flags": {
+            "source_dash": 11
+          },
+          "independent_source_comparison": true
+        },
+        "dew_point_temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 224,
+          "values_present": 224,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "weather_code": {
+          "hours": [
+            12
+          ],
+          "observation_cells": 28,
+          "values_present": 28,
+          "flags": {},
+          "independent_source_comparison": true
+        }
+      },
+      "canonical_records_verified": 672,
+      "canonical_web_equal": true,
+      "production_path_verified": true,
+      "all_element_count": 11,
+      "complete_daily_summary_count": 28
+    },
+    {
+      "month": 3,
+      "elements": {
+        "temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 5.3,
+            "6": 5.8,
+            "9": 6.6,
+            "12": 7.2,
+            "15": 8.5,
+            "18": 5.4,
+            "21": 4.3,
+            "24": 4.4
+          },
+          "first_day_summary": {
+            "日平均": "5.9375",
+            "最高": "8.8",
+            "時刻1": "14:40:00",
+            "最低": "3.3",
+            "時刻2": "23:00:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "humidity": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 89.4,
+            "6": 90.1,
+            "9": 86.4,
+            "12": 86.5,
+            "15": 72.3,
+            "18": 83.3,
+            "21": 85.6,
+            "24": 84.4
+          },
+          "first_day_summary": {
+            "日平均": "84.75",
+            "最小": "70",
+            "時刻1": "15:12:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "dew_point_temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 3.7,
+            "6": 4.3,
+            "9": 4.5,
+            "12": 5.1,
+            "15": 3.8,
+            "18": 2.8,
+            "21": 2.1,
+            "24": 2.0
+          },
+          "first_day_summary": {
+            "日平均": "3.5375",
+            "最高": "5.5",
+            "時刻1": "12:58:00",
+            "最低": "1.4",
+            "時刻2": "22:41:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "station_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 2,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 1008.5,
+            "9": 1006.3,
+            "15": 1006.0,
+            "21": 1009.2
+          },
+          "first_day_summary": {
+            "日平均": "1007.5",
+            "最高": "1010.7",
+            "時刻1": "None"
+          },
+          "daily_summaries_verified": 31
+        },
+        "sea_level_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 38,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 1015.8,
+            "9": 1013.6,
+            "15": 1013.1,
+            "21": 1016.6
+          },
+          "first_day_summary": {},
+          "daily_summaries_verified": 31
+        }
+      },
+      "independent_observations": {
+        "temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "relative_humidity_percent": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "precipitation_mm": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 194,
+          "flags": {
+            "source_blank": 550
+          },
+          "independent_source_comparison": true
+        },
+        "station_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "sea_level_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "global_solar_radiation_mj_m2": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 395,
+          "flags": {
+            "source_blank": 132
+          },
+          "independent_source_comparison": true
+        },
+        "sunshine_duration_h": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 152,
+          "flags": {
+            "source_blank": 375
+          },
+          "independent_source_comparison": true
+        },
+        "wind_speed_m_s": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 744,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "wind_direction": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 737,
+          "flags": {
+            "source_dash": 7
+          },
+          "independent_source_comparison": true
+        },
+        "dew_point_temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "weather_code": {
+          "hours": [
+            12
+          ],
+          "observation_cells": 31,
+          "values_present": 31,
+          "flags": {},
+          "independent_source_comparison": true
+        }
+      },
+      "canonical_records_verified": 744,
+      "canonical_web_equal": true,
+      "production_path_verified": true,
+      "all_element_count": 11,
+      "complete_daily_summary_count": 31
+    },
+    {
+      "month": 4,
+      "elements": {
+        "temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 240,
+          "first_day": {
+            "3": -0.2,
+            "6": 0.8,
+            "9": 6.6,
+            "12": 7.0,
+            "15": 7.9,
+            "18": 6.6,
+            "21": 3.3,
+            "24": 3.4
+          },
+          "first_day_summary": {
+            "日平均": "4.425",
+            "最高": "8.6",
+            "時刻1": "10:40:00",
+            "最低": "-0.7",
+            "時刻2": "03:50:00"
+          },
+          "daily_summaries_verified": 30
+        },
+        "humidity": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 240,
+          "first_day": {
+            "3": 81.4,
+            "6": 70.8,
+            "9": 48.1,
+            "12": 50.8,
+            "15": 49.9,
+            "18": 61.3,
+            "21": 55.3,
+            "24": 50.5
+          },
+          "first_day_summary": {
+            "日平均": "58.5125",
+            "最小": "39",
+            "時刻1": "8:37:00"
+          },
+          "daily_summaries_verified": 30
+        },
+        "dew_point_temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 240,
+          "first_day": {
+            "3": -3.0,
+            "6": -3.9,
+            "9": -3.6,
+            "12": -2.5,
+            "15": -1.9,
+            "18": -0.3,
+            "21": -4.8,
+            "24": -5.9
+          },
+          "first_day_summary": {
+            "日平均": "-3.2375",
+            "最高": "0.9",
+            "時刻1": "18:06:00",
+            "最低": "-6",
+            "時刻2": "23:54:00"
+          },
+          "daily_summaries_verified": 30
+        },
+        "station_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 2,
+          "observation_cells": 120,
+          "first_day": {
+            "3": 1014.3,
+            "9": 1017.5,
+            "15": 1016.7,
+            "21": 1021.1
+          },
+          "first_day_summary": {
+            "日平均": "1017.4",
+            "最高": "1021.9",
+            "時刻1": "None"
+          },
+          "daily_summaries_verified": 30
+        },
+        "sea_level_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 38,
+          "observation_cells": 120,
+          "first_day": {
+            "3": 1021.8,
+            "9": 1024.8,
+            "15": 1024.0,
+            "21": 1028.6
+          },
+          "first_day_summary": {},
+          "daily_summaries_verified": 30
+        }
+      },
+      "independent_observations": {
+        "temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 240,
+          "values_present": 240,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "relative_humidity_percent": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 240,
+          "values_present": 240,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "precipitation_mm": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 720,
+          "values_present": 164,
+          "flags": {
+            "source_blank": 556
+          },
+          "independent_source_comparison": true
+        },
+        "station_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 120,
+          "values_present": 120,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "sea_level_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 120,
+          "values_present": 120,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "global_solar_radiation_mj_m2": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 510,
+          "values_present": 429,
+          "flags": {
+            "source_blank": 81
+          },
+          "independent_source_comparison": true
+        },
+        "sunshine_duration_h": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 510,
+          "values_present": 198,
+          "flags": {
+            "source_blank": 312
+          },
+          "independent_source_comparison": true
+        },
+        "wind_speed_m_s": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 720,
+          "values_present": 720,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "wind_direction": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 720,
+          "values_present": 707,
+          "flags": {
+            "source_dash": 13
+          },
+          "independent_source_comparison": true
+        },
+        "dew_point_temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 240,
+          "values_present": 240,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "weather_code": {
+          "hours": [
+            12
+          ],
+          "observation_cells": 30,
+          "values_present": 30,
+          "flags": {},
+          "independent_source_comparison": true
+        }
+      },
+      "canonical_records_verified": 720,
+      "canonical_web_equal": true,
+      "production_path_verified": true,
+      "all_element_count": 11,
+      "complete_daily_summary_count": 30
+    },
+    {
+      "month": 5,
+      "elements": {
+        "temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 9.4,
+            "6": 10.9,
+            "9": 17.5,
+            "12": 17.5,
+            "15": 19.8,
+            "18": 17.5,
+            "21": 14.7,
+            "24": 14.2
+          },
+          "first_day_summary": {
+            "日平均": "15.1875",
+            "最高": "22.1",
+            "時刻1": "10:40:00",
+            "最低": "9.3",
+            "時刻2": "03:10:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "humidity": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 81.0,
+            "6": 62.4,
+            "9": 55.5,
+            "12": 57.4,
+            "15": 28.6,
+            "18": 61.8,
+            "21": 75.9,
+            "24": 81.6
+          },
+          "first_day_summary": {
+            "日平均": "63.025",
+            "最小": "28",
+            "時刻1": "15:03:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "dew_point_temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 6.3,
+            "6": 4.0,
+            "9": 8.5,
+            "12": 9.0,
+            "15": 1.1,
+            "18": 10.1,
+            "21": 10.5,
+            "24": 11.1
+          },
+          "first_day_summary": {
+            "日平均": "7.575",
+            "最高": "11.3",
+            "時刻1": "23:51:00",
+            "最低": "0.8",
+            "時刻2": "15:03:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "station_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 2,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 1014.9,
+            "9": 1014.6,
+            "15": 1012.0,
+            "21": 1013.5
+          },
+          "first_day_summary": {
+            "日平均": "1013.75",
+            "最高": "1015.6",
+            "時刻1": "None"
+          },
+          "daily_summaries_verified": 31
+        },
+        "sea_level_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 38,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 1022.2,
+            "9": 1021.6,
+            "15": 1019.0,
+            "21": 1020.6
+          },
+          "first_day_summary": {},
+          "daily_summaries_verified": 31
+        }
+      },
+      "independent_observations": {
+        "temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "relative_humidity_percent": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "precipitation_mm": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 153,
+          "flags": {
+            "source_blank": 591
+          },
+          "independent_source_comparison": true
+        },
+        "station_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "sea_level_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "global_solar_radiation_mj_m2": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 465,
+          "flags": {
+            "source_blank": 62
+          },
+          "independent_source_comparison": true
+        },
+        "sunshine_duration_h": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 222,
+          "flags": {
+            "source_blank": 305
+          },
+          "independent_source_comparison": true
+        },
+        "wind_speed_m_s": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 744,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "wind_direction": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 725,
+          "flags": {
+            "source_dash": 19
+          },
+          "independent_source_comparison": true
+        },
+        "dew_point_temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "weather_code": {
+          "hours": [
+            12
+          ],
+          "observation_cells": 31,
+          "values_present": 31,
+          "flags": {},
+          "independent_source_comparison": true
+        }
+      },
+      "canonical_records_verified": 744,
+      "canonical_web_equal": true,
+      "production_path_verified": true,
+      "all_element_count": 11,
+      "complete_daily_summary_count": 31
+    },
+    {
+      "month": 6,
+      "elements": {
+        "temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 240,
+          "first_day": {
+            "3": 12.8,
+            "6": 14.9,
+            "9": 18.5,
+            "12": 18.5,
+            "15": 19.0,
+            "18": 17.0,
+            "21": 14.5,
+            "24": 14.4
+          },
+          "first_day_summary": {
+            "日平均": "16.2",
+            "最高": "19.4",
+            "時刻1": "13:10:00",
+            "最低": "12.6",
+            "時刻2": "02:20:00"
+          },
+          "daily_summaries_verified": 30
+        },
+        "humidity": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 240,
+          "first_day": {
+            "3": 89.4,
+            "6": 83.3,
+            "9": 68.5,
+            "12": 70.3,
+            "15": 68.2,
+            "18": 76.8,
+            "21": 86.6,
+            "24": 88.3
+          },
+          "first_day_summary": {
+            "日平均": "78.925",
+            "最小": "67",
+            "時刻1": "14:49:00"
+          },
+          "daily_summaries_verified": 30
+        },
+        "dew_point_temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 240,
+          "first_day": {
+            "3": 11.1,
+            "6": 12.1,
+            "9": 12.6,
+            "12": 13.0,
+            "15": 13.0,
+            "18": 12.9,
+            "21": 12.3,
+            "24": 12.5
+          },
+          "first_day_summary": {
+            "日平均": "12.4375",
+            "最高": "13.9",
+            "時刻1": "11:08:00",
+            "最低": "10.9",
+            "時刻2": "00:42:00"
+          },
+          "daily_summaries_verified": 30
+        },
+        "station_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 2,
+          "observation_cells": 120,
+          "first_day": {
+            "3": 1006.9,
+            "9": 1007.8,
+            "15": 1007.5,
+            "21": 1009.4
+          },
+          "first_day_summary": {
+            "日平均": "1007.9",
+            "最高": "1009.6",
+            "時刻1": "None"
+          },
+          "daily_summaries_verified": 30
+        },
+        "sea_level_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 38,
+          "observation_cells": 120,
+          "first_day": {
+            "3": 1014.0,
+            "9": 1014.7,
+            "15": 1014.5,
+            "21": 1016.5
+          },
+          "first_day_summary": {},
+          "daily_summaries_verified": 30
+        }
+      },
+      "independent_observations": {
+        "temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 240,
+          "values_present": 240,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "relative_humidity_percent": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 240,
+          "values_present": 240,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "precipitation_mm": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 720,
+          "values_present": 285,
+          "flags": {
+            "source_blank": 435
+          },
+          "independent_source_comparison": true
+        },
+        "station_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 120,
+          "values_present": 120,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "sea_level_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 120,
+          "values_present": 120,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "global_solar_radiation_mj_m2": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 510,
+          "values_present": 450,
+          "flags": {
+            "source_blank": 60
+          },
+          "independent_source_comparison": true
+        },
+        "sunshine_duration_h": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 510,
+          "values_present": 137,
+          "flags": {
+            "source_blank": 373
+          },
+          "independent_source_comparison": true
+        },
+        "wind_speed_m_s": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 720,
+          "values_present": 720,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "wind_direction": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 720,
+          "values_present": 704,
+          "flags": {
+            "source_dash": 16
+          },
+          "independent_source_comparison": true
+        },
+        "dew_point_temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 240,
+          "values_present": 240,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "weather_code": {
+          "hours": [
+            12
+          ],
+          "observation_cells": 30,
+          "values_present": 30,
+          "flags": {},
+          "independent_source_comparison": true
+        }
+      },
+      "canonical_records_verified": 720,
+      "canonical_web_equal": true,
+      "production_path_verified": true,
+      "all_element_count": 11,
+      "complete_daily_summary_count": 30
+    },
+    {
+      "month": 7,
+      "elements": {
+        "temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 21.1,
+            "6": 21.3,
+            "9": 27.7,
+            "12": 32.7,
+            "15": 31.6,
+            "18": 27.3,
+            "21": 25.0,
+            "24": 20.3
+          },
+          "first_day_summary": {
+            "日平均": "25.875",
+            "最高": "32.7",
+            "時刻1": "11:30:00",
+            "最低": "20",
+            "時刻2": "23:40:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "humidity": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 96.4,
+            "6": 94.6,
+            "9": 65.3,
+            "12": 35.1,
+            "15": 36.9,
+            "18": 41.3,
+            "21": 49.8,
+            "24": 72.0
+          },
+          "first_day_summary": {
+            "日平均": "61.425",
+            "最小": "34",
+            "時刻1": "12:16:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "dew_point_temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 20.5,
+            "6": 20.4,
+            "9": 20.6,
+            "12": 15.3,
+            "15": 15.1,
+            "18": 13.0,
+            "21": 13.8,
+            "24": 15.1
+          },
+          "first_day_summary": {
+            "日平均": "16.725",
+            "最高": "22.9",
+            "時刻1": "08:07:00",
+            "最低": "12.2",
+            "時刻2": "17:15:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "station_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 2,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 986.0,
+            "9": 980.3,
+            "15": 990.5,
+            "21": 997.3
+          },
+          "first_day_summary": {
+            "日平均": "988.525",
+            "最高": "999.4",
+            "時刻1": "None"
+          },
+          "daily_summaries_verified": 31
+        },
+        "sea_level_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 38,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 992.8,
+            "9": 986.9,
+            "15": 997.0,
+            "21": 1004.1
+          },
+          "first_day_summary": {},
+          "daily_summaries_verified": 31
+        }
+      },
+      "independent_observations": {
+        "temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "relative_humidity_percent": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "precipitation_mm": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 153,
+          "flags": {
+            "source_blank": 591
+          },
+          "independent_source_comparison": true
+        },
+        "station_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "sea_level_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "global_solar_radiation_mj_m2": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 435,
+          "flags": {
+            "source_blank": 62,
+            "source_missing": 30
+          },
+          "independent_source_comparison": true
+        },
+        "sunshine_duration_h": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 255,
+          "flags": {
+            "source_blank": 272
+          },
+          "independent_source_comparison": true
+        },
+        "wind_speed_m_s": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 744,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "wind_direction": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 719,
+          "flags": {
+            "source_dash": 25
+          },
+          "independent_source_comparison": true
+        },
+        "dew_point_temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "weather_code": {
+          "hours": [
+            12
+          ],
+          "observation_cells": 31,
+          "values_present": 31,
+          "flags": {},
+          "independent_source_comparison": true
+        }
+      },
+      "canonical_records_verified": 744,
+      "canonical_web_equal": true,
+      "production_path_verified": true,
+      "all_element_count": 11,
+      "complete_daily_summary_count": 31
+    },
+    {
+      "month": 8,
+      "elements": {
+        "temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 24.6,
+            "6": 24.3,
+            "9": 25.7,
+            "12": 25.3,
+            "15": 26.1,
+            "18": 25.2,
+            "21": 25.2,
+            "24": 24.0
+          },
+          "first_day_summary": {
+            "日平均": "25.05",
+            "最高": "26.7",
+            "時刻1": "10:20:00",
+            "最低": "24",
+            "時刻2": "01:10:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "humidity": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 86.5,
+            "6": 90.8,
+            "9": 83.5,
+            "12": 83.5,
+            "15": 80.6,
+            "18": 86.6,
+            "21": 88.2,
+            "24": 91.9
+          },
+          "first_day_summary": {
+            "日平均": "86.45",
+            "最小": "79",
+            "時刻1": "11:02:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "dew_point_temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 22.2,
+            "6": 22.7,
+            "9": 22.7,
+            "12": 22.3,
+            "15": 22.5,
+            "18": 22.8,
+            "21": 23.1,
+            "24": 22.6
+          },
+          "first_day_summary": {
+            "日平均": "22.6125",
+            "最高": "23.2",
+            "時刻1": "21:28:00",
+            "最低": "22.1",
+            "時刻2": "12:27:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "station_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 2,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 1004.6,
+            "9": 1006.6,
+            "15": 1006.1,
+            "21": 1007.6
+          },
+          "first_day_summary": {
+            "日平均": "1006.225",
+            "最高": "1007.6",
+            "時刻1": "None"
+          },
+          "daily_summaries_verified": 31
+        },
+        "sea_level_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 38,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 1011.4,
+            "9": 1013.4,
+            "15": 1012.9,
+            "21": 1014.4
+          },
+          "first_day_summary": {},
+          "daily_summaries_verified": 31
+        }
+      },
+      "independent_observations": {
+        "temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "relative_humidity_percent": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "precipitation_mm": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 65,
+          "flags": {
+            "source_blank": 679
+          },
+          "independent_source_comparison": true
+        },
+        "station_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "sea_level_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "global_solar_radiation_mj_m2": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 453,
+          "flags": {
+            "source_blank": 74
+          },
+          "independent_source_comparison": true
+        },
+        "sunshine_duration_h": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 351,
+          "flags": {
+            "source_blank": 176
+          },
+          "independent_source_comparison": true
+        },
+        "wind_speed_m_s": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 744,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "wind_direction": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 731,
+          "flags": {
+            "source_dash": 13
+          },
+          "independent_source_comparison": true
+        },
+        "dew_point_temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "weather_code": {
+          "hours": [
+            12
+          ],
+          "observation_cells": 31,
+          "values_present": 31,
+          "flags": {},
+          "independent_source_comparison": true
+        }
+      },
+      "canonical_records_verified": 744,
+      "canonical_web_equal": true,
+      "production_path_verified": true,
+      "all_element_count": 11,
+      "complete_daily_summary_count": 31
+    },
+    {
+      "month": 9,
+      "elements": {
+        "temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 240,
+          "first_day": {
+            "3": 26.8,
+            "6": 26.6,
+            "9": 30.0,
+            "12": 33.1,
+            "15": 33.3,
+            "18": 29.6,
+            "21": 27.3,
+            "24": 25.9
+          },
+          "first_day_summary": {
+            "日平均": "29.075",
+            "最高": "33.8",
+            "時刻1": "14:30:00",
+            "最低": "25.9",
+            "時刻2": "24:00"
+          },
+          "daily_summaries_verified": 30
+        },
+        "humidity": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 240,
+          "first_day": {
+            "3": 84.7,
+            "6": 85.7,
+            "9": 72.4,
+            "12": 60.8,
+            "15": 62.6,
+            "18": 73.2,
+            "21": 80.3,
+            "24": 84.1
+          },
+          "first_day_summary": {
+            "日平均": "75.475",
+            "最小": "58",
+            "時刻1": "12:58:00"
+          },
+          "daily_summaries_verified": 30
+        },
+        "dew_point_temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 240,
+          "first_day": {
+            "3": 24.0,
+            "6": 24.0,
+            "9": 24.5,
+            "12": 24.5,
+            "15": 25.2,
+            "18": 24.3,
+            "21": 23.6,
+            "24": 23.0
+          },
+          "first_day_summary": {
+            "日平均": "24.1375",
+            "最高": "25.9",
+            "時刻1": "15:08:00",
+            "最低": "23",
+            "時刻2": "22:18:00"
+          },
+          "daily_summaries_verified": 30
+        },
+        "station_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 2,
+          "observation_cells": 120,
+          "first_day": {
+            "3": 1003.1,
+            "9": 1003.0,
+            "15": 1000.0,
+            "21": 1001.8
+          },
+          "first_day_summary": {
+            "日平均": "1001.975",
+            "最高": "1003.9",
+            "時刻1": "None"
+          },
+          "daily_summaries_verified": 30
+        },
+        "sea_level_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 38,
+          "observation_cells": 120,
+          "first_day": {
+            "3": 1009.9,
+            "9": 1009.7,
+            "15": 1006.6,
+            "21": 1008.5
+          },
+          "first_day_summary": {},
+          "daily_summaries_verified": 30
+        }
+      },
+      "independent_observations": {
+        "temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 240,
+          "values_present": 240,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "relative_humidity_percent": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 240,
+          "values_present": 240,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "precipitation_mm": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 720,
+          "values_present": 229,
+          "flags": {
+            "source_blank": 491
+          },
+          "independent_source_comparison": true
+        },
+        "station_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 120,
+          "values_present": 120,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "sea_level_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 120,
+          "values_present": 120,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "global_solar_radiation_mj_m2": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 510,
+          "values_present": 395,
+          "flags": {
+            "source_blank": 115
+          },
+          "independent_source_comparison": true
+        },
+        "sunshine_duration_h": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 510,
+          "values_present": 203,
+          "flags": {
+            "source_blank": 307
+          },
+          "independent_source_comparison": true
+        },
+        "wind_speed_m_s": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 720,
+          "values_present": 720,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "wind_direction": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 720,
+          "values_present": 713,
+          "flags": {
+            "source_dash": 7
+          },
+          "independent_source_comparison": true
+        },
+        "dew_point_temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 240,
+          "values_present": 240,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "weather_code": {
+          "hours": [
+            12
+          ],
+          "observation_cells": 30,
+          "values_present": 30,
+          "flags": {},
+          "independent_source_comparison": true
+        }
+      },
+      "canonical_records_verified": 720,
+      "canonical_web_equal": true,
+      "production_path_verified": true,
+      "all_element_count": 11,
+      "complete_daily_summary_count": 30
+    },
+    {
+      "month": 10,
+      "elements": {
+        "temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 16.8,
+            "6": 16.7,
+            "9": 21.3,
+            "12": 21.2,
+            "15": 24.0,
+            "18": 20.3,
+            "21": 19.4,
+            "24": 18.1
+          },
+          "first_day_summary": {
+            "日平均": "19.725",
+            "最高": "24.3",
+            "時刻1": "14:50:00",
+            "最低": "16.3",
+            "時刻2": "05:00:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "humidity": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 88.0,
+            "6": 90.9,
+            "9": 78.4,
+            "12": 82.5,
+            "15": 75.5,
+            "18": 82.4,
+            "21": 53.4,
+            "24": 55.3
+          },
+          "first_day_summary": {
+            "日平均": "75.8",
+            "最小": "52",
+            "時刻1": "21:35:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "dew_point_temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 14.8,
+            "6": 15.2,
+            "9": 17.4,
+            "12": 18.1,
+            "15": 19.4,
+            "18": 17.2,
+            "21": 9.7,
+            "24": 9.0
+          },
+          "first_day_summary": {
+            "日平均": "15.1",
+            "最高": "19.5",
+            "時刻1": "15:09:00",
+            "最低": "8.9",
+            "時刻2": "23:53:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "station_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 2,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 1005.2,
+            "9": 1003.9,
+            "15": 999.9,
+            "21": 1001.1
+          },
+          "first_day_summary": {
+            "日平均": "1002.525",
+            "最高": "1006.4",
+            "時刻1": "None"
+          },
+          "daily_summaries_verified": 31
+        },
+        "sea_level_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 38,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 1012.2,
+            "9": 1010.8,
+            "15": 1006.7,
+            "21": 1008.0
+          },
+          "first_day_summary": {},
+          "daily_summaries_verified": 31
+        }
+      },
+      "independent_observations": {
+        "temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "relative_humidity_percent": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "precipitation_mm": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 114,
+          "flags": {
+            "source_blank": 630
+          },
+          "independent_source_comparison": true
+        },
+        "station_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "sea_level_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "global_solar_radiation_mj_m2": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 390,
+          "flags": {
+            "source_blank": 137
+          },
+          "independent_source_comparison": true
+        },
+        "sunshine_duration_h": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 244,
+          "flags": {
+            "source_blank": 283
+          },
+          "independent_source_comparison": true
+        },
+        "wind_speed_m_s": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 744,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "wind_direction": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 736,
+          "flags": {
+            "source_dash": 8
+          },
+          "independent_source_comparison": true
+        },
+        "dew_point_temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "weather_code": {
+          "hours": [
+            12
+          ],
+          "observation_cells": 31,
+          "values_present": 31,
+          "flags": {},
+          "independent_source_comparison": true
+        }
+      },
+      "canonical_records_verified": 744,
+      "canonical_web_equal": true,
+      "production_path_verified": true,
+      "all_element_count": 11,
+      "complete_daily_summary_count": 31
+    },
+    {
+      "month": 11,
+      "elements": {
+        "temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 240,
+          "first_day": {
+            "3": 12.5,
+            "6": 14.2,
+            "9": 15.4,
+            "12": 15.8,
+            "15": 15.0,
+            "18": 14.9,
+            "21": 15.3,
+            "24": 14.0
+          },
+          "first_day_summary": {
+            "日平均": "14.6375",
+            "最高": "16.1",
+            "時刻1": "11:30:00",
+            "最低": "12.4",
+            "時刻2": "02:50:00"
+          },
+          "daily_summaries_verified": 30
+        },
+        "humidity": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 240,
+          "first_day": {
+            "3": 90.0,
+            "6": 83.8,
+            "9": 79.6,
+            "12": 80.7,
+            "15": 94.3,
+            "18": 95.6,
+            "21": 96.2,
+            "24": 93.1
+          },
+          "first_day_summary": {
+            "日平均": "89.1625",
+            "最小": "77",
+            "時刻1": "0:41:00"
+          },
+          "daily_summaries_verified": 30
+        },
+        "dew_point_temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 240,
+          "first_day": {
+            "3": 10.9,
+            "6": 11.5,
+            "9": 11.9,
+            "12": 12.5,
+            "15": 14.1,
+            "18": 14.2,
+            "21": 14.7,
+            "24": 12.9
+          },
+          "first_day_summary": {
+            "日平均": "12.8375",
+            "最高": "14.8",
+            "時刻1": "21:36:00",
+            "最低": "10.2",
+            "時刻2": "00:57:00"
+          },
+          "daily_summaries_verified": 30
+        },
+        "station_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 2,
+          "observation_cells": 120,
+          "first_day": {
+            "3": 1005.5,
+            "9": 1004.8,
+            "15": 1000.3,
+            "21": 998.1
+          },
+          "first_day_summary": {
+            "日平均": "1002.175",
+            "最高": "1006.6",
+            "時刻1": "None"
+          },
+          "daily_summaries_verified": 30
+        },
+        "sea_level_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 38,
+          "observation_cells": 120,
+          "first_day": {
+            "3": 1012.6,
+            "9": 1011.8,
+            "15": 1007.4,
+            "21": 1005.1
+          },
+          "first_day_summary": {},
+          "daily_summaries_verified": 30
+        }
+      },
+      "independent_observations": {
+        "temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 240,
+          "values_present": 240,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "relative_humidity_percent": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 240,
+          "values_present": 240,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "precipitation_mm": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 720,
+          "values_present": 120,
+          "flags": {
+            "source_blank": 600
+          },
+          "independent_source_comparison": true
+        },
+        "station_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 120,
+          "values_present": 120,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "sea_level_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 120,
+          "values_present": 120,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "global_solar_radiation_mj_m2": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 510,
+          "values_present": 331,
+          "flags": {
+            "source_blank": 179
+          },
+          "independent_source_comparison": true
+        },
+        "sunshine_duration_h": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 510,
+          "values_present": 227,
+          "flags": {
+            "source_blank": 283
+          },
+          "independent_source_comparison": true
+        },
+        "wind_speed_m_s": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 720,
+          "values_present": 720,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "wind_direction": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 720,
+          "values_present": 716,
+          "flags": {
+            "source_dash": 4
+          },
+          "independent_source_comparison": true
+        },
+        "dew_point_temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 240,
+          "values_present": 240,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "weather_code": {
+          "hours": [
+            12
+          ],
+          "observation_cells": 30,
+          "values_present": 30,
+          "flags": {},
+          "independent_source_comparison": true
+        }
+      },
+      "canonical_records_verified": 720,
+      "canonical_web_equal": true,
+      "production_path_verified": true,
+      "all_element_count": 11,
+      "complete_daily_summary_count": 30
+    },
+    {
+      "month": 12,
+      "elements": {
+        "temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 4.8,
+            "6": 2.5,
+            "9": 9.4,
+            "12": 11.6,
+            "15": 11.9,
+            "18": 8.3,
+            "21": 6.4,
+            "24": 8.6
+          },
+          "first_day_summary": {
+            "日平均": "7.9375",
+            "最高": "12.2",
+            "時刻1": "13:50:00",
+            "最低": "2.3",
+            "時刻2": "06:40:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "humidity": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": 49.0,
+            "6": 59.0,
+            "9": 57.3,
+            "12": 47.4,
+            "15": 44.2,
+            "18": 57.5,
+            "21": 65.9,
+            "24": 44.5
+          },
+          "first_day_summary": {
+            "日平均": "53.1",
+            "最小": "39",
+            "時刻1": "23:06:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "dew_point_temperature": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "header_row": 2,
+          "observation_cells": 248,
+          "first_day": {
+            "3": -5.0,
+            "6": -4.7,
+            "9": 1.4,
+            "12": 0.8,
+            "15": 0.1,
+            "18": 0.4,
+            "21": 0.5,
+            "24": -2.8
+          },
+          "first_day_summary": {
+            "日平均": "-1.1625",
+            "最高": "3",
+            "時刻1": "10:30:00",
+            "最低": "-5.9",
+            "時刻2": "04:20:00"
+          },
+          "daily_summaries_verified": 31
+        },
+        "station_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 2,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 1013.3,
+            "9": 1013.3,
+            "15": 1009.5,
+            "21": 1009.9
+          },
+          "first_day_summary": {
+            "日平均": "1011.5",
+            "最高": "1014.1",
+            "時刻1": "None"
+          },
+          "daily_summaries_verified": 31
+        },
+        "sea_level_pressure": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "header_row": 38,
+          "observation_cells": 124,
+          "first_day": {
+            "3": 1020.7,
+            "9": 1020.6,
+            "15": 1016.7,
+            "21": 1017.2
+          },
+          "first_day_summary": {},
+          "daily_summaries_verified": 31
+        }
+      },
+      "independent_observations": {
+        "temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "relative_humidity_percent": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "precipitation_mm": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 68,
+          "flags": {
+            "source_blank": 676
+          },
+          "independent_source_comparison": true
+        },
+        "station_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "sea_level_pressure_hpa": {
+          "hours": [
+            3,
+            9,
+            15,
+            21
+          ],
+          "observation_cells": 124,
+          "values_present": 124,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "global_solar_radiation_mj_m2": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 341,
+          "flags": {
+            "source_blank": 186
+          },
+          "independent_source_comparison": true
+        },
+        "sunshine_duration_h": {
+          "hours": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "observation_cells": 527,
+          "values_present": 254,
+          "flags": {
+            "source_blank": 273
+          },
+          "independent_source_comparison": true
+        },
+        "wind_speed_m_s": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 744,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "wind_direction": {
+          "hours": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24
+          ],
+          "observation_cells": 744,
+          "values_present": 739,
+          "flags": {
+            "source_dash": 5
+          },
+          "independent_source_comparison": true
+        },
+        "dew_point_temperature_c": {
+          "hours": [
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24
+          ],
+          "observation_cells": 248,
+          "values_present": 248,
+          "flags": {},
+          "independent_source_comparison": true
+        },
+        "weather_code": {
+          "hours": [
+            12
+          ],
+          "observation_cells": 31,
+          "values_present": 31,
+          "flags": {},
+          "independent_source_comparison": true
+        }
+      },
+      "canonical_records_verified": 744,
+      "canonical_web_equal": true,
+      "production_path_verified": true,
+      "all_element_count": 11,
+      "complete_daily_summary_count": 31
+    }
+  ],
+  "verified_workbooks": [
+    {
+      "element": "temperature",
+      "file": "temp1985.xls",
+      "sha256": "d4c482c5636f0ed1119248712e88437c112953dd0d84a986d6db82e3a1c0c77d",
+      "status": "verified"
+    },
+    {
+      "element": "humidity",
+      "file": "humi1985.xls",
+      "sha256": "babd430553694d60d9b380c741ad7d3f7ecdfda26c6a1bb5e0cc4f9bcc3f140b",
+      "status": "verified"
+    },
+    {
+      "element": "precipitation",
+      "file": "prec1985.xls",
+      "sha256": "56b12f99d2393531b81f1e083562863ffab3cab173758f559736c6d46c6055bb",
+      "status": "verified"
+    },
+    {
+      "element": "pressure",
+      "file": "pres1985.xls",
+      "sha256": "4c4930104d3b65bc542335364d6ef1f0024d719b193221785289b27e9fef229d",
+      "status": "verified"
+    },
+    {
+      "element": "solar_radiation",
+      "file": "sunF1985.xls",
+      "sha256": "f44323e2d25e5dead94c692655fa62e6a865f112fc203dd83bf08db6c34c659c",
+      "status": "verified"
+    },
+    {
+      "element": "sunshine_duration",
+      "file": "sunL1985.xls",
+      "sha256": "64d83753b9417d972933ec745c06351ea6dbce0818bd04a06fa5c3cfe93572ff",
+      "status": "verified"
+    },
+    {
+      "element": "wind_speed",
+      "file": "wv1985.xls",
+      "sha256": "f61478c35582004c6c50f0e515bf502c51f2b0134551d5eefa0a71647b71b9fc",
+      "status": "verified"
+    },
+    {
+      "element": "wind_direction",
+      "file": "wd1985.xls",
+      "sha256": "86b8bf8404506efee8e7af503663af65db4f112f73f0ddb282020999914fc772",
+      "status": "verified"
+    },
+    {
+      "element": "dew_point_temperature",
+      "file": "dewp1985.xls",
+      "sha256": "a41a50d7dd43a99898f169e20d607897e9a6f53785bce2209d725e6efcbd3b5a",
+      "status": "verified"
+    },
+    {
+      "element": "weather_code",
+      "file": "weat1985.xls",
+      "sha256": "b6f35adf6070626a1cfce8fb47b6cc568010c8fae5bd8e499b0491731cb76f70",
+      "status": "verified"
+    }
+  ],
+  "verified_archives": [
+    {
+      "element": "temperature",
+      "file": "temperature.zip",
+      "sha256": "7dc3c5078eb87370eb55911c15bdd8124b8f35927cefa120772a380258087292",
+      "status": "verified"
+    },
+    {
+      "element": "humidity",
+      "file": "humidity.zip",
+      "sha256": "5e18b17b46d494d920901513c89f5d9cf9f75ba07c24d03607eeb3db6f4a65b4",
+      "status": "verified"
+    },
+    {
+      "element": "precipitation",
+      "file": "precipitation.zip",
+      "sha256": "716c1ef34a34d0308d5352674b4bac94e20d2d770ffc11b83e971745828ea6d5",
+      "status": "verified"
+    },
+    {
+      "element": "pressure",
+      "file": "pressure.zip",
+      "sha256": "36b2f96654092b8d794401208fb849d856772debdc9195be87a44aea2ba8632c",
+      "status": "verified"
+    },
+    {
+      "element": "solar_radiation",
+      "file": "global_solar_radiation.zip",
+      "sha256": "f33cb9004daadeef887ac162eca59cfc6e87e263a3194289535fff7472d852c0",
+      "status": "verified"
+    },
+    {
+      "element": "sunshine_duration",
+      "file": "sunshine_duration.zip",
+      "sha256": "19b99d40c215cf344c3ff35f3c8ba5cd7695f98c93b6295ce291740a7605ed08",
+      "status": "verified"
+    },
+    {
+      "element": "wind_speed",
+      "file": "wind_speed.zip",
+      "sha256": "616710658b0cd8ef4887fc5a7e7d94a8f818e3a8675f05a4639a8829a736aa21",
+      "status": "verified"
+    },
+    {
+      "element": "wind_direction",
+      "file": "wind_direction.zip",
+      "sha256": "44d89d7328636f56afcc7f78ebea68797faedf9ec415b3098b1340a49bdf3e5d",
+      "status": "verified"
+    },
+    {
+      "element": "dew_point_temperature",
+      "file": "dew_point_temperature.zip",
+      "sha256": "bf6957b65adafff5e0e612e58b374822ae0597730bc2678236d6460a20caf201",
+      "status": "verified"
+    },
+    {
+      "element": "weather_code",
+      "file": "weather_code.zip",
+      "sha256": "b3d1d73ad8d066eebea448eeae55ac3ffc9ee1a8b2ae6632eab294a69417846c",
+      "status": "verified"
+    }
+  ],
+  "source_manifest": "/home/runner/work/hitachi-weather-data/hitachi-weather-data/metadata/sources/hitachi-city-hall-1985.yaml",
+  "full_year_verified": true,
+  "canonical_verified": true,
+  "comparison_basis": "Independent coordinates and decoders on checksum-verified originals converted by LibreOffice; no interpolation",
+  "actions_run_url": "https://github.com/kojikomatsuzaki/hitachi-weather-data/actions/runs/38516716861",
+  "validation_code_commit": "1447feea7e4b9d28e44bd8da49e32c9ca33cd776",
+  "canonical_records_verified": 8760,
+  "daily_summary_count": 365,
+  "scheduled_observation_cells_verified": 50735,
+  "unresolved_source_cells": [],
+  "observation_flag_counts": {
+    "source_blank": 11988,
+    "not_scheduled": 37230,
+    "source_dash": 149,
+    "source_missing": 30
+  }
+}

@@ -8,6 +8,102 @@
     "report_path": "reports/validation-1953-01.md"
   },
   {
+    "year": 1985,
+    "month": 1,
+    "label": "1985年1月",
+    "data_path": "1985/01.json",
+    "yaml_path": "data/hitachi-city-hall/1985/01.yaml",
+    "report_path": "reports/validation-1985-01.md"
+  },
+  {
+    "year": 1985,
+    "month": 2,
+    "label": "1985年2月",
+    "data_path": "1985/02.json",
+    "yaml_path": "data/hitachi-city-hall/1985/02.yaml",
+    "report_path": "reports/validation-1985-02.md"
+  },
+  {
+    "year": 1985,
+    "month": 3,
+    "label": "1985年3月",
+    "data_path": "1985/03.json",
+    "yaml_path": "data/hitachi-city-hall/1985/03.yaml",
+    "report_path": "reports/validation-1985-03.md"
+  },
+  {
+    "year": 1985,
+    "month": 4,
+    "label": "1985年4月",
+    "data_path": "1985/04.json",
+    "yaml_path": "data/hitachi-city-hall/1985/04.yaml",
+    "report_path": "reports/validation-1985-04.md"
+  },
+  {
+    "year": 1985,
+    "month": 5,
+    "label": "1985年5月",
+    "data_path": "1985/05.json",
+    "yaml_path": "data/hitachi-city-hall/1985/05.yaml",
+    "report_path": "reports/validation-1985-05.md"
+  },
+  {
+    "year": 1985,
+    "month": 6,
+    "label": "1985年6月",
+    "data_path": "1985/06.json",
+    "yaml_path": "data/hitachi-city-hall/1985/06.yaml",
+    "report_path": "reports/validation-1985-06.md"
+  },
+  {
+    "year": 1985,
+    "month": 7,
+    "label": "1985年7月",
+    "data_path": "1985/07.json",
+    "yaml_path": "data/hitachi-city-hall/1985/07.yaml",
+    "report_path": "reports/validation-1985-07.md"
+  },
+  {
+    "year": 1985,
+    "month": 8,
+    "label": "1985年8月",
+    "data_path": "1985/08.json",
+    "yaml_path": "data/hitachi-city-hall/1985/08.yaml",
+    "report_path": "reports/validation-1985-08.md"
+  },
+  {
+    "year": 1985,
+    "month": 9,
+    "label": "1985年9月",
+    "data_path": "1985/09.json",
+    "yaml_path": "data/hitachi-city-hall/1985/09.yaml",
+    "report_path": "reports/validation-1985-09.md"
+  },
+  {
+    "year": 1985,
+    "month": 10,
+    "label": "1985年10月",
+    "data_path": "1985/10.json",
+    "yaml_path": "data/hitachi-city-hall/1985/10.yaml",
+    "report_path": "reports/validation-1985-10.md"
+  },
+  {
+    "year": 1985,
+    "month": 11,
+    "label": "1985年11月",
+    "data_path": "1985/11.json",
+    "yaml_path": "data/hitachi-city-hall/1985/11.yaml",
+    "report_path": "reports/validation-1985-11.md"
+  },
+  {
+    "year": 1985,
+    "month": 12,
+    "label": "1985年12月",
+    "data_path": "1985/12.json",
+    "yaml_path": "data/hitachi-city-hall/1985/12.yaml",
+    "report_path": "reports/validation-1985-12.md"
+  },
+  {
     "year": 1986,
     "month": 1,
     "label": "1986年1月",
