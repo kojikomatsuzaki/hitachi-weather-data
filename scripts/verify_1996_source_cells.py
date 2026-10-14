@@ -101,14 +101,29 @@ def oracle_source_workbook(path):
     return load_workbook(path, data_only=True)
 
 
+def absent_elements(year):
+    absent = {}
+    if year in range(1971, 1983): absent['dew_point_temperature_c'] = 'dew_point_temperature'
+    if year in range(1971, 1981): absent['global_solar_radiation_mj_m2'] = 'solar_radiation'
+    if year == 1977: absent['sunshine_duration_h'] = 'sunshine_duration'
+    return absent
+
+
+def summary_column(year, element, column):
+    return column - 4 if year <= 1977 and element in ('temperature', 'humidity') else column
+
+
 def table_specs(year):
     tables = dict(TABLES)
-    if year in range(1981, 1993):
+    if year in range(1971, 1993):
         for element in ('station_pressure_hpa', 'sea_level_pressure_hpa'):
             key, _, fragment = tables[element]
             tables[element] = (key, (3, 9, 15, 21), fragment)
-    if year in (1981, 1982):
-        tables['dew_point_temperature_c'] = ('dew_point_temperature', (), None)
+    if year <= 1977:
+        for element in ('temperature_c', 'relative_humidity_percent'):
+            key, _, fragment = tables[element]; tables[element] = (key, (3,9,15,21), fragment)
+    for element, key in absent_elements(year).items(): tables[element] = (key, (), None)
+    if year in (1971,1973): tables['weather_code'] = ('weather_code', (9,), None)
     return tables
 
 
@@ -117,7 +132,7 @@ def source_table(paths, element, month, year=1996):
     workbook = oracle_source_workbook(paths[key])
     if element == 'weather_code':
         sheet = workbook['天気']
-        assert '12時' in unicodedata.normalize('NFKC', str(sheet.cell(1, 1).value))
+        assert f'{hours[0]}時' in unicodedata.normalize('NFKC', str(sheet.cell(1, 1).value))
         assert str(sheet.cell(3, 19 + month).value).strip() == str(month)
         return sheet, 4, (19 + month,)
     named_sheets = {unicodedata.normalize('NFKC', sheet.title).strip(): sheet
@@ -149,8 +164,8 @@ def expected_cells(paths, month, year=1996):
     output, addresses = {}, {}
     days = calendar.monthrange(year, month)[1]
     for element, (_, hours, _) in table_specs(year).items():
-        if element == 'dew_point_temperature_c' and year in (1981, 1982):
-            assert 'dew_point_temperature' not in paths
+        if element in absent_elements(year):
+            assert absent_elements(year)[element] not in paths
             output[element] = {(day, hour): (None, 'source_file_unavailable', None, False)
                                for day in range(1, days + 1) for hour in FULL}
             addresses[element] = {key: 'verified absent annual source file' for key in output[element]}
@@ -193,10 +208,10 @@ def verify_extractions(paths, month, extractions, year=1996):
                 assert actual.raw_value == raw
         result[item.element_id] = {
             'hours': list(table_specs(year)[item.element_id][1]),
-            'observation_cells': 0 if year in (1981, 1982) and item.element_id == 'dew_point_temperature_c' else len(oracle),
+            'observation_cells': 0 if item.element_id in absent_elements(year) else len(oracle),
             'values_present': sum(cell[0] is not None for cell in oracle.values()),
             'flags': dict(Counter(cell[1] for cell in oracle.values() if cell[1])),
-            'independent_source_comparison': not (year in (1981, 1982) and item.element_id == 'dew_point_temperature_c'),
+            'independent_source_comparison': not (item.element_id in absent_elements(year)),
             'availability_verified': True,
         }
     return result
@@ -208,9 +223,10 @@ def verify_document(paths, month, document, year=1996):
     assert document['dataset']['year'] == year and document['dataset']['month'] == month
     assert document['dataset']['observation_schedules'] == {
         element: list(spec[1]) for element, spec in table_specs(year).items()}
-    if year in (1981, 1982):
-        assert document['dataset']['element_availability']['dew_point_temperature_c']['status'] == 'not_available_for_period'
-        assert all('dew_point_temperature' not in summary for summary in document['daily_summaries'])
+    for element, source_key in absent_elements(year).items():
+        assert document['dataset']['element_availability'][element]['status'] == 'not_available_for_period'
+        summary_key = 'global_solar_radiation' if source_key == 'solar_radiation' else source_key
+        assert all(summary_key not in summary for summary in document['daily_summaries'])
     records = {(int(record['source_date'][-2:]), record['source_hour']): record
                for record in document['observations']}
     assert len(records) == len(document['observations']) == days * 24

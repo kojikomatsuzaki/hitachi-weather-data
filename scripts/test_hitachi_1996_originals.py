@@ -33,9 +33,9 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
         entry = {"month": month, "elements": {}}
         for key, (element_id, labels) in ELEMENTS.items():
             if key == "dew_point_temperature" and key not in paths:
-                assert year in (1981, 1982)
+                assert key in historical.absent_source_elements(year)
                 continue
-            schedule = (3, 9, 15, 21) if year in range(1981, 1993) and "pressure" in key else THREE_HOURLY
+            schedule = (3, 9, 15, 21) if (year in range(1971, 1993) and "pressure" in key) or (year <= 1977 and key in {"temperature", "humidity"}) else THREE_HOURLY
             if year in range(1992, 1996) and key == "dew_point_temperature":
                 labels = ("日平均", "最高", "時刻1", "日", "最低", "時刻2")
             if key.startswith("station_") or key.startswith("sea_"):
@@ -84,11 +84,11 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
             ("sea_level_pressure", ()),
         ):
             if key == "dew_point_temperature" and key not in paths:
-                assert year in (1981, 1982)
+                assert key in historical.absent_source_elements(year)
                 continue
             if year in range(1992, 1996) and key == "dew_point_temperature":
                 expected_labels = ("日平均", "最高", "時刻1", "日", "最低", "時刻2")
-            schedule = (3, 9, 15, 21) if year in range(1981, 1993) and "pressure" in key else THREE_HOURLY
+            schedule = (3, 9, 15, 21) if (year in range(1971, 1993) and "pressure" in key) or (year <= 1977 and key in {"temperature", "humidity"}) else THREE_HOURLY
             source_key = "pressure" if "pressure" in key else key
             sheet = historical.month_sheet(paths[source_key], month)
             fragment = ("現地気圧" if key == "station_pressure" else
@@ -104,16 +104,16 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
                 mean = (record["mean_percent"] if key == "humidity" else
                         record["mean_hpa"] if "pressure" in key else record["mean_c"])
                 assert mean == oracle.number(
-                    sheet, row, (6 if year in range(1981, 1993) else 10) if "pressure" in key else layout.summary_columns["日平均"]), (key, month, day)
+                    sheet, row, (6 if year in range(1971, 1993) else 10) if "pressure" in key else layout.summary_columns["日平均"]), (key, month, day)
             entry["elements"][key]["daily_summaries_verified"] = len(day_rows)
         # Verify the entire daily source summary, including pressure extrema,
         # against independently addressed worksheet cells.
         for name in ("temperature", "humidity", "dew_point_temperature",
                      "station_pressure", "sea_level_pressure"):
             if name == "dew_point_temperature" and name not in paths:
-                assert year in (1981, 1982)
+                assert name in historical.absent_source_elements(year)
                 continue
-            schedule = (3, 9, 15, 21) if year in range(1981, 1993) and "pressure" in name else THREE_HOURLY
+            schedule = (3, 9, 15, 21) if (year in range(1971, 1993) and "pressure" in name) or (year <= 1977 and name in {"temperature", "humidity"}) else THREE_HOURLY
             source_key = "pressure" if "pressure" in name else name
             sheet = historical.month_sheet(paths[source_key], month)
             fragment = ("現地気圧" if name == "station_pressure" else
@@ -127,18 +127,18 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
             for day, row in rows.items():
                 record = verified_summaries[name][f"{year}-{month:02d}-{day:02d}"]
                 assert record[f"mean_{unit}"] == oracle.number(
-                    sheet, row, 6 if year in range(1981, 1993) and "pressure" in name else 10), (name, month, day, "mean")
+                    sheet, row, 6 if year in range(1971, 1993) and "pressure" in name else oracle.summary_column(year, name, 10)), (name, month, day, "mean")
                 if name != "humidity":
                     assert record["maximum"][f"value_{unit}"] == oracle.number(
-                        sheet, row, 7 if year in range(1981, 1993) and "pressure" in name else 11), (name, month, day, "maximum")
+                        sheet, row, 7 if year in range(1971, 1993) and "pressure" in name else oracle.summary_column(year, name, 11)), (name, month, day, "maximum")
                     assert record["maximum"]["time"] == oracle.moment(
-                        sheet, row, 8 if year in range(1981, 1993) and "pressure" in name else 12), (name, month, day, "maximum time")
-                min_col = 9 if year in range(1981, 1993) and unit == "hpa" else 14 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else (11 if unit == "percent" else 13)
-                min_time_col = 10 if year in range(1981, 1993) and unit == "hpa" else 15 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else (12 if unit == "percent" else 14)
+                        sheet, row, 8 if year in range(1971, 1993) and "pressure" in name else oracle.summary_column(year, name, 12)), (name, month, day, "maximum time")
+                min_col = 9 if year in range(1971, 1993) and unit == "hpa" else 14 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else (11 if unit == "percent" else 13)
+                min_time_col = 10 if year in range(1971, 1993) and unit == "hpa" else 15 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else (12 if unit == "percent" else 14)
                 assert record["minimum"][f"value_{unit}"] == oracle.number(
-                    sheet, row, min_col), (name, month, day, "minimum")
+                    sheet, row, oracle.summary_column(year, name, min_col)), (name, month, day, "minimum")
                 assert record["minimum"]["time"] == oracle.moment(
-                    sheet, row, min_time_col), (name, month, day, "minimum time")
+                    sheet, row, oracle.summary_column(year, name, min_time_col)), (name, month, day, "minimum time")
         # Exercise the complete production path, not only the three-hour subset.
         all_elements = historical.extract_all_elements(paths, year, month)
         all_summaries = historical.extract_daily_summaries(paths, year, month)
@@ -165,13 +165,16 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
             "sunshine_duration": ("sunshine_duration", list(range(4, 21)), {
                 ("total_h",): 19}),
         }
-        if year in range(1981, 1996):
+        if year in range(1971, 1996):
             summary_key, hours, mapping = fields["wind_speed"]
             fields["wind_speed"] = (summary_key, hours, {
                 keys: column + (1 if column >= 32 else 0)
                 for keys, column in mapping.items()
             })
         for source_key, (summary_key, hours, mapping) in fields.items():
+            if source_key not in paths:
+                assert source_key in historical.absent_source_elements(year)
+                continue
             sheet = historical.month_sheet(paths[source_key], month)
             header = historical.find_hour_header_row(sheet, hours)
             rows = historical.rows_by_day(sheet, header, year, month)
@@ -190,7 +193,7 @@ def run(year, months, source_directory, download_missing, verify_canonical=False
                             duration=source_key == "sunshine_duration")
                     assert actual == expected, (source_key, month, day, keys)
         entry["independent_observations"] = oracle.verify_extractions(paths, month, all_elements, year)
-        print(f"PASS {year}-{month:02d} independent observations: {10 if year in (1981, 1982) else 11} source elements", flush=True)
+        print(f"PASS {year}-{month:02d} independent observations: {11 - len(oracle.absent_elements(year))} source elements", flush=True)
         if verify_canonical:
             canonical_path = historical.REPOSITORY_ROOT / "data" / "hitachi-city-hall" / str(year) / f"{month:02d}.yaml"
             canonical = yaml.safe_load(canonical_path.read_text(encoding="utf-8"))
@@ -217,8 +220,8 @@ def main():
     parser.add_argument("--output", type=Path, default=Path("build/integration-results.json"))
     parser.add_argument("--verify-canonical", action="store_true")
     args = parser.parse_args()
-    if args.year not in range(1981, 1997):
-        raise ValueError("This test validates inspected 1981–1996 historical layouts")
+    if args.year not in range(1971, 1997):
+        raise ValueError("This test validates inspected 1971–1996 historical layouts")
     if len(set(args.months)) != len(args.months) or any(month not in range(1, 13) for month in args.months):
         raise ValueError("Months must be unique integers from 1 to 12")
     result = run(args.year, args.months, args.source_directory, args.download_missing, args.verify_canonical)

@@ -472,7 +472,7 @@ def assemble_month_document(
                 if cell.flag is not None and cell.has_raw_value:
                     raw_values[element_id] = cell.raw_value
 
-            if hour == 12:
+            if (day, hour) in extraction_by_element["weather_code"].cells:
                 weather_cell = extraction_by_element["weather_code"].cells[(day, hour)]
                 values["weather_code"] = weather_cell.value
                 if weather_cell.flag is not None:

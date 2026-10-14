@@ -33,7 +33,7 @@ class AbsentSourceTests(unittest.TestCase):
                 with patch.object(discovery, 'CATALOG_PATH', inside):
                     manifest = yaml.safe_load(discovery.discover_year(1982, source).read_text())
                     self.assertEqual(manifest['files'][0]['status'], 'not_available_for_period')
-                    with self.assertRaises(ValueError): discovery.discover_year(1980, source)
+                    with self.assertRaises(ValueError): discovery.discover_year(1970, source)
             paths, _, archives = historical.prepare_source_files(manifest, source, False)
             self.assertEqual(paths, {})
             self.assertEqual(archives[0]['status'], 'verified')

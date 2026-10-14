@@ -39,6 +39,8 @@ REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 STATION_ID = "hitachi-city-hall"
 GENERATOR_PATH = "scripts/import_hitachi_city_hall_historical_year.py"
 
+from historical_source_availability import absent_source_elements, ELEMENT_IDS
+
 ARCHIVE_FILE_NAMES = {
     "temperature": "temperature.zip",
     "humidity": "humidity.zip",
@@ -122,10 +124,11 @@ def prepare_source_files(
 ) -> tuple[dict[str, Path], list[dict[str, str]], list[dict[str, str]]]:
     """ZIP・内部Excelを照合し、読取用XLSXを準備する。"""
 
-    if manifest["source_collection"]["year"] in (1981, 1982):
-        dew_entries = [entry for entry in manifest["files"] if entry["element"] == "dew_point_temperature"]
-        assert len(dew_entries) == 1 and dew_entries[0].get("status") == "not_available_for_period", \
-            "Missing dew-point data must have explicit, checksum-verifiable absence provenance"
+    year = manifest["source_collection"]["year"]
+    for source_key in absent_source_elements(year):
+        entries = [entry for entry in manifest["files"] if entry["element"] == source_key]
+        assert len(entries) == 1 and entries[0].get("status") == "not_available_for_period", \
+            "File absence must have explicit, checksum-verifiable provenance"
 
     original_directory = source_directory / "original"
     converted_directory = source_directory / "converted"
@@ -155,7 +158,7 @@ def prepare_source_files(
         if entry.get("status") == "not_available_for_period":
             # Absence is evidence about the published collection, not an empty cell.
             year = manifest["source_collection"]["year"]
-            assert year in (1981, 1982) and element == "dew_point_temperature"
+            assert element in absent_source_elements(year)
             with zipfile.ZipFile(archive_path) as archive:
                 assert not any(Path(name).name.casefold() == entry["expected_member"].casefold()
                                for name in archive.namelist())
@@ -296,7 +299,7 @@ def extract_hourly(
     start_row = find_title_row(sheet, title_fragment) + 1 if title_fragment else 1
     # 1996 temperature has verified 3-hour observations, not 24 hourly values.
     # Reject any unknown header rather than interpreting a summary column as data.
-    verified_1996_temperature = year in range(1981, 1997) and element_id in {
+    verified_1996_temperature = year in range(1971, 1997) and element_id in {
         "temperature_c", "relative_humidity_percent", "dew_point_temperature_c",
         "station_pressure_hpa", "sea_level_pressure_hpa",
     }
@@ -310,7 +313,7 @@ def extract_hourly(
         }[element_id]
         if year in range(1992, 1996) and element_id == "dew_point_temperature_c":
             labels = ("日平均", "最高", "時刻1", "日", "最低", "時刻2")
-        schedule = (3, 9, 15, 21) if year in range(1981, 1993) and "pressure" in element_id else THREE_HOURLY
+        schedule = (3, 9, 15, 21) if (year in range(1971, 1993) and "pressure" in element_id) or (year <= 1977 and element_id in {"temperature_c", "relative_humidity_percent"}) else THREE_HOURLY
         layout = detect_observation_layout(
             sheet, expected_schedules=(schedule,),
             start_row=start_row, summary_labels=labels)
@@ -368,7 +371,7 @@ def extract_wind_direction(path: Path, year: int, month: int) -> common.ElementE
     for key, cell in raw.cells.items():
         if cell.value is None:
             converted[key] = cell
-        elif year in range(1981, 1997) and cell.value in set(common.WIND_DIRECTION_CODES.values()):
+        elif year in range(1971, 1997) and cell.value in set(common.WIND_DIRECTION_CODES.values()):
             # 1996 originals use already-normalized 16-point compass tokens.
             # Unknown tokens and '-' retain their existing source flags.
             converted[key] = common.SourceCell(cell.value, cell.flag)
@@ -387,6 +390,8 @@ def extract_weather(path: Path, year: int, month: int) -> common.ElementExtracti
     if "天気" not in workbook.sheetnames:
         raise ValueError(f"Weather sheet was not found in {path.name}")
     sheet = workbook["天気"]
+    weather_hour = 9 if year in (1971, 1973) else 12
+    assert f"{weather_hour}時" in unicodedata.normalize("NFKC", str(sheet.cell(1, 1).value))
     code_column = 19 + month
     if integer_value(sheet.cell(3, code_column).value) != month:
         raise ValueError(f"Could not locate weather code column for month {month}")
@@ -396,19 +401,23 @@ def extract_weather(path: Path, year: int, month: int) -> common.ElementExtracti
         if cell.value is not None and cell.value not in common.WEATHER_CODES:
             raw_value = cell.raw_value if cell.has_raw_value else cell.value
             cell = common.SourceCell(None, "unrecognized_source_value", raw_value, True)
-        cells[(day, 12)] = cell
+        cells[(day, weather_hour)] = cell
     return common.ElementExtraction("weather_code", cells)
 
 
-def unavailable_dew_point(year: int, month: int) -> common.ElementExtraction:
-    """Keep file absence distinct from blank cells and unobserved hours."""
-    if year not in (1981, 1982):
-        raise ValueError(f"Unexpected missing dew-point file for {year}")
-    return common.ElementExtraction("dew_point_temperature_c", {
+def unavailable_source_element(source_key: str, year: int, month: int) -> common.ElementExtraction:
+    """ファイル不在を空欄・欠測・非観測時刻と混同しない。"""
+    if source_key not in absent_source_elements(year):
+        raise ValueError(f"Unexpected missing {source_key} file for {year}")
+    return common.ElementExtraction(ELEMENT_IDS[source_key], {
         (day, hour): common.SourceCell(None, "source_file_unavailable")
         for day in range(1, calendar.monthrange(year, month)[1] + 1)
         for hour in range(1, 25)
     })
+
+
+def unavailable_dew_point(year: int, month: int) -> common.ElementExtraction:
+    return unavailable_source_element("dew_point_temperature", year, month)
 
 
 def extract_all_elements(
@@ -422,8 +431,10 @@ def extract_all_elements(
         extract_hourly(source_paths["precipitation"], year, month, "precipitation_mm", full_day),
         extract_hourly(source_paths["pressure"], year, month, "station_pressure_hpa", full_day, title_fragment="現地気圧"),
         extract_hourly(source_paths["pressure"], year, month, "sea_level_pressure_hpa", full_day, title_fragment="海面気圧"),
-        extract_hourly(source_paths["solar_radiation"], year, month, "global_solar_radiation_mj_m2", daylight),
-        extract_hourly(source_paths["sunshine_duration"], year, month, "sunshine_duration_h", daylight),
+        (extract_hourly(source_paths["solar_radiation"], year, month, "global_solar_radiation_mj_m2", daylight)
+         if "solar_radiation" in source_paths else unavailable_source_element("solar_radiation", year, month)),
+        (extract_hourly(source_paths["sunshine_duration"], year, month, "sunshine_duration_h", daylight)
+         if "sunshine_duration" in source_paths else unavailable_source_element("sunshine_duration", year, month)),
         extract_hourly(source_paths["wind_speed"], year, month, "wind_speed_m_s", full_day),
         extract_wind_direction(source_paths["wind_direction"], year, month),
         (extract_hourly(source_paths["dew_point_temperature"], year, month, "dew_point_temperature_c", full_day)
@@ -519,19 +530,23 @@ def extract_verified_1996_three_hour_summaries(source_paths, month, year=1996):
         specs["dew_point_temperature"] = ("dew_point_temperature", None,
             {10: "日平均", 11: "最高", 12: "時刻1", 14: "最低", 15: "時刻2"})
 
-    if year in range(1981, 1993):
+    if year in range(1971, 1993):
         for name, fragment in (("station_pressure", "現地気圧"), ("sea_level_pressure", "海面気圧")):
             specs[name] = ("pressure", fragment,
                 {6: "日平均", 7: "最高", 8: "時刻1", 9: "最低", 10: "時刻2"})
 
     if "dew_point_temperature" not in source_paths:
-        assert year in (1981, 1982)
+        assert "dew_point_temperature" in absent_source_elements(year)
         del specs["dew_point_temperature"]
+    if year <= 1977:
+        for name in ("temperature", "humidity"):
+            key, fragment, headers = specs[name]
+            specs[name] = (key, fragment, {column - 4: label for column, label in headers.items()})
     for name, (source_key, fragment, headers) in specs.items():
         sheet = month_sheet(source_paths[source_key], month)
         start_row = find_title_row(sheet, fragment) + 1 if fragment else 1
         layout = detect_observation_layout(
-            sheet, expected_schedules=((3, 9, 15, 21) if year in range(1981, 1993) and "pressure" in name else THREE_HOURLY,), start_row=start_row)
+            sheet, expected_schedules=((3, 9, 15, 21) if (year in range(1971, 1993) and "pressure" in name) or (year <= 1977 and name in {"temperature", "humidity"}) else THREE_HOURLY,), start_row=start_row)
         for col, expected in headers.items():
             actual = str(sheet.cell(layout.header_row, col).value or "").strip()
             if actual != expected:
@@ -546,9 +561,11 @@ def extract_verified_1996_three_hour_summaries(source_paths, month, year=1996):
         daily = {}
         for day, row in rows.items():
             def number(col):
-                return numeric_value(sheet, row, col, context=f"{name}.{col}")
+                column = col - 4 if year <= 1977 and name in {"temperature", "humidity"} else col
+                return numeric_value(sheet, row, column, context=f"{name}.{column}")
             def moment(col):
-                return time_value(sheet, row, col)
+                column = col - 4 if year <= 1977 and name in {"temperature", "humidity"} else col
+                return time_value(sheet, row, column)
             if name == "humidity":
                 value = {
                     "mean_percent": number(10),
@@ -557,10 +574,10 @@ def extract_verified_1996_three_hour_summaries(source_paths, month, year=1996):
             else:
                 unit = "hpa" if "pressure" in name else "c"
                 value = {
-                    f"mean_{unit}": number(6 if year in range(1981, 1993) and unit == "hpa" else 10),
-                    "maximum": {f"value_{unit}": number(7 if year in range(1981, 1993) and unit == "hpa" else 11), "time": moment(8 if year in range(1981, 1993) and unit == "hpa" else 12)},
-                    "minimum": {f"value_{unit}": number(9 if year in range(1981, 1993) and unit == "hpa" else 14 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else 13),
-                                "time": moment(10 if year in range(1981, 1993) and unit == "hpa" else 15 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else 14)},
+                    f"mean_{unit}": number(6 if year in range(1971, 1993) and unit == "hpa" else 10),
+                    "maximum": {f"value_{unit}": number(7 if year in range(1971, 1993) and unit == "hpa" else 11), "time": moment(8 if year in range(1971, 1993) and unit == "hpa" else 12)},
+                    "minimum": {f"value_{unit}": number(9 if year in range(1971, 1993) and unit == "hpa" else 14 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else 13),
+                                "time": moment(10 if year in range(1971, 1993) and unit == "hpa" else 15 if unit == "hpa" or (year in range(1992, 1996) and name == "dew_point_temperature") else 14)},
                 }
             daily[date(year, month, day).isoformat()] = value
         output[name] = daily
@@ -587,13 +604,15 @@ def extract_1996_daily_summaries(source_paths, month, year=1996):
             (1, 30): "風速1", (1, 31): "時刻1",
             (1, 32): "風向2", (1, 33): "風速2", (1, 34): "時刻2"}),
     }
-    if year in range(1981, 1996):
+    if year in range(1971, 1996):
         # AF列の日付再掲により、瞬間風速の3項目だけ1996年より1列右にある。
         schedule, headers = specifications["wind_speed"]
         specifications["wind_speed"] = (schedule, {
             (offset, column + (1 if column >= 32 else 0)): label
             for (offset, column), label in headers.items()
         })
+    for source_key in absent_source_elements(year):
+        specifications.pop(source_key, None)
     sheets, rows = {}, {}
     for element, (schedule, headers) in specifications.items():
         sheet = month_sheet(source_paths[element], month)
@@ -624,8 +643,10 @@ def extract_1996_daily_summaries(source_paths, month, year=1996):
             "maximum_ten_minutes": {"value_mm": number("precipitation", 31),
                                     "time": moment("precipitation", 32)},
         }
-        summary["global_solar_radiation"] = {"total_mj_m2": number("solar_radiation", 19)}
-        summary["sunshine_duration"] = {"total_h": number("sunshine_duration", 19, True)}
+        if "solar_radiation" in sheets:
+            summary["global_solar_radiation"] = {"total_mj_m2": number("solar_radiation", 19)}
+        if "sunshine_duration" in sheets:
+            summary["sunshine_duration"] = {"total_h": number("sunshine_duration", 19, True)}
         wind = sheets["wind_speed"]
         row = rows["wind_speed"][day]
         summary["wind"] = {
@@ -633,9 +654,9 @@ def extract_1996_daily_summaries(source_paths, month, year=1996):
             "maximum_10_minute": {"direction": text_value(wind, row, 29),
                                   "speed_m_s": number("wind_speed", 30),
                                   "time": moment("wind_speed", 31)},
-            "maximum_instantaneous": {"direction": text_value(wind, row, 33 if year in range(1981, 1996) else 32),
-                                      "speed_m_s": number("wind_speed", 34 if year in range(1981, 1996) else 33),
-                                      "time": moment("wind_speed", 35 if year in range(1981, 1996) else 34)},
+            "maximum_instantaneous": {"direction": text_value(wind, row, 33 if year in range(1971, 1996) else 32),
+                                      "speed_m_s": number("wind_speed", 34 if year in range(1971, 1996) else 33),
+                                      "time": moment("wind_speed", 35 if year in range(1971, 1996) else 34)},
         }
         summaries.append(summary)
     return summaries
@@ -646,7 +667,7 @@ def extract_daily_summaries(
 ) -> list[dict[str, Any]]:
     """時間値と混在させず、原帳票の日別集計欄を採録する。"""
 
-    if year in range(1981, 1997):
+    if year in range(1971, 1997):
         return extract_1996_daily_summaries(source_paths, month, year)
 
     sheets = {
@@ -844,23 +865,23 @@ def main() -> int:
     document = common.assemble_month_document(arguments.month, extractions)
     # Source schedules distinguish unobserved hours from missing source cells.
     for extraction in extractions:
-        unavailable = extraction.element_id == "dew_point_temperature_c" and "dew_point_temperature" not in source_paths
+        unavailable = extraction.element_id in {ELEMENT_IDS[key] for key in absent_source_elements(arguments.year)}
         hours = [] if unavailable else sorted({hour for _, hour in extraction.cells})
         document["dataset"]["observation_schedules"][extraction.element_id] = common.FlowSequence(hours)
-    if arguments.year in range(1981, 1997):
+    if arguments.year in range(1971, 1997):
         for observation in document["observations"]:
             for extraction in extractions:
                 if extraction.element_id == "weather_code" or (
-                    extraction.element_id == "dew_point_temperature_c" and "dew_point_temperature" not in source_paths):
+                    extraction.element_id in {ELEMENT_IDS[key] for key in absent_source_elements(arguments.year)}):
                     continue
                 if observation["source_hour"] not in document["dataset"]["observation_schedules"][extraction.element_id]:
                     observation.setdefault("flags", {})[extraction.element_id] = "not_scheduled"
-    if "dew_point_temperature" not in source_paths:
+    missing_sources = absent_source_elements(arguments.year)
+    if missing_sources:
         document["dataset"]["element_availability"] = {
-            "dew_point_temperature_c": {
-                "status": "not_available_for_period",
-                "reason": "公開露点温度ZIPは1983年から収録。対象年の原Excelファイルなし。"
-            }
+            ELEMENT_IDS[key]: {"status": "not_available_for_period",
+                              "reason": "公開ZIPに対象年の原Excelファイルなし。チェックサムとZIP内一覧を検証。"}
+            for key in sorted(missing_sources)
         }
     document["daily_summaries"] = extract_daily_summaries(
         source_paths, arguments.year, arguments.month
@@ -873,11 +894,11 @@ def main() -> int:
         "古いBIFFレコードを読むため、一時XLSXへ変換した後に値を抽出した。",
         "1時から24時という原資料上の時刻表記をsource_hourへ保持する。",
         "日平均・日合計・最高・最低などは時間値と混在させずdaily_summariesへ収録した。",
-        "観測時刻はobservation_schedulesで定義し、当該年の対象外時刻はnot_scheduledで区別する。" if arguments.year in range(1981, 1997) else "観測時刻はobservation_schedulesで定義する。",
+        "観測時刻はobservation_schedulesで定義し、当該年の対象外時刻はnot_scheduledで区別する。" if arguments.year in range(1971, 1997) else "観測時刻はobservation_schedulesで定義する。",
     ]
 
-    if "dew_point_temperature" not in source_paths:
-        document["notes"].append("露点温度の対象年原ファイルは公開ZIPに収録なし。推定せずnull・source_file_unavailableで区別し、日別集計も生成しない。")
+    if missing_sources:
+        document["notes"].append("公開ZIPに年別原ファイルがない項目は推定せずnull・source_file_unavailableで区別し、日別集計も生成しない。")
 
     yaml_path = REPOSITORY_ROOT / "data" / STATION_ID / str(arguments.year) / f"{arguments.month:02d}.yaml"
     report_path = REPOSITORY_ROOT / "reports" / f"validation-{arguments.year}-{arguments.month:02d}.md"

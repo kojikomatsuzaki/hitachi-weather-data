@@ -15,6 +15,7 @@ from datetime import date
 from pathlib import Path
 
 import yaml
+from historical_source_availability import absent_source_elements
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -58,14 +59,14 @@ def discover_year(year: int, source_directory: Path) -> Path:
                 name for name in zip_file.namelist()
                 if Path(name).name.casefold() == expected_member.casefold()
             ]
-            if (archive["element"] == "dew_point_temperature" and year in (1981, 1982)
+            if (archive["element"] in absent_source_elements(year)
                     and not matching_members):
                 files.append({
                     "element": archive["element"], "url": archive["url"],
                     "archive_sha256": actual_archive_sha,
                     "status": "not_available_for_period",
                     "expected_member": expected_member,
-                    "reason": "Checksum-verified dew-point archive starts at dewp1983.xls; requested annual file is absent.",
+                    "reason": "Annual file is absent from the checksum-verified published archive; confirmed by historical source inventory.",
                 })
                 continue
             if len(matching_members) != 1:
