@@ -1,0 +1,30 @@
+/* Shared header/footer overrides, including the standalone preview page. */
+.site-header {
+  color: #fff;
+  background: radial-gradient(circle at 84% 28%, rgb(230 169 50 / 95%) 0 5px, transparent 6px),
+    radial-gradient(circle at 84% 28%, rgb(230 169 50 / 18%) 0 105px, transparent 106px),
+    linear-gradient(135deg, #0b465e, #176b87);
+  border-bottom: 7px solid #e6a932;
+  padding: 0;
+}
+.site-header .site-header__inner { width: min(calc(100% - 40px), 1120px); margin: 0 auto; padding: 56px 0 50px; }
+.site-header .site-header__eyebrow { margin: 0 0 8px; color: #c6e6ee; font: 700 .78rem ui-monospace, monospace; letter-spacing: .15em; text-transform: uppercase; }
+.site-header .site-header__title-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+.site-header h1 { margin: 0; color: #fff; font-size: clamp(2rem, 5vw, 4rem); line-height: 1.18; letter-spacing: -.04em; }
+.site-header .publication-badge { flex: none; padding: 7px 13px; color: #0b465e; background: #fff4d4; border: 1px solid #f5cc74; border-radius: 999px; font-size: .85rem; font-weight: 800; }
+.site-header .site-header__description { max-width: 720px; margin: 24px 0 0; color: #e3f2f5; font-size: clamp(.95rem, 2vw, 1.12rem); line-height: 1.7; }
+.site-header .site-header__description a, .site-header .site-header__description a:visited { color: #fff; font-weight: 700; text-decoration: underline; text-decoration-color: #fff; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.site-header .site-header__description a:hover, .site-header .site-header__description a:focus-visible { color: #fff4d4; }
+.site-header .site-preview-note { margin: 14px 0 0; color: #fff4d4; font-weight: 700; }
+.site-nav { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 24px; }
+.site-header .site-nav a, .site-header .site-nav a:visited { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.site-header .site-nav a[aria-current="page"] { color: #fff4d4; text-decoration-thickness: 3px; }
+.site-footer { padding: 28px 20px 40px; background: #0b465e; color: #fff; text-align: center; }
+.site-footer .site-footer__inner { max-width: 1120px; margin: auto; }
+.site-footer p { margin: 7px 0; }
+.site-footer a, .site-footer a:visited { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 700px) {
+  .site-header .site-header__title-row { align-items: flex-start; flex-direction: column; gap: 16px; }
+  .site-header .site-header__inner { padding: 48px 0 40px; }
+  .site-header .mobile-break { display: block; }
+}
