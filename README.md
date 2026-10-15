@@ -5,7 +5,7 @@
 ## 現在の収録対象
 
 - 観測所：日立市役所観測所
-- 収録済み：1971–2017年・2019–2025年の各1月–12月、1953年1月
+- 収録済み：1971–2017年・2019–2025年の各1月–12月、1953年1月、1954・1955年の各1月–12月
 - 保留中：2018年（公式ページの風向リンクが風速Excelを参照しているため）
 - 観測要素：気温、湿度、降水量、現地気圧、海面気圧、全天日射量、日照時間、風速、風向、露点温度、天気
 - 正本形式：YAML
@@ -126,6 +126,22 @@ python scripts/import_hitachi_city_hall_1953.py --month 1 --download-missing
 
 - `data/hitachi-city-hall/1953/01.yaml`
 - `reports/validation-1953-01.md`
+
+1954・1955年は同じ一括ZIP内の年別Excelから生成します。帳票見出しを月ごとに照合し、海面気圧の観測時刻が1954年8月に切り替わる点を反映します。1955年1月の気温シートにある「(観測時刻注意）」は意味を確認できていないため、原文を注記として正本に残します。降水量の時刻別欄と海面気圧欄は、見出しがある一方で全月のセルが空欄でした。日別集計は別に採録し、空欄を0に置き換えていません。
+
+```console
+python scripts/import_hitachi_city_hall_1954_1955.py --year 1954 --download-missing
+python scripts/import_hitachi_city_hall_1954_1955.py --year 1955 --download-missing
+python scripts/verify_hitachi_city_hall_1954_1955.py
+python scripts/generate_web_data.py --year 1954
+python scripts/generate_web_data.py --year 1955
+```
+
+独立照合では、各年39,420件の時刻別観測値・日別集計値を読取用XLSXと照合します。原ZIP・内部XLSのSHA-256も照合し、変換にはLibreOffice Calcを使用します。
+
+- `data/hitachi-city-hall/1954/01.yaml`–`12.yaml`、`data/hitachi-city-hall/1955/01.yaml`–`12.yaml`
+- `reports/validation-1954-01.md`–`validation-1954-12.md`、`validation-1955-01.md`–`validation-1955-12.md`
+- `docs/data/1954/`、`docs/data/1955/`
 
 1999年は、要素別ZIP内の年別ExcelをLibreOffice Calcで読取用XLSXへ一時変換して生成します。
 原ZIPと内部Excelは変更せず、双方のSHA-256を検証します。

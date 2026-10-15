@@ -8,6 +8,198 @@
     "report_path": "reports/validation-1953-01.md"
   },
   {
+    "year": 1954,
+    "month": 1,
+    "label": "1954年1月",
+    "data_path": "1954/01.json",
+    "yaml_path": "data/hitachi-city-hall/1954/01.yaml",
+    "report_path": "reports/validation-1954-01.md"
+  },
+  {
+    "year": 1954,
+    "month": 2,
+    "label": "1954年2月",
+    "data_path": "1954/02.json",
+    "yaml_path": "data/hitachi-city-hall/1954/02.yaml",
+    "report_path": "reports/validation-1954-02.md"
+  },
+  {
+    "year": 1954,
+    "month": 3,
+    "label": "1954年3月",
+    "data_path": "1954/03.json",
+    "yaml_path": "data/hitachi-city-hall/1954/03.yaml",
+    "report_path": "reports/validation-1954-03.md"
+  },
+  {
+    "year": 1954,
+    "month": 4,
+    "label": "1954年4月",
+    "data_path": "1954/04.json",
+    "yaml_path": "data/hitachi-city-hall/1954/04.yaml",
+    "report_path": "reports/validation-1954-04.md"
+  },
+  {
+    "year": 1954,
+    "month": 5,
+    "label": "1954年5月",
+    "data_path": "1954/05.json",
+    "yaml_path": "data/hitachi-city-hall/1954/05.yaml",
+    "report_path": "reports/validation-1954-05.md"
+  },
+  {
+    "year": 1954,
+    "month": 6,
+    "label": "1954年6月",
+    "data_path": "1954/06.json",
+    "yaml_path": "data/hitachi-city-hall/1954/06.yaml",
+    "report_path": "reports/validation-1954-06.md"
+  },
+  {
+    "year": 1954,
+    "month": 7,
+    "label": "1954年7月",
+    "data_path": "1954/07.json",
+    "yaml_path": "data/hitachi-city-hall/1954/07.yaml",
+    "report_path": "reports/validation-1954-07.md"
+  },
+  {
+    "year": 1954,
+    "month": 8,
+    "label": "1954年8月",
+    "data_path": "1954/08.json",
+    "yaml_path": "data/hitachi-city-hall/1954/08.yaml",
+    "report_path": "reports/validation-1954-08.md"
+  },
+  {
+    "year": 1954,
+    "month": 9,
+    "label": "1954年9月",
+    "data_path": "1954/09.json",
+    "yaml_path": "data/hitachi-city-hall/1954/09.yaml",
+    "report_path": "reports/validation-1954-09.md"
+  },
+  {
+    "year": 1954,
+    "month": 10,
+    "label": "1954年10月",
+    "data_path": "1954/10.json",
+    "yaml_path": "data/hitachi-city-hall/1954/10.yaml",
+    "report_path": "reports/validation-1954-10.md"
+  },
+  {
+    "year": 1954,
+    "month": 11,
+    "label": "1954年11月",
+    "data_path": "1954/11.json",
+    "yaml_path": "data/hitachi-city-hall/1954/11.yaml",
+    "report_path": "reports/validation-1954-11.md"
+  },
+  {
+    "year": 1954,
+    "month": 12,
+    "label": "1954年12月",
+    "data_path": "1954/12.json",
+    "yaml_path": "data/hitachi-city-hall/1954/12.yaml",
+    "report_path": "reports/validation-1954-12.md"
+  },
+  {
+    "year": 1955,
+    "month": 1,
+    "label": "1955年1月",
+    "data_path": "1955/01.json",
+    "yaml_path": "data/hitachi-city-hall/1955/01.yaml",
+    "report_path": "reports/validation-1955-01.md"
+  },
+  {
+    "year": 1955,
+    "month": 2,
+    "label": "1955年2月",
+    "data_path": "1955/02.json",
+    "yaml_path": "data/hitachi-city-hall/1955/02.yaml",
+    "report_path": "reports/validation-1955-02.md"
+  },
+  {
+    "year": 1955,
+    "month": 3,
+    "label": "1955年3月",
+    "data_path": "1955/03.json",
+    "yaml_path": "data/hitachi-city-hall/1955/03.yaml",
+    "report_path": "reports/validation-1955-03.md"
+  },
+  {
+    "year": 1955,
+    "month": 4,
+    "label": "1955年4月",
+    "data_path": "1955/04.json",
+    "yaml_path": "data/hitachi-city-hall/1955/04.yaml",
+    "report_path": "reports/validation-1955-04.md"
+  },
+  {
+    "year": 1955,
+    "month": 5,
+    "label": "1955年5月",
+    "data_path": "1955/05.json",
+    "yaml_path": "data/hitachi-city-hall/1955/05.yaml",
+    "report_path": "reports/validation-1955-05.md"
+  },
+  {
+    "year": 1955,
+    "month": 6,
+    "label": "1955年6月",
+    "data_path": "1955/06.json",
+    "yaml_path": "data/hitachi-city-hall/1955/06.yaml",
+    "report_path": "reports/validation-1955-06.md"
+  },
+  {
+    "year": 1955,
+    "month": 7,
+    "label": "1955年7月",
+    "data_path": "1955/07.json",
+    "yaml_path": "data/hitachi-city-hall/1955/07.yaml",
+    "report_path": "reports/validation-1955-07.md"
+  },
+  {
+    "year": 1955,
+    "month": 8,
+    "label": "1955年8月",
+    "data_path": "1955/08.json",
+    "yaml_path": "data/hitachi-city-hall/1955/08.yaml",
+    "report_path": "reports/validation-1955-08.md"
+  },
+  {
+    "year": 1955,
+    "month": 9,
+    "label": "1955年9月",
+    "data_path": "1955/09.json",
+    "yaml_path": "data/hitachi-city-hall/1955/09.yaml",
+    "report_path": "reports/validation-1955-09.md"
+  },
+  {
+    "year": 1955,
+    "month": 10,
+    "label": "1955年10月",
+    "data_path": "1955/10.json",
+    "yaml_path": "data/hitachi-city-hall/1955/10.yaml",
+    "report_path": "reports/validation-1955-10.md"
+  },
+  {
+    "year": 1955,
+    "month": 11,
+    "label": "1955年11月",
+    "data_path": "1955/11.json",
+    "yaml_path": "data/hitachi-city-hall/1955/11.yaml",
+    "report_path": "reports/validation-1955-11.md"
+  },
+  {
+    "year": 1955,
+    "month": 12,
+    "label": "1955年12月",
+    "data_path": "1955/12.json",
+    "yaml_path": "data/hitachi-city-hall/1955/12.yaml",
+    "report_path": "reports/validation-1955-12.md"
+  },
+  {
     "year": 1971,
     "month": 1,
     "label": "1971年1月",
